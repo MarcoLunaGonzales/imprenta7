@@ -5,8 +5,8 @@
 	
 	$cod_almacen=$_COOKIE['cod_almacen_global'];
 	$sqlAlmacen="select nombre_almacen from almacenes where cod_almacen=".$cod_almacen;
-	$respAlmacen=mysql_query($sqlAlmacen);
-	while($datAlmacen=mysql_fetch_array($respAlmacen)){
+	$respAlmacen=mysqli_query($enlaceCon,$sqlAlmacen);
+	while($datAlmacen=mysqli_fetch_array($respAlmacen)){
 		$nombre_almacen=$datAlmacen['nombre_almacen'];
 	}
 	$cod_material=$_POST['cod_material'];
@@ -20,8 +20,8 @@
 	$sql2.=" and s.cod_grupo=g.cod_grupo";
 	$sql2.=" and m.cod_material=".$cod_material;
 	$sql2.=" order by g.nombre_grupo asc, s.nombre_subgrupo asc";
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2))
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2))
 	{
 			$cod_subgrupo=$dat2['cod_subgrupo'];
 			$nombre_subgrupo=$dat2['nombre_subgrupo'];
@@ -56,8 +56,8 @@
 	if($fecha_inicio<>"" && $fecha_final<>"" ){
 		$sql.=" and i.fecha_ingreso<'".$aI."-".$mI."-".$dI."'";
 	}
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp))
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp))
 	{ 
 		$sumIngresosInicial=$dat[0];
 	}
@@ -71,8 +71,8 @@
 	$sql.=" and s.cod_estado_salida<>2 ";
 	$sql.=" and s.fecha_salida<'".$aI."-".$mI."-".$dI."'";
 //	echo $sql;
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp))
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp))
 	{ 
 		$sumSalidaInicial=$dat[0];
 	}	
@@ -99,7 +99,7 @@
 	$sql.=" group by id.cod_ingreso ";
 	$sql.=" order by i.fecha_ingreso asc ";
 	//echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	
 	
 	$sql=" insert into aux_ingresossalidas(aux_id,cod_material,codigo,fecha_transaccion,tipo_trans,tipo,nro_ing_sal, ";
@@ -119,7 +119,7 @@
 	$sql.=" group by sd.cod_salida";
 	$sql.=" order by s.fecha_salida asc";
 	//echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 
 	
@@ -127,15 +127,15 @@
 	$saldoInicialMaterial=$sumIngresosInicial-$sumSalidaInicial;
 	$sumIngreso=0;
 	$sql="select sum(ingreso) from aux_ingresossalidas where cod_material=".$cod_material." and aux_id=".$aux_id."";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp))
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp))
 	{
 		$sumIngreso=$dat[0];
 	}
 	$sumSalida=0;
 	$sql="select sum(salida) from aux_ingresossalidas where cod_material=".$cod_material." and aux_id=".$aux_id."";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp))
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp))
 	{
 		$sumSalida=$dat[0];
 	}
@@ -200,9 +200,9 @@
 		$sql.=" from aux_ingresossalidas ";
 		$sql.=" where cod_material=".$cod_material;
 		$sql.=" and aux_id=".$aux_id;
-		$resp=mysql_query($sql);
+		$resp=mysqli_query($enlaceCon,$sql);
 		$saldoMaterial=$saldoInicialMaterial;
-		while($dat=mysql_fetch_array($resp))
+		while($dat=mysqli_fetch_array($resp))
 		{
 			$aux_id=$dat['aux_id'];
 			$cod_material=$dat['cod_material'];
@@ -245,7 +245,7 @@
 
 <?php
 	$sql="delete from aux_ingresossalidas where aux_id=".$aux_id." and cod_material=".$cod_material."";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 ?>		
 <?php require("cerrar_conexion.inc");
 ?>

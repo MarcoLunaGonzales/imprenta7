@@ -99,9 +99,9 @@ class PDF extends FPDF
 		$sql.=" and cod_cliente <> all(select DISTINCT(cod_cliente) from ordentrabajo where cod_est_ot<>2)";
 	}
 	$sql.=" order  by nombre_cliente asc";
-	$resp = mysql_query($sql);	
+	$resp = mysqli_query($enlaceCon,$sql);	
 	$nro=0;	
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_cliente=$dat['cod_cliente'];
 			 $nombre_cliente=$dat['nombre_cliente'];
@@ -123,8 +123,8 @@ class PDF extends FPDF
 			 			 $desc_categoria="";
 			 if($cod_categoria<>"" && $cod_categoria<>0){
 				 $sqlAux="select desc_categoria from clientes_categorias where cod_categoria=".$cod_categoria;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $desc_categoria=$datAux['desc_categoria'];
 				 }
 			 }			 
@@ -133,8 +133,8 @@ class PDF extends FPDF
 			 $desc_ciudad="";
 			  if($cod_ciudad<>"" && $cod_ciudad<>0){
 				 $sqlAux="select desc_ciudad from ciudades where cod_ciudad=".$cod_ciudad;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $desc_ciudad=$datAux['desc_ciudad'];
 				 }
 			 }
@@ -143,8 +143,8 @@ class PDF extends FPDF
 			 $nombre_estado_registro="";
 			  if($cod_estado_registro<>"" && $cod_estado_registro<>0){
 				 $sqlAux="select nombre_estado_registro from estados_referenciales where cod_estado_registro=".$cod_estado_registro;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $nombre_estado_registro=$datAux['nombre_estado_registro'];
 				 }
 			 }
@@ -154,8 +154,8 @@ class PDF extends FPDF
 			  $usuario_registro="";
 			  if($cod_usuario_registro<>"" && $cod_usuario_registro<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_registro=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 
@@ -164,8 +164,8 @@ class PDF extends FPDF
 			  $usuario_modifica="";
 			  if($cod_usuario_modifica<>"" && $cod_usuario_modifica<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_modifica=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 

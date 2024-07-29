@@ -169,9 +169,9 @@ function guardar(f){
 
 	$cod_est_fac=1;
 	$sql2=" select desc_est_fac from estado_factura where cod_est_fac='".$cod_est_fac."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_fac=$dat2[0];
 	}
 
@@ -226,8 +226,8 @@ function guardar(f){
 			<td><select name="cod_moneda" id="cod_moneda" class="textoform">				
 				<?php
 					$sql2="select cod_moneda, desc_moneda from monedas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_moneda=$dat2['cod_moneda'];		
 			  		 		$desc_moneda=$dat2['desc_moneda'];	

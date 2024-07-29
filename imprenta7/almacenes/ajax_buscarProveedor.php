@@ -28,9 +28,9 @@ require("conexion.inc");
 		}
 		$sql.=" order by nombre_proveedor asc ";
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$numRows=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			$numRows=$dat[0];			
 		}
 		if($numRows==0){
@@ -60,7 +60,7 @@ require("conexion.inc");
 				$sql.=" where nombre_proveedor LIKE '%".$_GET['nombreProveedorB']."%'";
 			}
 			$sql.=" order by nombre_proveedor asc ";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="98%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -75,7 +75,7 @@ require("conexion.inc");
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 
 				$cod_proveedor=$dat['cod_proveedor']; 
 				$nombre_proveedor=$dat['nombre_proveedor']; 
@@ -100,8 +100,8 @@ require("conexion.inc");
 				$sqlAux.=" from proveedores_contactos ";
 				$sqlAux.=" where cod_proveedor=".$cod_proveedor;
 				$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-				$respAux= mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux= mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$cod_contacto_proveedor=$datAux['cod_contacto_proveedor'];
 					$nombre_contacto=$datAux['nombre_contacto'];
 					$ap_paterno_contacto=$datAux['ap_paterno_contacto'];

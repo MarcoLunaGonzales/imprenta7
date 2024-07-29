@@ -12,7 +12,7 @@ $sql="insert into tipos_grupo set ";
 $sql.=" cod_tipo_grupo='".$codItemF."', ";
 $sql.=" cod_compitem='".$codCompItem."',";
 $sql.=" nombre_componenteitem='".$nombre_componenteitem."'";
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 $datos=$_POST['datos'];
 $vector_datos=explode(",",$datos);	
@@ -28,7 +28,7 @@ for($i=0;$i<$n;$i++){
 	$sql.="  cod_carac='".$cod_carac."',";
 	$sql.="  orden='".$orden."'";
 
-	mysql_query($sql);				
+	mysqli_query($enlaceCon,$sql);				
 }	
 	
 require("cerrar_conexion.inc");

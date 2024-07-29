@@ -42,8 +42,8 @@
 				$cod_area=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from usuarios  where cod_area='".$cod_area."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -90,8 +90,8 @@
 				$sql.=" from areas a , estados_referenciales e ";
 				$sql.=" where a.cod_estado_registro=e.cod_estado_registro ";
 				$sql.=" and a.cod_area=".$cod_area;
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$cod_area=$dat['cod_area'];
 					$nombre_area=$dat['nombre_area'];
@@ -142,8 +142,8 @@
 				$sql.=" from areas a , estados_referenciales e ";
 				$sql.=" where a.cod_estado_registro=e.cod_estado_registro ";
 				$sql.=" and a.cod_area=".$cod_area;
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$cod_area=$dat['cod_area'];
 					$nombre_area=$dat['nombre_area'];

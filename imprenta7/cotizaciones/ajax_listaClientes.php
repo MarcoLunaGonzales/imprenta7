@@ -21,8 +21,8 @@ $codcliente=$_GET['cod_cliente'];
 				<option value="0">Seleccione un Cliente</option>
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	

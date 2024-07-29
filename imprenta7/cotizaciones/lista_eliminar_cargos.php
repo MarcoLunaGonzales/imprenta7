@@ -42,8 +42,8 @@
 				$cod_cargo=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from usuarios  where cod_cargo='".$cod_cargo."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -84,17 +84,17 @@
 				$cod_cargo=$vectordatosNoEliminar[$j];
 				$sql=" select nombre_cargo,obs_cargo,cod_estado_registro";
 				$sql.=" from cargos where cod_cargo='".$cod_cargo."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_cargo=$dat[0];
 					$obs_cargo=$dat[1];
 					$cod_estado_registro=$dat[2];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];														
 				}
 	
@@ -126,17 +126,17 @@
 				$cod_cargo=$vectordatosEliminar[$j];
 				$sql=" select nombre_cargo,obs_cargo,cod_estado_registro";
 				$sql.=" from cargos where cod_cargo='".$cod_cargo."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_cargo=$dat[0];
 					$obs_cargo=$dat[1];
 					$cod_estado_registro=$dat[2];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];														
 				}
 		?>		

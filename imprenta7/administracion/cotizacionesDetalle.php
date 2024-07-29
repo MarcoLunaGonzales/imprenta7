@@ -25,16 +25,16 @@
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 		$sql=" SELECT NRO_COTIZACION,FECHA_COTIZACION,COD_CLIENTE,COD_TIPO_COTIZACION";
 		$sql.=" ,COD_ESTADO_COTIZACION,OBS_COTIZACION,COD_TIPO_PAGO,COD_USUARIO_REGISTRO FROM COTIZACIONES";
 		$sql.=" WHERE COD_COTIZACION=".$codCotizacion;
-		$resp = mysql_query($sql);		
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);		
+		while($dat=mysqli_fetch_array($resp)){
 			$nroCotizacion=$dat[0];
 			$fechaCotizacion=$dat[1];
 			$codCliente=$dat[2];
@@ -49,8 +49,8 @@
 			$nombreCliente="";				
 			$sql2="select nombre_cliente from clientes";
 			$sql2.=" where cod_cliente='".$codCliente."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombreCliente=$dat2[0];
 			}	
 			//**************************************************************								
@@ -58,8 +58,8 @@
 			$nombreTipoCotizacion="";				
 			$sql2="select nombre_tipo_cotizacion from tipos_cotizacion";
 			$sql2.=" where cod_tipo_cotizacion='".$codTipoCotizacion."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombreTipoCotizacion=$dat2[0];
 			}
 			//**************************************************************
@@ -67,8 +67,8 @@
 			$nombreEstadoCotizacion="";				
 			$sql2="select nombre_estado_cotizacion from estados_cotizacion";
 			$sql2.=" where cod_estado_cotizacion='".$codEstadoCotizacion."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombreEstadoCotizacion=$dat2[0];
 			}
 			//**************************************************************
@@ -76,8 +76,8 @@
 			$nombreTipoPago="";				
 			$sql2="select nombre_tipo_pago from tipos_pago";
 			$sql2.=" where cod_tipo_pago='".$codTipoPago."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombreTipoPago=$dat2[0];
 			}
 			
@@ -111,9 +111,9 @@
 			$sql2="select cod_item,cantidad_unitariacotizacion,precio_venta,descuento,importe_total,DESCRIPCION_ITEM";
 			$sql2.=" from cotizaciones_detalle where cod_cotizacion=".$codCotizacion;
 			$sql2.=" order by orden asc";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$c=0;
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$c++;
 				$codItem=$dat2[0];
 				$cantUnitaria=$dat2[1];
@@ -127,8 +127,8 @@
 				$nombreItem="";
 				$sql3="select desc_item from items";
 				$sql3.=" where cod_item='".$codItem."'";	
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nombreItem=$dat3[0];
 				}				
 			?>
@@ -140,16 +140,16 @@
 				$sql4="select cd.cod_compitem from cotizacion_detalle_caracteristica cd,componente_items c";
 				$sql4.=" where cd.cod_compitem=c.cod_compitem and cd.cod_cotizacion=".$codCotizacion." and c.cod_item=".$codItem;				
 				$sql4.=" group by cd.cod_compitem";
-				$resp4= mysql_query($sql4);
+				$resp4= mysqli_query($enlaceCon,$sql4);
 				$cont=0;				
-				while($dat4=mysql_fetch_array($resp4)){
+				while($dat4=mysqli_fetch_array($resp4)){
 					$cont=$cont+1;
 				}				
 				$sql4="select cd.cod_compitem,c.nombre_componenteitem from cotizacion_detalle_caracteristica cd,componente_items c";
 				$sql4.=" where cd.cod_compitem=c.cod_compitem and cd.cod_cotizacion=".$codCotizacion." and c.cod_item=".$codItem;				
 				$sql4.=" group by cd.cod_compitem order by cd.cod_compitem asc";
-				$resp4= mysql_query($sql4);
-				while($dat4=mysql_fetch_array($resp4)){
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				while($dat4=mysqli_fetch_array($resp4)){
 					$codCompItem=$dat4[0];
 					$nombreItem=$dat4[1];				
 				?>
@@ -164,8 +164,8 @@
 					$sql5.=" where cd.cod_carac=c.cod_carac and cd.cod_cotizacion=".$codCotizacion." and cd.cod_compitem=".$codCompItem;
 					$sql5.=" and cd.COD_COTIZACIONDETALLE=".$c;
 					$sql5.=" order by cd.cod_carac asc";		
-					$resp5= mysql_query($sql5);
-					while($dat5=mysql_fetch_array($resp5)){					
+					$resp5= mysqli_query($enlaceCon,$sql5);
+					while($dat5=mysqli_fetch_array($resp5)){					
 						$descCarac=$dat5[0];
 						$descripcion=$dat5[1];
 						$descriptcionEstadoDetalle="";

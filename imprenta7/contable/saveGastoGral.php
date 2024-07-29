@@ -38,7 +38,7 @@ include("funciones.php");
 	/*$sql.=" fecha_modifica='".."'";
 	$sql.=" cod_usuario_modifica='".."'";*/
 
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	//echo $sql;
 
 

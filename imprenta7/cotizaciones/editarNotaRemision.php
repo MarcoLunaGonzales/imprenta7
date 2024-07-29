@@ -63,8 +63,8 @@ function atras(f){
 	//$sql.=" obs_nota_remision, cod_hoja_ruta, cod_estado_nota_remision, recibido_por ";
 	//$sql.=" from notas_remision ";
 	$sql.=" where cod_nota_remision='".$cod_nota_remision."'";
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 		$cod_gestion_nota_remision=$dat[0];
 		$nro_nota_remision=$dat[1];
 		$fecha_nota_remision=$dat[2];
@@ -74,9 +74,9 @@ function atras(f){
 		$recibido_por=$dat[6];
 		$codusuarioentregadopor=$dat[7];
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestionNotaRemision="";
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$gestionNotaRemision=$dat2[0];
 		}		
 		
@@ -96,8 +96,8 @@ function atras(f){
 	$sql.=" from hojas_rutas ";
 	$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 	//echo $sql."<br>";
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 	$fecha_hoja_ruta=$dat[0];
 	$cod_usuario_hoja_ruta=$dat[1];
 	$obs_hoja_ruta=$dat[2]; 
@@ -108,9 +108,9 @@ function atras(f){
 	$cod_gestion_hoja_ruta=$dat[7];
 	$nro_hoja_ruta=$dat[8];
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_hoja_ruta."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestionHojaRuta="";
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$gestionHojaRuta=$dat2[0];
 		}		
 	
@@ -118,8 +118,8 @@ function atras(f){
 		$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 		$sql2.=" from usuarios where cod_usuario='".$cod_usuario_hoja_ruta."'";
 	//	echo $sql2."<br>";
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$UsuarioHojaRuta=$dat2[0]." ".$dat2[1];
 	/************************************/	
 		
@@ -127,23 +127,23 @@ function atras(f){
 			$sql2=" select nro_cotizacion, cod_gestion, cod_cliente, fecha_cotizacion ";
 			$sql2.=" from cotizaciones ";
 			$sql2.=" where cod_cotizacion=".$cod_cotizacion;
-			$resp2= mysql_query($sql2);
-			$dat2=mysql_fetch_array($resp2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			$dat2=mysqli_fetch_array($resp2);
 				$nro_cotizacion=$dat2[0];
 				$cod_gestion_cotizacion=$dat2[1];
 				$cod_cliente=$dat2[2];		
 				$fecha_cotizacion=$dat2[3];	
 				/***********GESTION********/
 					$sql3="select gestion  from gestiones where cod_gestion='".$cod_gestion_cotizacion."'";
-					$resp3= mysql_query($sql3);
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					$dat3=mysqli_fetch_array($resp3);
 						$gestionCotizacion=$dat3[0];
 				/************************************/	
 				/*******************CLIENTE*********************/	
 					$sql3=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 					$sql3.=" from clientes where cod_cliente='".$cod_cliente."'";
-					$resp3= mysql_query($sql3);			
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);			
+					$dat3=mysqli_fetch_array($resp3);
 						$nombre_cliente=$dat3[0];
 						$direccion_cliente=$dat3[1];
 						$telefono_cliente=$dat3[2];
@@ -203,8 +203,8 @@ function atras(f){
 				<?php
 					$sql4="select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 					$sql4.=" where cod_usuario<>2 ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_usuario=$dat4[0];
 							$nombres_usuario=$dat4[1];
@@ -247,19 +247,19 @@ function atras(f){
 		$sql.=" where cod_cotizacion=".$cod_cotizacion;
 		$sql.=" and cod_cotizaciondetalle in(select cod_cotizaciondetalle from hojas_rutas_detalle where cod_hoja_ruta='".$cod_hoja_ruta."')";
 		$sql.=" order by  orden asc";
-		$resp= mysql_query($sql);
+		$resp= mysqli_query($enlaceCon,$sql);
 		$sumaTotal=0;
 		$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 	
 				$cont++;
 				$cod_cotizaciondetalle=$dat[0];
 				$cod_item=$dat[1];
 				/************************GESTION*****************/	
 					$sql2="select desc_item  from items where cod_item='".$cod_item."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$desc_item="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_item=$dat2[0];
 					}
 				/************************************/					 
@@ -284,14 +284,14 @@ function atras(f){
 			$sql6.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 			$sql6.=" and cod_cotizacion='".$cod_cotizacion."'";
 			$sql6.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
-			$resp6=mysql_query($sql6);
+			$resp6=mysqli_query($enlaceCon,$sql6);
 			$codusuariodiseno=0;
 			$obs_trabajo="";
 			$diseno=1;
 			$diseno_aprobacion=1;
 			$placas=1;
 			$cantidad_cpt="";
-			while($dat6=mysql_fetch_array($resp6)){
+			while($dat6=mysqli_fetch_array($resp6)){
 				$codusuariodiseno=$dat6[0];
 				$obs_trabajo=$dat6[1];
 				$diseno=$dat6[2];
@@ -305,9 +305,9 @@ function atras(f){
 			$sql6.=" where cod_nota_remision='".$cod_nota_remision."'";
 			$sql6.=" and cod_cotizacion='".$cod_cotizacion."'";
 			$sql6.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
-			$resp6=mysql_query($sql6);
+			$resp6=mysqli_query($enlaceCon,$sql6);
 			$swPerteneceNotaRemision=0;
-			while($dat6=mysql_fetch_array($resp6)){
+			while($dat6=mysqli_fetch_array($resp6)){
 				$swPerteneceNotaRemision=$dat6[0];
 			}
 			
@@ -342,22 +342,22 @@ function atras(f){
 			$sql3.=" from cotizacion_detalle_caracteristica ";
 			$sql3.=" where cod_cotizacion=".$cod_cotizacion;
 			$sql3.=" and cod_cotizaciondetalle=".$cod_cotizaciondetalle;
-			$resp3= mysql_query($sql3);
+			$resp3= mysqli_query($enlaceCon,$sql3);
 			$nro_compitem=0;
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 				$nro_compitem=$dat3[0];
 			}
 			$detalle_item="";
 			$sql4=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp4=mysql_query($sql4);
-			while ($dat4=mysql_fetch_array($resp4)){
+			$resp4=mysqli_query($enlaceCon,$sql4);
+			while ($dat4=mysqli_fetch_array($resp4)){
 		
 				$cod_compitem=$dat4[0];
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				
@@ -381,14 +381,14 @@ function atras(f){
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){						
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){						
 						$cod_carac=$dat3[0];						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/
@@ -422,8 +422,8 @@ function atras(f){
 				<td colspan="2">
 				<?php
 					$sql3="select  nombres_usuario, ap_paterno_usuario from usuarios where cod_usuario='".$codusuariodiseno."'";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$nombres_usuario=$dat3[0];	
 			  		 		$ap_paterno_usuario=$dat3[1];	
@@ -473,8 +473,8 @@ function atras(f){
 				$sql3.=" from hojas_rutas_detalle_maquinaria ";
 				$sql3.=" where cod_hoja_ruta='".$cod_hoja_ruta."' and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_maquina='".$cod_maquina."')";									
-				$resp3=mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3))
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3))
 				{
 					$cod_maquina=$dat3[0];	
 			  		$desc_maquina=$dat3[1];	
@@ -506,8 +506,8 @@ function atras(f){
 				$sql7.=" where cod_estado_nota_remision=1 and cod_hoja_ruta='".$cod_hoja_ruta."'";
 				$sql7.=" and cod_nota_remision<>'".$cod_nota_remision."' )";
 				$sumaCantidadEntregada=0;
-				$resp7=mysql_query($sql7);
-				while($dat7=mysql_fetch_array($resp7))
+				$resp7=mysqli_query($enlaceCon,$sql7);
+				while($dat7=mysqli_fetch_array($resp7))
 				{
 					$sumaCantidadEntregada=$dat7[0];				  							
 				}
@@ -522,8 +522,8 @@ function atras(f){
 				$sql8.=" from notas_remision_detalle ";
 				$sql8.=" where cod_cotizacion='".$cod_cotizacion."' and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
 				$sql8.=" and cod_nota_remision='".$cod_nota_remision."'";
-				$resp8=mysql_query($sql8);
-				while($dat8=mysql_fetch_array($resp8))
+				$resp8=mysqli_query($enlaceCon,$sql8);
+				while($dat8=mysqli_fetch_array($resp8))
 				{
 					$cantidad=$dat8[0];				  							
 				}				

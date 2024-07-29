@@ -103,8 +103,8 @@ include("funciones.php");
 
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -189,7 +189,7 @@ include("funciones.php");
 
 	$sql.=" order by g.gestion desc, i.nro_ingreso desc";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -222,7 +222,7 @@ include("funciones.php");
             
 		</tr>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			$cod_ingreso=$dat['cod_ingreso'];
 			$cod_gestion=$dat['cod_gestion'];
@@ -254,8 +254,8 @@ include("funciones.php");
             		$sql2="select u.nombres_usuario, u.ap_paterno_usuario, u.ap_materno_usuario ";
 					$sql2.=" from usuarios u ";
 					$sql2.=" where u.cod_usuario=".$cod_usuario_ingreso;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$ap_paterno_usuario=$dat2['ap_paterno_usuario'];
 						$ap_materno_usuario=$dat2['ap_materno_usuario'];
@@ -268,8 +268,8 @@ include("funciones.php");
 				<?php 
 				if($cod_proveedor<>""){				
 					$sql2="select nombre_proveedor from proveedores where cod_proveedor=".$cod_proveedor;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombre_proveedor=$dat2['nombre_proveedor'];
 					}	
 					echo $nombre_proveedor;		
@@ -282,8 +282,8 @@ include("funciones.php");
 					$sql2.=" from salidas s, gestiones g ";
 					$sql2.=" where s.cod_gestion=g.cod_gestion ";
 					$sql2.=" and s.cod_salida=".$cod_salida;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nro_salida=$dat2['nro_salida'];
 						$cod_gestion=$dat2['cod_gestion'];
 						$gestion=$dat2['gestion'];
@@ -292,8 +292,8 @@ include("funciones.php");
 									
 					$sql2="select nombre_almacen from almacenes ";
 					$sql2.=" where cod_almacen in (select cod_almacen from salidas where cod_salida=".$cod_salida." )";
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombre_almacen=$dat2['nombre_almacen'];
 					}	
 					echo $nombre_almacen." (".$nro_salida."/".$gestion.")";		

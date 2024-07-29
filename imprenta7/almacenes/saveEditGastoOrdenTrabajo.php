@@ -25,7 +25,7 @@ include("funciones.php");
 		$sql2.=" fecha_modifica='".date('Y-m-d', time())."'";
 		$sql2.=" where cod_gasto_ordentrabajo=".$_POST['cod_gasto_ordentrabajo']."";
 
-		mysql_query($sql2);
+		mysqli_query($enlaceCon,$sql2);
 
 
 

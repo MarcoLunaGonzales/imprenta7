@@ -20,8 +20,8 @@
 	$sql.=" left join usuarios um on(pp.cod_usuario_modifica=um.cod_usuario)";
 	$sql.=" left join usuarios ua on(pp.cod_usuario_anulacion=ua.cod_usuario)";
 	$sql.=" where cod_pago_prov=".$_GET['cod_pago_prov'];
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 				$cod_pago_prov=$dat['cod_pago_prov'];
 				$cod_proveedor=$dat['cod_proveedor'];
 				$nombre_proveedor=$dat['nombre_proveedor'];
@@ -55,9 +55,9 @@
 			$sql3="select cambio_bs from tipo_cambio";
 		$sql3.=" where fecha_tipo_cambio='".$fecha_registro."'";
 		$sql3.=" and cod_moneda=2";
-		$resp3 = mysql_query($sql3);
+		$resp3 = mysqli_query($enlaceCon,$sql3);
 		$cambio_bs=0;
-		while($dat3=mysql_fetch_array($resp3)){
+		while($dat3=mysqli_fetch_array($resp3)){
 			$cambio_bs=$dat3['cambio_bs'];
 		}
 
@@ -147,8 +147,8 @@
 		$sql2.=" where ppd.cod_pago_prov=".$_GET['cod_pago_prov'];
 		
 		//echo $sql2;
-		$resp2 = mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2 = mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 			$cod_forma_pago=$dat2['cod_forma_pago'];
 			$desc_forma_pago=$dat2['desc_forma_pago'];
 			$cod_moneda=$dat2['cod_moneda'];
@@ -215,8 +215,8 @@
 				$sql2.=" and i.cod_gestion=g.cod_gestion ";
 				$sql2.=" order by i.fecha_ingreso asc, i.nro_ingreso asc, g.gestion asc";
 				
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_pago_prov_detalle=$dat2['cod_pago_prov_detalle'];
 					$cod_ingreso=$dat2['codigo_doc'];
 					$gestion=$dat2['gestion'];
@@ -236,8 +236,8 @@ if($total_bs<>"" && $total_bs<>NULL){
 			 		$sql5=" select sum(id.precio_compra_uni*id.cantidad) ";
 					$sql5.=" from ingresos_detalle id ";
 					$sql5.=" where id.cod_ingreso=".$cod_ingreso;
-					$resp5 = mysql_query($sql5);
-					while($dat5=mysql_fetch_array($resp5)){
+					$resp5 = mysqli_query($enlaceCon,$sql5);
+					while($dat5=mysqli_fetch_array($resp5)){
 						$monto_ingreso=$dat5[0];
 					}
 					}
@@ -255,8 +255,8 @@ if($total_bs<>"" && $total_bs<>NULL){
 			$sql3=" select desc_estado_pago_doc ";
 			$sql3.=" from estado_pago_documento ";
 			$sql3.=" where cod_estado_pago_doc=".$cod_estado_pago_doc;
-			$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+			$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 							$desc_estado_pago_doc=$dat3['desc_estado_pago_doc'];
 				}
 				echo $desc_estado_pago_doc;
@@ -276,8 +276,8 @@ if($total_bs<>"" && $total_bs<>NULL){
  				$sql2.=" and gg.cod_gestion=g.cod_gestion ";
  				$sql2.=" order by gg.fecha_gasto_gral asc, gg.nro_gasto_gral asc, g.gestion asc";
  
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_pago_detalle=$dat2['cod_pago_detalle'];
 					$cod_gasto_gral=$dat2['codigo_doc'];
 					$nro_gasto_gral=$dat2['nro_gasto_gral'];					
@@ -306,8 +306,8 @@ if($total_bs<>"" && $total_bs<>NULL){
 			$sql3=" select desc_estado_pago_doc ";
 			$sql3.=" from estado_pago_documento ";
 			$sql3.=" where cod_estado_pago_doc=".$cod_estado_pago_doc;
-			$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+			$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 							$desc_estado_pago_doc=$dat3['desc_estado_pago_doc'];
 				}
 				echo $desc_estado_pago_doc;

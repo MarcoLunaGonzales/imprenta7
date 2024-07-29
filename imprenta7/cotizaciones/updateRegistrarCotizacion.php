@@ -52,9 +52,9 @@ $fechaCotizacionF = $vectorFecha[2] . "-" . $vectorFecha[1] . "-" . $vectorFecha
 $fechaModificacion =date('Y/m/d h:i:s', time());
 
 $sql_00="delete from cotizacion_detalle_caracteristica where COD_COTIZACION=".$codCotizacion;
-mysql_query($sql_00);
+mysqli_query($enlaceCon,$sql_00);
 $sql_00="delete from cotizaciones_detalle where COD_COTIZACION=".$codCotizacion;
-mysql_query($sql_00);
+mysqli_query($enlaceCon,$sql_00);
 
 
 $sql = "update cotizaciones set ";
@@ -84,7 +84,7 @@ $sql .="  fecha_modifica='".$fechaModificacion."',";
 $sql .="  cod_usuario_firma='".$codUsuarioFirmaF."' ";
 $sql .= " where COD_COTIZACION=" . $codCotizacion . "";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 $cont=0;
 for($i = 0;$i <= count($codItemVector)-1;$i++) {
     $sql_01 = "insert into cotizaciones_detalle SET";
@@ -108,16 +108,16 @@ for($i = 0;$i <= count($codItemVector)-1;$i++) {
 			$sql_01 .= " IMPORTE_TOTAL=" .$importeVector[$i]."";
 	}
 
-	 mysql_query($sql_01);
+	 mysqli_query($enlaceCon,$sql_01);
 	
 	$sql_02="select cod_compitem from componente_items where cod_item='".$codItemVector[$i]."' order by cod_compitem asc";
-	$resp_02= mysql_query($sql_02);	
-	while($dat_02=mysql_fetch_array($resp_02)){
+	$resp_02= mysqli_query($enlaceCon,$sql_02);	
+	while($dat_02=mysqli_fetch_array($resp_02)){
 		$codCompItem=$dat_02[0];
 		$sql_03="SELECT COD_CARAC FROM componentes_caracteristica WHERE  COD_COMPITEM='".$codCompItem."' ORDER BY orden ASC";
-		$resp_03= mysql_query($sql_03);
+		$resp_03= mysqli_query($enlaceCon,$sql_03);
 		$orden=1;
-		while($dat_03=mysql_fetch_array($resp_03)){
+		while($dat_03=mysqli_fetch_array($resp_03)){
 			$codCarac=$dat_03[0];
 			$sql_04="insert into cotizacion_detalle_caracteristica SET";
 			$sql_04.=" COD_COTIZACIONDETALLE=".($i+1)."";				
@@ -128,7 +128,7 @@ for($i = 0;$i <= count($codItemVector)-1;$i++) {
 			$sql_04.=" ,COD_ESTADO_REGISTRO=".$codCaracVector[$cont]."";
 			$sql_04.=" ,orden=".$orden."";	
 		
-			mysql_query($sql_04);
+			mysqli_query($enlaceCon,$sql_04);
 
 			$cont++;
 			$orden++;
@@ -138,11 +138,11 @@ for($i = 0;$i <= count($codItemVector)-1;$i++) {
 
 $sql4="delete  from cotizaciones_ppc where  COD_COTIZACION=".$codCotizacion."";
 //echo $sql4;
-mysql_query($sql4);
+mysqli_query($enlaceCon,$sql4);
 
 	$sql4="select cod_ppc,desc_ppc, valor_ppc,orden_ppc from parametros_pie_cotizacion order by orden_ppc ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_ppc=$dat4['cod_ppc'];
 							
@@ -155,7 +155,7 @@ mysql_query($sql4);
 								$sqlInsert.=" ,cod_ppc=".$_POST['cod_ppc'.$cod_ppc];
 								$sqlInsert.=" ,desc_cotizacion_ppc='".$_POST['desc_cotizacion_ppc'.$cod_ppc]."'";
 									//echo $sqlInsert;
-								mysql_query($sqlInsert);
+								mysqli_query($enlaceCon,$sqlInsert);
 								
 							}
 							

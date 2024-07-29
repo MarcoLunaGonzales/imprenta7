@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_grado=$vector_datos[$i];
 		$sql=" delete from grado_academico where cod_grado='".$cod_grado."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

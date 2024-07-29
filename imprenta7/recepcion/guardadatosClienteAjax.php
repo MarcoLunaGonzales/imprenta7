@@ -39,7 +39,7 @@ $sql.=" cod_usuario_modifica='".."',";
 $sql.=" fecha_modifica='".."',";*/
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
 $sql.=" where cod_cliente='".$cod_cliente."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 require("cerrar_conexion.inc");
 
 ?>

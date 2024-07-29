@@ -103,8 +103,8 @@ function eliminar(f)
 	}	
 	
 	$sql_aux=" select count(*) from gestiones ";
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -126,7 +126,7 @@ function eliminar(f)
 		$sql.=" from gestiones ";
 		$sql.=" order by gestion desc  ";
 		//$sql.=" limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="40%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -141,7 +141,7 @@ function eliminar(f)
 		<tbody>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_gestion=$dat['cod_gestion'];
 				$gestion=$dat['gestion']; 

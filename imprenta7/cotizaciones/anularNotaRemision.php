@@ -9,11 +9,11 @@ $sql=" update notas_remision set  ";
 $sql.=" cod_usuario_anulacion='".$_COOKIE['usuario_global']."',";
 $sql.=" cod_estado_nota_remision=2";
 $sql.=" where cod_nota_remision='".$cod_nota_remision."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 $sql="select cod_hoja_ruta from notas_remision where cod_nota_remision=".$cod_nota_remision;
-$resp=mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp=mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$cod_hoja_ruta=$dat[0];
 }
 
@@ -26,9 +26,9 @@ while($dat=mysql_fetch_array($resp)){
 	$sql3.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 	$sql3.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 	$sql3.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";	
-	$resp3=mysql_query($sql3);
+	$resp3=mysqli_query($enlaceCon,$sql3);
 	$sw=1;	
-	while($sw==1 and ($dat3=mysql_fetch_array($resp3))){
+	while($sw==1 and ($dat3=mysqli_fetch_array($resp3))){
 
 			$bandera=1;
 			$cod_cotizacion=$dat3[0];
@@ -42,9 +42,9 @@ while($dat=mysql_fetch_array($resp)){
 			$sql4.=" and cod_cotizacion='".$cod_cotizacion."' ";
 			$sql4.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."' ";
 			//echo "sql4=".$sql4."<br>";
-			$resp4=mysql_query($sql4);
+			$resp4=mysqli_query($enlaceCon,$sql4);
 			$cantEntregada=0;			
-			while($dat4=mysql_fetch_array($resp4)){
+			while($dat4=mysqli_fetch_array($resp4)){
 					$cantEntregada=$dat4[0];										
 			}	
 			if($cantEntregada>=$cantidad_unitariacotizacion){
@@ -59,12 +59,12 @@ while($dat=mysql_fetch_array($resp)){
 			$sql="update  hojas_rutas set ";
 			$sql.=" cod_estado_hoja_ruta=3"; 
 			$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'"; 
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}else{
 			$sql="update  hojas_rutas set ";
 			$sql.=" cod_estado_hoja_ruta=1"; 
 			$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'"; 
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 	}
 	//echo "sw=".$sw;

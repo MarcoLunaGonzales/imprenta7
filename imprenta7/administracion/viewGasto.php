@@ -109,8 +109,8 @@ function paginar1(f,pagina)
 	if($_GET['descGastoB']<>""){
 			$sql.=" and g.desc_gasto like '%".$_GET['descGastoB']."%'";
 	}	
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat[0];
 	}
 ?>
@@ -160,7 +160,7 @@ function paginar1(f,pagina)
 		}			
 		$sql.=" order by g.desc_gasto";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -192,7 +192,7 @@ function paginar1(f,pagina)
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_gasto=$dat['cod_gasto'];
 				$desc_gasto=$dat['desc_gasto'];
@@ -208,11 +208,11 @@ function paginar1(f,pagina)
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_registro;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_registro="";
 					$ap_paterno_usuario_registro="";
 					$ap_materno_usuario_registro="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_registro=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_registro=$datAux['ap_paterno_usuario'];
@@ -225,11 +225,11 @@ function paginar1(f,pagina)
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_modifica;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_modifica="";
 					$ap_paterno_usuario_modifica="";
 					$ap_materno_usuario_modifica="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_modifica=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_modifica=$datAux['ap_paterno_usuario'];

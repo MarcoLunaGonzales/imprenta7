@@ -15,11 +15,11 @@ $sql.=" nombre_componenteitem='".$nombre_componenteitem."'";
 $sql.=" where cod_item='".$codItem."' ";
 $sql.=" and cod_compitem='".$codCompItem."' ";
 //echo $sql."<br>";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 $sql=" delete from componentes_caracteristica where cod_compitem='".$codCompItem."' ";
 //echo $sql."<br>";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 
@@ -37,7 +37,7 @@ for($i=0;$i<$n;$i++){
 	$sql.="  orden='".$orden."'";
 	//echo $sql."<br>";
 
-	mysql_query($sql);				
+	mysqli_query($enlaceCon,$sql);				
 }	
 
 

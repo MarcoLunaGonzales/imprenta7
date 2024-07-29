@@ -10,7 +10,7 @@ $sql.=" cod_usuario_anulacion='".$_COOKIE['usuario_global']."',";
 $sql.=" cod_estado_cbte=2 ";
 $sql.=" where cod_cbte='".$_POST['cod_cbte']."'";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 

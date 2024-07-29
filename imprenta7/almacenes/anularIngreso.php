@@ -42,8 +42,8 @@ function guardar(f)
 	$sql.=" fecha_modifica, cod_usuario_modifica, cod_estado_ingreso ";
 	$sql.=" from ingresos ";
 	$sql.=" where  cod_ingreso=".$cod_ingreso;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_gestion=$dat[0];
 		$cod_almacen=$dat[1];
 		$nro_ingreso=$dat[2];
@@ -60,16 +60,16 @@ function guardar(f)
 	
 				////////////////GESTION////////////////////
 					$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$gestion="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$gestion=$dat2[0];
 					}
 				//******************************AlMACEN ********************************
 				$nombre_almacen="";
 				$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen=$dat2[0];
 				}						
 				
@@ -77,11 +77,11 @@ function guardar(f)
 				
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 				$sql2.=" where cod_usuario='".$cod_usuario_ingreso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombres_usuario="";
 				$ap_paterno_usuario="";
 				$ap_materno_usuario="";		
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$nombres_usuario=$dat2[0];
 					$ap_paterno_usuario=$dat2[1];
 					$ap_materno_usuario=$dat2[2];		
@@ -89,8 +89,8 @@ function guardar(f)
 			//******************************TIPO DE INGRESO********************************
 				$nombre_tipo_ingreso="";
 				$sql2="select nombre_tipo_ingreso from tipos_ingreso where cod_tipo_ingreso='".$cod_tipo_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_ingreso=$dat2[0];
 				}
 
@@ -99,8 +99,8 @@ function guardar(f)
 				$desc_estado_ingreso="";
 				$sql2=" select desc_estado_ingreso from estados_ingresos_almacen ";
 				$sql2.=" where cod_estado_ingreso='".$cod_estado_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_ingreso=$dat2[0];
 				}		
 	}		

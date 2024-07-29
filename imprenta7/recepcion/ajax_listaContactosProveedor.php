@@ -25,8 +25,8 @@ $codcontactoproveedor=$_GET['cod_contacto_proveedor'];
 					$sql2.=" from proveedores_contactos";
 					$sql2.=" where cod_proveedor=".$codproveedor;
 					$sql2.=" order by  ap_paterno_contacto asc, ap_materno_contacto asc , nombre_contacto asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto_proveedor=$dat2['cod_contacto_proveedor'];
 							$nombre_contacto=$dat2['nombre_contacto'];

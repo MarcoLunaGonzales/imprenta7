@@ -16,7 +16,7 @@ $sql.=" cod_usuario_registro=".$_COOKIE['usuario_global'].",";
 $sql.=" fecha_registro='".date('Y-m-d', time())."'";
 echo $sql;
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 require("cerrar_conexion.inc");
 
 ?>

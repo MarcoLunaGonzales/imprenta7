@@ -10,8 +10,8 @@
 		$sql.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 		$sql.=" and c.cod_cliente=cli.cod_cliente ";
 		$sql.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$cod_gestion=$dat['cod_gestion'];
 			$nro_hoja_ruta=$dat['nro_hoja_ruta'];
 			$gestion=$dat['gestion'];
@@ -27,8 +27,8 @@
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp2 = mysql_query($sqlCotizacion);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_cotizacion=$dat2['nro_cotizacion'];
 					$gestion_cotizacion=$dat2['gestion'];
 				}		
@@ -36,8 +36,8 @@
 		$sql=" select c.descuento_cotizacion, c.descuento_fecha, c.descuento_obs, c.cod_usuario_descuento, c.obs_pago ";
 		$sql.=" from cotizaciones c";
 		$sql.=" where c.cod_cotizacion=".$cod_cotizacion;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$descuento_cotizacion=$dat['descuento_cotizacion'];
 			$descuento_fecha=$dat['descuento_fecha'];
 			$descuento_obs=$dat['descuento_obs'];
@@ -48,8 +48,8 @@
 		$sql=" select c.incremento_cotizacion, c.incremento_fecha, c.incremento_obs, c.cod_usuario_incremento, c.obs_pago ";
 		$sql.=" from cotizaciones c";
 		$sql.=" where c.cod_cotizacion=".$cod_cotizacion;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$incremento_cotizacion=$dat['incremento_cotizacion'];
 			$incremento_fecha=$dat['incremento_fecha'];
 			$incremento_obs=$dat['incremento_obs'];
@@ -64,8 +64,8 @@
 		$sql.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 		$sql.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 		$sql.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$monto_factura=$dat[0];
 		}
 
@@ -158,9 +158,9 @@ function datosCliente(f)
 
 	$cod_est_fac=1;
 	$sql2=" select desc_est_fac from estado_factura where cod_est_fac='".$cod_est_fac."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_fac=$dat2[0];
 	}
 
@@ -223,17 +223,17 @@ function datosCliente(f)
 				$sql.=" and cod_cotizaciondetalle in (select cod_cotizaciondetalle from hojas_rutas_detalle ";
 				$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."')";
 				$sql.=" order by cod_cotizaciondetalle asc";
-				$resp=mysql_query($sql);
+				$resp=mysqli_query($enlaceCon,$sql);
 				$suma=0;
 				$numeroItem=0;
-				while ($dat=mysql_fetch_array($resp)){
+				while ($dat=mysqli_fetch_array($resp)){
 					$numeroItem=$numeroItem+1;			
 					$cod_cotizaciondetalle=$dat[0];
 					$cod_item=$dat[1];			
 					$sql4= " select desc_item  from items  where cod_item='".$cod_item."'";
 					$desc_item="";
-					$resp4=mysql_query($sql4);
-					while ($dat4=mysql_fetch_array($resp4)){		
+					$resp4=mysqli_query($enlaceCon,$sql4);
+					while ($dat4=mysqli_fetch_array($resp4)){		
 						$desc_item=$dat4[0];
 					}			
 					$descripcion_item=$dat[2];
@@ -251,9 +251,9 @@ function datosCliente(f)
 			$sql7=" select count(DISTINCT(cod_compitem))as cant_comp ";
 			$sql7.=" from cotizacion_detalle_caracteristica";
 			$sql7.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$cant_comp=0;
-			while ($dat7=mysql_fetch_array($resp7)){
+			while ($dat7=mysqli_fetch_array($resp7)){
 				$cant_comp=$dat7[0];	
 			}
 			
@@ -261,16 +261,16 @@ function datosCliente(f)
 			$sql2=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql2.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 			
-			$resp2=mysql_query($sql2);
-			while ($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while ($dat2=mysqli_fetch_array($resp2)){
 		
 				$cod_compitem=$dat2[0];
 				$sql4=" select  count(*) from cotizacion_detalle_caracteristica ";
 				$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 				$sql4.=" and cod_compitem='".$cod_compitem."' and cod_estado_registro=1";
-				$resp4=mysql_query($sql4);
+				$resp4=mysqli_query($enlaceCon,$sql4);
 				$nro_carac=0;
-				while($dat4=mysql_fetch_array($resp4)){
+				while($dat4=mysqli_fetch_array($resp4)){
 					$nro_carac=$dat4[0];
 				}
 				
@@ -279,8 +279,8 @@ function datosCliente(f)
 				
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				if($cant_comp>1){
@@ -295,16 +295,16 @@ function datosCliente(f)
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1 order by orden asc";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_carac=$dat3[0];
 						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/

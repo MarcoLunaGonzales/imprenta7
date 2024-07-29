@@ -379,9 +379,9 @@ function ConsiderarPrecioUnitario(obj){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 		
@@ -404,8 +404,8 @@ function ConsiderarPrecioUnitario(obj){
 				<option value="0">Seleccione un Opci&oacute;n</option>
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -426,8 +426,8 @@ function ConsiderarPrecioUnitario(obj){
 			<select name="codTipoCotizacion" id="codTipoCotizacion" class="textoform" >
 				<?php
 					$sql3="select cod_tipo_cotizacion,nombre_tipo_cotizacion from tipos_cotizacion";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_tipo_cotizacion=$dat3[0];	
 			  		 		$nombre_tipo_cotizacion=$dat3[1];	
@@ -442,8 +442,8 @@ function ConsiderarPrecioUnitario(obj){
 			<select name="codTipoPago" id="codTipoPago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$codTipoPago=$dat4[0];	
 			  		 		$nombreTipoPago=$dat4[1];	
@@ -470,8 +470,8 @@ function ConsiderarPrecioUnitario(obj){
 				<?php
 					$sql4="select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 					$sql4.=" where cod_usuario in(select cod_usuario from autorizados_firma_cotizacion) ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_usuario=$dat4[0];
 							$nombres_usuario=$dat4[1];

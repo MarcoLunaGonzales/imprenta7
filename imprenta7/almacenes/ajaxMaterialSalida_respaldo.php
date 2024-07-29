@@ -25,8 +25,8 @@ include("funciones.php");
 		$sql.=" and m.cod_subgrupo=sbg.cod_subgrupo";
 		$sql.=" and sbg.cod_grupo=g.cod_grupo ";
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";		
-		$resp= mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp= mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 				$cod_grupo=$dat[0]; 
 				$nombre_grupo=$dat[1];
 				$cod_subgrupo=$dat[2];

@@ -151,8 +151,8 @@ var sw=0;
 	$sql.=" from hojas_rutas ";
 	$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 	echo $sql."<br>";
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 
 	$fecha_hoja_ruta=$dat[0];
 	$cod_usuario_hoja_ruta=$dat[1];
@@ -166,8 +166,8 @@ var sw=0;
 		$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 		$sql2.=" from usuarios where cod_usuario='".$cod_usuario_hoja_ruta."'";
 		echo $sql2."<br>";
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$nombres_usuario=$dat2[0];
 		$ap_paterno_usuario=$dat2[1];
 		$ap_materno_usuario=$dat2[2];
@@ -178,23 +178,23 @@ var sw=0;
 			$sql2.=" from cotizaciones ";
 			$sql2.=" where cod_cotizacion=".$cod_cotizacion;
 			echo $sql2."<br>";
-			$resp2= mysql_query($sql2);
-			$dat2=mysql_fetch_array($resp2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			$dat2=mysqli_fetch_array($resp2);
 				$nro_cotizacion=$dat2[0];
 				$cod_gestion=$dat2[1];
 				$cod_cliente=$dat2[2];		
 				$fecha_cotizacion=$dat2[3];	
 				/***********GESTION********/
 					$sql3="select gestion  from gestiones where cod_gestion='".$cod_gestion."'";
-					$resp3= mysql_query($sql3);
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					$dat3=mysqli_fetch_array($resp3);
 						$gestion=$dat3[0];
 				/************************************/	
 				/*******************CLIENTE*********************/	
 					$sql3=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 					$sql3.=" from clientes where cod_cliente='".$cod_cliente."'";
-					$resp3= mysql_query($sql3);			
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);			
+					$dat3=mysqli_fetch_array($resp3);
 						$nombre_cliente=$dat3[0];
 						$direccion_cliente=$dat3[1];
 						$telefono_cliente=$dat3[2];
@@ -239,8 +239,8 @@ var sw=0;
      		<td colspan="5"><select name="cod_usuario_comision" class="textoform" >
 				<?php
 					$sql3="select cod_usuario, nombres_usuario, ap_paterno_usuario from usuarios where cod_usuario<>0";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_usuario=$dat3[0];
 							$nombres_usuario=$dat3[1];	
@@ -272,19 +272,19 @@ var sw=0;
 		$sql.=" where cod_cotizacion=".$cod_cotizacion;
 		$sql.=" order by  orden asc";
 		echo $sql2."<br>";
-		$resp= mysql_query($sql);
+		$resp= mysqli_query($enlaceCon,$sql);
 		$sumaTotal=0;
 		$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 	
 				$cont++;
 				$cod_cotizaciondetalle=$dat[0];
 				$cod_item=$dat[1];
 				/************************GESTION*****************/	
 					$sql2="select desc_item  from items where cod_item='".$cod_item."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$desc_item="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_item=$dat2[0];
 					}
 				/************************************/					 
@@ -333,22 +333,22 @@ var sw=0;
 			$sql3.=" from cotizacion_detalle_caracteristica ";
 			$sql3.=" where cod_cotizacion=".$cod_cotizacion;
 			$sql3.=" and cod_cotizaciondetalle=".$cod_cotizaciondetalle;
-			$resp3= mysql_query($sql3);
+			$resp3= mysqli_query($enlaceCon,$sql3);
 			$nro_compitem=0;
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 				$nro_compitem=$dat3[0];
 			}
 			$detalle_item="";
 			$sql4=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp4=mysql_query($sql4);
-			while ($dat4=mysql_fetch_array($resp4)){
+			$resp4=mysqli_query($enlaceCon,$sql4);
+			while ($dat4=mysqli_fetch_array($resp4)){
 		
 				$cod_compitem=$dat4[0];
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				
@@ -372,14 +372,14 @@ var sw=0;
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){						
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){						
 						$cod_carac=$dat3[0];						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/
@@ -413,8 +413,8 @@ var sw=0;
 			$sql6.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 			$sql6.=" and cod_cotizacion='".$cod_cotizacion."'";
 			$sql6.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
-			$resp6=mysql_query($sql6);
-			while($dat6=mysql_fetch_array($resp6)){
+			$resp6=mysqli_query($enlaceCon,$sql6);
+			while($dat6=mysqli_fetch_array($resp6)){
 			$codusuariodiseno=$dat6[0];
 			$obs_trabajo=$dat6[1];
 			$diseno=$dat6[2];
@@ -428,8 +428,8 @@ var sw=0;
 				<td colspan="2"><select name="cod_usuario_diseno" class="textoform" >
 				<?php
 					$sql3="select cod_usuario, nombres_usuario, ap_paterno_usuario from usuarios where cod_usuario<>0 and cod_cargo=2";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_usuario=$dat3[0];
 							$nombres_usuario=$dat3[1];	
@@ -466,8 +466,8 @@ var sw=0;
 				<td colspan="2">
 			<?php
 				$sql3=" select cod_maquina, desc_maquina from maquinaria where cod_estado_registro=1 ";
-				$resp3=mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3))
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3))
 				{
 					$cod_maquina=$dat3[0];	
 			  		$desc_maquina=$dat3[1];	
@@ -478,8 +478,8 @@ var sw=0;
 					$sql7.=" and cod_cotizacion='".$cod_cotizacion."'";
 					$sql7.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
 					$sql7.=" and cod_maquina='".$cod_maquina."'";
-					$resp7=mysql_query($sql7);
-					$dat7=mysql_fetch_array($resp7);
+					$resp7=mysqli_query($enlaceCon,$sql7);
+					$dat7=mysqli_fetch_array($resp7);
 					$sw_maquina=$dat[7];
 									 
 			?>				

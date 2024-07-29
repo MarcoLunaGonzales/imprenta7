@@ -28,8 +28,8 @@ include("funciones.php");
 					$sql2=" select cod_tipo_pago, nombre_tipo_pago ";
 					$sql2.=" from tipos_pago ";
 					$sql2.=" where cod_tipo_pago=1 or cod_tipo_pago=2";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_pago=$dat2['cod_tipo_pago'];	
 			  		 		$nombre_tipo_pago=$dat2['nombre_tipo_pago'];	
@@ -76,8 +76,8 @@ include("funciones.php");
 					$sql2.=" and (cod_estado_hoja_ruta=1 and informe='NO') ";
 					$sql2.=" order by g.gestion desc, hr.nro_hoja_ruta desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_hoja_ruta=$dat2[0];
 							$nro_hoja_ruta=$dat2[1];	
@@ -103,8 +103,8 @@ include("funciones.php");
 					$sql2.=" from almacenes where cod_almacen<>".$cod_almacen;
 					$sql2.=" and cod_estado_registro=1";
 					$sql2.=" order by  nombre_almacen asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_almacen=$dat2[0];	
 			  		 		$nombre_almacen=$dat2[1];	
@@ -130,8 +130,8 @@ include("funciones.php");
 					$sql2.=" and (cod_estado_hoja_ruta=3 and informe='NO') ";
 					$sql2.=" order by g.gestion desc, hr.nro_hoja_ruta desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_hoja_ruta=$dat2[0];
 							$nro_hoja_ruta=$dat2[1];	
@@ -162,8 +162,8 @@ include("funciones.php");
 					$sql2.=" where ot.cod_cliente=c.cod_cliente ";
 					$sql2.=" order by ot.fecha_orden_trabajo desc, ot.nro_orden_trabajo desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_orden_trabajo=$dat2['cod_orden_trabajo'];
 							$numero_orden_trabajo=$dat2['numero_orden_trabajo'];	
@@ -177,8 +177,8 @@ include("funciones.php");
 							$cod_gestion_ot=$dat2['cod_gestion'];
 							$gestion_ot="";
 							$sql3=" select gestion from gestiones where  cod_gestion=".$cod_gestion_ot;
-							$resp3=mysql_query($sql3);
-							while($dat3=mysql_fetch_array($resp3))
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while($dat3=mysqli_fetch_array($resp3))
 							{
 								$gestion_ot=$dat3['gestion'];	
 			  		 		}
@@ -199,8 +199,8 @@ include("funciones.php");
 				<?php
 					$sql2=" select cod_area, nombre_area ";
 					$sql2.=" from areas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_area=$dat2['cod_area'];	
 			  		 		$nombre_area=$dat2['nombre_area'];	
@@ -220,8 +220,8 @@ include("funciones.php");
 					$sql2=" select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios ";
 					$sql2.=" order by ap_paterno_usuario asc, ap_materno_usuario asc, nombres_usuario asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_usuario=$dat2['cod_usuario'];	
 							$nombres_usuario=$dat2['nombres_usuario'];	

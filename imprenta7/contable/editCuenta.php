@@ -148,8 +148,8 @@ function guardar(f){
 	$sql.=" cod_usuario_modifica, fecha_modifica ";
 	$sql.=" from cuentas ";
 	$sql.=" where cod_cuenta=".$_GET['cod_cuenta']." ";
-$resp = mysql_query($sql);	
-while($dat=mysql_fetch_array($resp)){
+$resp = mysqli_query($enlaceCon,$sql);	
+while($dat=mysqli_fetch_array($resp)){
 
 		$nro_cuenta=$dat['nro_cuenta'];
 		$desc_cuenta=$dat['desc_cuenta'];
@@ -167,8 +167,8 @@ if($cod_cuenta_padre!= NULL){
 		$sql=" select  nro_cuenta, desc_cuenta ";
 		$sql.=" from cuentas ";
 		$sql.=" where cod_cuenta=".$cod_cuenta_padre." ";
-		$resp = mysql_query($sql);	
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);	
+		while($dat=mysqli_fetch_array($resp)){
 			
 			$nro_cuenta_padre=$dat['nro_cuenta'];
 			$desc_cuenta_padre=$dat['desc_cuenta'];
@@ -181,8 +181,8 @@ if($cod_cuenta_padre!= NULL){
 
 				$codproveedor=NULL;
 				$nombreproveedor="";
-				$resp2 = mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){	
+				$resp2 = mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){	
 						$codproveedor=$dat2['cod_proveedor'];		
 						$nombreproveedor=$dat2['nombre_proveedor'];			
 				}
@@ -192,8 +192,8 @@ if($cod_cuenta_padre!= NULL){
 
 				$codcliente=NULL;
 				$nombrecliente="";
-				$resp2 = mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){			
+				$resp2 = mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){			
 						$codcliente=$dat2['cod_cliente'];
 						$nombrecliente=$dat2['nombre_cliente'];			
 				}
@@ -258,8 +258,8 @@ if($cod_cuenta_padre!= NULL){
 			<td><select name="cod_moneda" id="cod_moneda" class="textoform">				
 				<?php
 					$sql2="select cod_moneda, desc_moneda from monedas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_moneda=$dat2['cod_moneda'];		
 			  		 		$desc_moneda=$dat2['desc_moneda'];	
@@ -274,8 +274,8 @@ if($cod_cuenta_padre!= NULL){
 			<td><select name="cod_estado_registro" id="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2['cod_estado_registro'];		
 			  		 		$nombre_estado_registro=$dat2['nombre_estado_registro'];	

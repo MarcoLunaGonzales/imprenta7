@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_grupo=$vector_datos[$i];
 		$sql=" delete from grupos where cod_grupo='".$cod_grupo."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

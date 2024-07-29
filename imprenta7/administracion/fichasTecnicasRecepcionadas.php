@@ -167,8 +167,8 @@ function paginar(f)
 		 		<option value="0" selected="selected">Todos</option>	
 		<?php 
 			$sql="select cod_empresa, rotulo_comercial from empresas order by rotulo_comercial asc";
-			$resp= mysql_query($sql);
-			while($dat=mysql_fetch_array($resp)){
+			$resp= mysqli_query($enlaceCon,$sql);
+			while($dat=mysqli_fetch_array($resp)){
 				$cod_empresa=$dat[0];
 				$rotulo_comercial=$dat[1];
 				if($cod_empresa_b==$cod_empresa){
@@ -209,8 +209,8 @@ function paginar(f)
 		$sql_aux.=" and cod_contacto_registro in (select cod_contacto from contactos where cod_empresa='".$cod_empresa_b."')";	
 	}
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -263,7 +263,7 @@ function paginar(f)
 		
 		$sql.=" order by fecha_contacto_envio asc ";
 		$sql.="  limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 ?>	
 	<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
 	    <tr height="20px" align="center"  class="titulo_tabla">
@@ -281,7 +281,7 @@ function paginar(f)
 
 <?php   
 		$sw=1;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 			
 			$cod_ficha=$dat[0]; 
 			$fecha_contacto_registro=$dat[1]; 
@@ -322,8 +322,8 @@ function paginar(f)
 			$ap_materno_contacto_envio="";	
 								
 				$sql4=" select nombre_contacto, ap_paterno_contacto, ap_materno_contacto from contactos where cod_contacto='".$cod_contacto_envio."'";
-				$resp4= mysql_query($sql4);
-				while($dat4=mysql_fetch_array($resp4)){					
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				while($dat4=mysqli_fetch_array($resp4)){					
 					$nombre_contacto_envio=$dat4[0];
 					$ap_paterno_contacto_envio=$dat4[1];
 					$ap_materno_contacto_envio=$dat4[2];					
@@ -340,8 +340,8 @@ function paginar(f)
 				$ap_paterno_usuario_modifica="";
 				$ap_materno_usuario_modifica="";
 				$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario='".$cod_usuario_modifica."'";
-				$resp4= mysql_query($sql4);
-				$dat4=mysql_fetch_array($resp4);				
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				$dat4=mysqli_fetch_array($resp4);				
 					$nombre_usuario_modifica=$dat4[0];
 					$ap_paterno_usuario_modifica=$dat4[1];
 					$ap_materno_usuario_modifica=$dat4[2];
@@ -358,8 +358,8 @@ function paginar(f)
 				$ap_paterno_usuario_aprobacion="";
 				$ap_materno_usuario_aprobacion="";
 				$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario='".$cod_usuario_aprobacion."'";
-				$resp4= mysql_query($sql4);
-				$dat4=mysql_fetch_array($resp4);				
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				$dat4=mysqli_fetch_array($resp4);				
 					$nombre_usuario_aprobacion=$dat4[0];
 					$ap_paterno_usuario_aprobacion=$dat4[1];
 					$ap_materno_usuario_aprobacion=$dat4[2];	
@@ -372,15 +372,15 @@ function paginar(f)
 			$ap_materno_contacto_registro="";
 			$cod_empresa=0;
 				$sql4=" select nombre_contacto, ap_paterno_contacto, ap_materno_contacto,cod_empresa from contactos where cod_contacto='".$cod_contacto_registro."'";
-				$resp4= mysql_query($sql4);
-				$dat4=mysql_fetch_array($resp4);					
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				$dat4=mysqli_fetch_array($resp4);					
 					$nombre_contacto_registro=$dat4[0];
 					$ap_paterno_contacto_registro=$dat4[1];
 					$ap_materno_contacto_registro=$dat4[2];	
 					$cod_empresa=$dat4[3];	
 					$sql5=" select  rotulo_comercial from empresas  where cod_empresa='".$cod_empresa."'";
-					$resp5= mysql_query($sql5);
-					while($dat5=mysql_fetch_array($resp5)){
+					$resp5= mysqli_query($enlaceCon,$sql5);
+					while($dat5=mysqli_fetch_array($resp5)){
 						$rotulo_comercial=$dat5[0];
 					}			
 
@@ -390,8 +390,8 @@ function paginar(f)
 			$ap_paterno_contacto_modifica="";
 			$ap_materno_contacto_modifica="";
 			$sql4=" select nombre_contacto, ap_paterno_contacto, ap_materno_contacto from contactos where cod_contacto='".$cod_contacto_modifica."'";
-			$resp4= mysql_query($sql4);
-			while($dat4=mysql_fetch_array($resp4)){					
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			while($dat4=mysqli_fetch_array($resp4)){					
 				$nombre_contacto_modifica=$dat4[0];
 				$ap_paterno_contacto_modifica=$dat4[1];
 				$ap_materno_contacto_modifica=$dat4[2];					

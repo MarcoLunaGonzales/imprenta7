@@ -78,7 +78,7 @@ $sql .= " cod_usuario_aprobacion=0, ";
 $sql .= " fecha_registro='".$fechaRegistro."',";
 $sql .= " cod_usuario_firma='".$codUsuarioFirmaF."'";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 $cont=0;
 
 for($i = 0;$i <= count($codItemVector)-1;$i++) {
@@ -106,16 +106,16 @@ for($i = 0;$i <= count($codItemVector)-1;$i++) {
 			$sql_01 .= " IMPORTE_TOTAL=" .$importeVector[$i]."";
 	}
  	// echo("$sql_01".$sql_01."<br>");
-	 mysql_query($sql_01);
+	 mysqli_query($enlaceCon,$sql_01);
 	
 	$sql_02="select cod_compitem from componente_items where cod_item='".$codItemVector[$i]."' order by cod_compitem asc";
-	$resp_02= mysql_query($sql_02);	
-	while($dat_02=mysql_fetch_array($resp_02)){
+	$resp_02= mysqli_query($enlaceCon,$sql_02);	
+	while($dat_02=mysqli_fetch_array($resp_02)){
 		$codCompItem=$dat_02[0];
 		$sql_03="SELECT COD_CARAC FROM componentes_caracteristica WHERE  COD_COMPITEM='".$codCompItem."' ORDER BY orden ASC";
-		$resp_03= mysql_query($sql_03);
+		$resp_03= mysqli_query($enlaceCon,$sql_03);
 		$orden=1;
-		while($dat_03=mysql_fetch_array($resp_03)){
+		while($dat_03=mysqli_fetch_array($resp_03)){
 			$codCarac=$dat_03[0];
 			$sql_04="insert into COTIZACION_DETALLE_CARACTERISTICA SET";
 			$sql_04.=" COD_COTIZACIONDETALLE=".($i+1)."";				
@@ -126,7 +126,7 @@ for($i = 0;$i <= count($codItemVector)-1;$i++) {
 			$sql_04.=" ,COD_ESTADO_REGISTRO=".$codCaracVector[$cont]."";		
 			$sql_04.=" ,orden=".$orden."";	
 		
-			mysql_query($sql_04);
+			mysqli_query($enlaceCon,$sql_04);
 
 			$cont++;
 			$orden++;

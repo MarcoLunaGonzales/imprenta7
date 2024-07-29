@@ -40,8 +40,8 @@ function abrirVentana(){
 	            <option value="0">Todos</option>		
 				<?php
 					$sql2="select cod_tipo_cbte, nombre_tipo_cbte from tipo_comprobante ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_cbte=$dat2['cod_tipo_cbte'];		
 			  		 		$nombre_tipo_cbte=$dat2['nombre_tipo_cbte'];	

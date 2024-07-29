@@ -13,8 +13,8 @@
 	 
 			 $sql_aux="select count(*) from usuarios where usuario='".$usuario."' and contrasenia='".$contrasena."'";	
 		 
-			 $resp_aux = mysql_query($sql_aux);
-			 while($dat_aux=mysql_fetch_array($resp_aux)){
+			 $resp_aux = mysqli_query($enlaceCon,$sql_aux);
+			 while($dat_aux=mysqli_fetch_array($resp_aux)){
 				 $nro_filas_sql=$dat_aux[0];
 			 }		
 			
@@ -22,16 +22,16 @@
 		 		
 				$sql="select cod_usuario, usuario_interno  from usuarios where usuario='".$usuario."' ";
 				$sql.=" and contrasenia='".$contrasena."'";	
-				$resp = mysql_query($sql);
-				 while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				 while($dat=mysqli_fetch_array($resp)){	
 			 		$cod_usuario=$dat[0];
 					$usuario_interno=$dat[1];
 				 }
 				
 			 	$numModulos=0;
 				$sql="select count(*) from usuarios_modulos where cod_usuario=".$cod_usuario;
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 			 			$numModulos=$dat[0];					
 				}	
 					
@@ -40,24 +40,24 @@
 						////////////VALIDACION TIPO CAMBIO/////////////////////
 						$sql="select cod_moneda from monedas where cod_moneda<>1";
 						//echo $sql;
-						$resp = mysql_query($sql);
-						while($dat=mysql_fetch_array($resp)){
+						$resp = mysqli_query($enlaceCon,$sql);
+						while($dat=mysqli_fetch_array($resp)){
 							$cod_moneda=$dat['cod_moneda'];		
 												
 							$sql2=" select count(*) from tipo_cambio";
 							$sql2.=" where cod_moneda=".$cod_moneda;
 							$sql2.=" and fecha_tipo_cambio='".date('Y-m-d', time())."'";
-							$resp2 = mysql_query($sql2);
+							$resp2 = mysqli_query($enlaceCon,$sql2);
 							$numReg=0;
-							while($dat2=mysql_fetch_array($resp2)){
+							while($dat2=mysqli_fetch_array($resp2)){
 								$numReg=$dat2[0];
 							}
 							if($numReg==0){
 								$sql3="select count(*) ";
 								$sql3.=" from tipo_cambio where cod_moneda=".$cod_moneda;
-								$resp3=mysql_query($sql3);
+								$resp3=mysqli_query($enlaceCon,$sql3);
 								$numRegMon=0;
-								while($dat3=mysql_fetch_array($resp3)){
+								while($dat3=mysqli_fetch_array($resp3)){
 									$numRegMon=$dat3[0];
 								}
 								if($numRegMon>0){
@@ -67,8 +67,8 @@
 										$sql3.=" where cod_moneda=".$cod_moneda;
 										$sql3.=" order by fecha_tipo_cambio desc";
 										$sql3.=" limit 1";
-										$resp3=mysql_query($sql3);
-										while($dat3=mysql_fetch_array($resp3)){
+										$resp3=mysqli_query($enlaceCon,$sql3);
+										while($dat3=mysqli_fetch_array($resp3)){
 											$cambio_bs=$dat3[0];
 										}
 										
@@ -77,7 +77,7 @@
 										$sql3.=" cod_moneda=".$cod_moneda.",";
 										$sql3.=" cambio_bs=".$cambio_bs."";
 										//echo $sql3;
-										mysql_query($sql3);
+										mysqli_query($enlaceCon,$sql3);
 
 									//////////////////////////////////////////////								
 								}else{
@@ -86,7 +86,7 @@
 										$sql3.=" cod_moneda=".$cod_moneda.",";
 										$sql3.=" cambio_bs=1";
 									//	echo $sql3;
-										mysql_query($sql3);
+										mysqli_query($enlaceCon,$sql3);
 								
 								}
 							
@@ -96,8 +96,8 @@
 				 	 			
 						$sql=" select cod_modulo, nombre_modulo, ubicacion_fisica  from modulos ";
 						$sql.=" where cod_modulo in(select cod_modulo from usuarios_modulos where cod_usuario=".$cod_usuario.")";
-						$resp = mysql_query($sql);
-						while($dat=mysql_fetch_array($resp)){													
+						$resp = mysqli_query($enlaceCon,$sql);
+						while($dat=mysqli_fetch_array($resp)){													
 				 		
 								$cod_modulo=$dat[0];
 								$nombre_modulo=$dat[1];

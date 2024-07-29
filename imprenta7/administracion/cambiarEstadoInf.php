@@ -13,11 +13,11 @@
 		$sqlAux2.=" informe='NO'";
 	}
 	$sqlAux2.=" where cod_hoja_ruta='".$_GET['hr']."'";
-	mysql_query($sqlAux2);
+	mysqli_query($enlaceCon,$sqlAux2);
 	
 	$sql="select cod_hoja_ruta,informe from hojas_rutas  where cod_hoja_ruta='".$_GET['hr']."'";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_hoja_ruta=$dat['cod_hoja_ruta'];
 		$informe=$dat['informe'];
 	}
@@ -32,7 +32,7 @@
 		if($_GET['estado']=="NO"){
 			$sqlAux3.=" inf_aud_obs='ABIERTO'";
 		}
-		mysql_query($sqlAux3);	
+		mysqli_query($enlaceCon,$sqlAux3);	
 	//echo "holaaaaaaaaaa";
 ?>
 <?php if($informe=="NO"){?><a href="javascript:cambiarEstadoInf(<?php echo $cod_hoja_ruta; ?>,'SI')" >CERRAR</a><?php }?>

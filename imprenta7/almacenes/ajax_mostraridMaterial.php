@@ -5,14 +5,14 @@ $cod_grupo=$_GET['cod_grupo'];
 $cod_subgrupo=$_GET['cod_subgrupo'];
 
 $sql2=" select  nombre_grupo from grupos where  cod_grupo=".$cod_grupo;
-$resp2=mysql_query($sql2);
-while($dat2=mysql_fetch_array($resp2)){
+$resp2=mysqli_query($enlaceCon,$sql2);
+while($dat2=mysqli_fetch_array($resp2)){
 	$nombre_grupo=$dat2[0];
 }
 
 $sql2=" select  nombre_subgrupo from subgrupos where  cod_subgrupo=".$cod_subgrupo;
-$resp2=mysql_query($sql2);
-while($dat2=mysql_fetch_array($resp2)){
+$resp2=mysqli_query($enlaceCon,$sql2);
+while($dat2=mysqli_fetch_array($resp2)){
 	$nombre_subgrupo=$dat2[0];
 }
 				

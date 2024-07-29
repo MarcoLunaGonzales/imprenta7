@@ -47,9 +47,9 @@ function suma_fechas($fecha,$ndias)
 			$sql.=" from sucursales ";
 			$sql.=" where cod_estado_registro=1 ";
 			$sql.=" order by  cod_sucursal asc";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
-			while($dat=mysql_fetch_array($resp)){	
+			while($dat=mysqli_fetch_array($resp)){	
 															 		
 				$cod_sucursal=$dat['cod_sucursal'];	
 				$nombre_sucursal=$dat['nombre_sucursal'];
@@ -61,8 +61,8 @@ function suma_fechas($fecha,$ndias)
 				$sql2=" select cod_almacen, nombre_almacen ";
 					$sql2.=" from almacenes";
 					$sql2.=" where cod_sucursal=".$cod_sucursal;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){	
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){	
 						
 						$cod_almacen=$dat2['cod_almacen'];
 						$nombre_almacen=$dat2['nombre_almacen'];	

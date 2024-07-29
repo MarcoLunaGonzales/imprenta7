@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_cargo=$vector_datos[$i];
 		$sql=" delete from cargos where cod_cargo='".$cod_cargo."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

@@ -26,11 +26,6 @@ $cod_usuario=$_COOKIE['usuario_global'];
 $cantidad_material=$_POST['cantidad_material'];
 
 
-/*$sqlNroComp="select max(c.`nro_cbte`)+1 from `comprobante` c where 
-		c.`cod_gestion`='$cod_gestion' and c.`cod_tipo_cbte`='$cod_tipo_cbte'";
-$respNroComp=mysql_query($sqlNroComp);
-$nro_cbte=mysql_result($respNroComp,0,0);*/
-
 	$sql="select max(nro_cbte) from comprobante where cod_gestion='".$cod_gestion."' and cod_tipo_cbte='".$_POST['cod_tipo_cbte']."'";
 	$nro_cbte=obtenerCodigo($sql);
 
@@ -41,14 +36,14 @@ $sql="INSERT INTO  `comprobante` (`cod_cbte`, `cod_empresa`, `cod_gestion`, `cod
 
 //echo $sql;
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 //sacamos el tipo de cambio ya sean dolares o bolivianos
 $sql3="select cambio_bs from tipo_cambio";
 $sql3.=" where fecha_tipo_cambio='$fecha_formato_cbte' and cod_moneda=2";
-$resp3 = mysql_query($sql3);
+$resp3 = mysqli_query($enlaceCon,$sql3);
 $cambio_bs=0;
-while($dat3=mysql_fetch_array($resp3)){
+while($dat3=mysqli_fetch_array($resp3)){
 	$cambio_bs=$dat3['cambio_bs'];
 }
 
@@ -91,11 +86,11 @@ if($_POST["cod_cuenta".$i]){
 	
 	//echo "<br>.$sqlInsertDetalle";
 	
-	$respInsertDetalle=mysql_query($sqlInsertDetalle);
+	$respInsertDetalle=mysqli_query($enlaceCon,$sqlInsertDetalle);
 	}
 }
 $sql=" update pago_proveedor set cod_cbte=".$cod_cbte." where cod_pago_prov=".$_POST['cod_pago_prov'];
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

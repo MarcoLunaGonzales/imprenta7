@@ -18,9 +18,9 @@ $cod_grupo=$_GET['cod_grupo'];
 				<?php
 					$sql2=" select cod_grupo_carac, nombre_grupo_carac from grupos_caracteristicas ";
 					$sql2.=" where cod_estado_registro=1  and cod_grupo=".$cod_grupo." order by orden asc";
-					$resp2=mysql_query($sql2);
+					$resp2=mysqli_query($enlaceCon,$sql2);
 					$sw=0;
-					while($dat2=mysql_fetch_array($resp2))
+					while($dat2=mysqli_fetch_array($resp2))
 					{				
 							$cod_grupo_carac=$dat2[0];	
 			  		 		$nombre_grupo_carac=$dat2[1];	

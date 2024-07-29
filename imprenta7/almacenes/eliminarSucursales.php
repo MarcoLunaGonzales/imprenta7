@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_sucursal=$vector_datos[$i];
 		$sql=" delete from sucursales where cod_sucursal='".$cod_sucursal."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

@@ -28,8 +28,8 @@ $sql_aux=" select count(*)";
 			$sql_aux.=" and m.desc_completa_material like '%".$desccompletamaterialB."%'";
 		}			
 	
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -76,7 +76,7 @@ $sql_aux=" select count(*)";
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";
 
 		
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="98%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -92,7 +92,7 @@ $sql_aux=" select count(*)";
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_grupo=$dat['cod_grupo']; 
 				$nombre_grupo=$dat['nombre_grupo'];
@@ -121,8 +121,8 @@ $sql_aux=" select count(*)";
 					$sql3.=" and gc.cod_grupo_carac=mgc.cod_grupo_carac ";
 					$sql3.=" order by gc.orden asc ";
 	
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_material_grupo_caracteristica=$dat3[0];
 						$nombre_grupo_carac=$dat3[1];
 						$orden=$dat3[2];
@@ -133,8 +133,8 @@ $sql_aux=" select count(*)";
 				//**************************************************************
 				$nombre_unidad_medida="";
 				$sql2="select nombre_unidad_medida from unidades_medidas where cod_unidad_medida='".$cod_unidad_medida."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_unidad_medida=$dat2[0];
 				}					
 				//**************************************************************								
@@ -142,8 +142,8 @@ $sql_aux=" select count(*)";
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -189,8 +189,8 @@ $sql_aux=" select count(*)";
 					$sqlCosto.=" and i.cod_almacen=".$_GET['cod_almacen_global'];
 					$sqlCosto.=" and i.cod_estado_ingreso=1";
 					$sqlCosto.=" order by i.fecha_ingreso desc";
-					$respCosto=mysql_query($sqlCosto);
-						while($datCosto=mysql_fetch_array($respCosto)){
+					$respCosto=mysqli_query($enlaceCon,$sqlCosto);
+						while($datCosto=mysqli_fetch_array($respCosto)){
 							$precio_compra_uni=$datCosto['precio_compra_uni'];
 							$cant_actual=$datCosto['cant_actual'];
 							$cod_ingreso=$datCosto['cod_ingreso'];
@@ -198,8 +198,8 @@ $sql_aux=" select count(*)";
 							$nro_ingreso=$datCosto['nro_ingreso'];
 							$cod_gestion=$datCosto['cod_gestion'];
 							$sqlAux="select gestion from gestiones where cod_gestion=".$cod_gestion;
-							$respAux=mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux=mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$gestion=$datAux['gestion'];
 							}
 			?>

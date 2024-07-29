@@ -64,9 +64,9 @@ class PDF extends FPDF
 	$sql.=" where cu.cod_moneda =mo.cod_moneda ";
 	$sql.=" order by nro_cuenta asc";
 
-	$resp = mysql_query($sql);	
+	$resp = mysqli_query($enlaceCon,$sql);	
 	$nro=0;	
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_cuenta=$dat['cod_cuenta'];
 			 $nro_cuenta=$dat['nro_cuenta'];
@@ -79,8 +79,8 @@ class PDF extends FPDF
 			 	$sql2=" select count(*) ";
 				$sql2.=" from cuentas ";
 				$sql2.=" where cod_cuenta_padre = ".$cod_cuenta;
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nroHijos=$dat2[0];
 				}
 	

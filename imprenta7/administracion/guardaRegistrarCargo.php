@@ -18,7 +18,7 @@ $sql.=" cod_cargo='".$cod_cargo."',";
 $sql.=" desc_cargo='".$desc_cargo."',"; 
 $sql.=" obs_cargo='".$obs_cargo."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

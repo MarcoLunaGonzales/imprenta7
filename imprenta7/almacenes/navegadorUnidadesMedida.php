@@ -124,8 +124,8 @@ function eliminar(f)
 	if($nombreUnidadMedidaB<>""){
 		$sql_aux.=" where nombre_unidad_medida like '%".$nombreUnidadMedidaB."%'";
 	}
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -151,7 +151,7 @@ function eliminar(f)
 		}		
 		$sql.=" order by nombre_unidad_medida asc	";	
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -166,7 +166,7 @@ function eliminar(f)
      <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_unidad_medida=$dat[0];
 				$nombre_unidad_medida=$dat[1];
@@ -181,8 +181,8 @@ function eliminar(f)
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	

@@ -40,8 +40,8 @@ include("funciones.php");
 		if($_GET['usuarioB']<>""){
 		$sql.="where CONCAT(ap_paterno_usuario,' ',ap_materno_usuario,' ',nombres_pila,' ',nombres_usuario,' ',nombres_usuario2) like '%".$_GET['usuarioB']."%'";
 		}
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}
 		if($nro_filas_sql==0){
@@ -90,7 +90,7 @@ include("funciones.php");
 		}		
 		$sql.=" order by ap_paterno_usuario asc, ap_materno_usuario asc, nombres_pila asc,nombres_usuario asc ";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 <h3 align="center" style="background:#FFF;font-size: 10px;color: #000;font-weight:bold;">Total Registro:<?php echo $nro_filas_sql;?></h3>
@@ -134,7 +134,7 @@ include("funciones.php");
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_usuario=$dat['cod_usuario'];
 			$cod_area=$dat['cod_area'];
@@ -164,42 +164,42 @@ include("funciones.php");
 			//**************************************************************
 				$desc_ciudad="";				
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";	
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2['desc_ciudad'];
 				}	
 				$nombre_area="";				
 				$sql2="select nombre_area from areas where cod_area='".$cod_area."'";	
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_area=$dat2['nombre_area'];
 				}	
 				$desc_cargo="";				
 				$sql2="select desc_cargo from cargos where cod_cargo='".$cod_cargo."'";	
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_cargo=$dat2['desc_cargo'];
 				}	
 				$desc_grado="";				
 				$sql2="select desc_grado from grado_academico where cod_grado='".$cod_grado."'";	
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_grado=$dat2['desc_grado'];
 				}	
 				
 			$nombre_estado_registro="";				
 			$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_estado_registro=$dat2['nombre_estado_registro'];
 			}	
 			//******************************Perfil*******************************
 					$nombre_perfil="";				
 					$sql2=" select nombre_perfil from perfiles";
 					$sql2.=" where cod_perfil='".$cod_perfil."'";	
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$nombre_perfil="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_perfil=$dat2['nombre_perfil'];
 					}
 			//*******************************Fin Perfil*******************************																	
@@ -207,8 +207,8 @@ include("funciones.php");
 			$autorizadoFirmaCotizacion="";				
 			$sql2="select count(*) from autorizados_firma_cotizacion";
 			$sql2.=" where cod_usuario='".$cod_usuario."'";	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$var=$dat2[0];
 			}	
 			if($var>0){
@@ -237,8 +237,8 @@ include("funciones.php");
 				$sql2.=" from usuarios_modulos um, modulos m ";
 				$sql2.=" where um.cod_usuario=".$cod_usuario;
 				$sql2.=" and um.cod_modulo=m.cod_modulo";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_modulo=$dat2['cod_modulo'];
 					$nombre_modulo=$dat2['nombre_modulo'];
 			?>

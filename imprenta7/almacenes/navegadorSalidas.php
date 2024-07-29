@@ -92,9 +92,9 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 	
 	$cod_almacenP=$_COOKIE['cod_almacen_global'];
 	$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacenP."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_almacen="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_almacen=$dat2[0];
 	}		
 
@@ -112,8 +112,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
               <?php
 					$sql2=" select cod_almacen, nombre_almacen from almacenes where cod_almacen<>'".$cod_almacenP."'";
 					$sql2.=" order by  nombre_almacen asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_almacen=$dat2[0];	
 			  		 		$nombre_almacen=$dat2[1];	
@@ -135,8 +135,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
               <?php
 					$sql2=" select cod_tipo_salida, nombre_tipo_salida from tipos_salida ";
 					$sql2.=" order by  nombre_tipo_salida asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_salida=$dat2[0];	
 			  		 		$nombre_tipo_salida=$dat2[1];	
@@ -181,8 +181,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 	
 	$sql_aux=" select count(*) from salidas  where cod_almacen=".$cod_almacenP;
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -228,7 +228,7 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 		$sql.=" order by g.gestion desc , s.nro_salida desc ";
 		//echo $sql;
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="95%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -247,7 +247,7 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 				$cod_salida=$dat[0];
 				$cod_tipo_salida=$dat[1];
@@ -276,11 +276,11 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 				
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 				$sql2.=" where cod_usuario='".$cod_usuario_salida."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombres_usuario="";
 				$ap_paterno_usuario="";
 				$ap_materno_usuario="";		
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$nombres_usuario=$dat2[0];
 					$ap_paterno_usuario=$dat2[1];
 					$ap_materno_usuario=$dat2[2];		
@@ -289,23 +289,23 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 				//******************************TIPO DE salida********************************
 				$nombre_tipo_salida="";
 				$sql2="select nombre_tipo_salida from tipos_salida where cod_tipo_salida='".$cod_tipo_salida."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_salida=$dat2[0];
 				}
 				
 				$nombre_almacen_traspaso="";
 				$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen_traspaso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen_traspaso=$dat2[0];
 				}
 				if($cod_tipo_salida==3){
 						$nombre_almacen_traspaso="";
 						$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen_traspaso."'";
 						//echo $sql2;
-						$resp2= mysql_query($sql2);			
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);			
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_almacen_traspaso=$dat2[0];
 						}
 				}
@@ -318,14 +318,14 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 					$sql2.=" and hr.cod_gestion=g.cod_gestion ";
 					$sql2.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql2.=" and c.cod_cliente=cli.cod_cliente ";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$nro_hoja_ruta_salida="";
 					$cod_gestion_salida="";
 					$gestion_salida="";
 					$cod_cotizacion_salida="";
 					$cod_cliente_salida="";
 					$nombre_cliente_salida="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 					
 						$nro_hoja_ruta_salida=$dat2[0];
 						$cod_gestion_salida=$dat2[1];
@@ -340,8 +340,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 				$desc_estado_salida="";
 				$sql2="select desc_estado_salida from estados_salidas_almacen where cod_estado_salida='".$cod_estado_salida."'";
 				//echo $sql2;
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_salida=$dat2[0];
 				}
 				$swValFecha=0;
@@ -354,8 +354,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 						$swValIngreso=0;
 						
 						$sql8="select cod_estado_ingreso from ingresos where cod_salida=".$cod_salida;
-						$resp8= mysql_query($sql8);			
-						while($dat8=mysql_fetch_array($resp8)){
+						$resp8= mysqli_query($enlaceCon,$sql8);			
+						while($dat8=mysqli_fetch_array($resp8)){
 							$cod_estado_ingreso=$dat8[0];
 						}						
 						if($cod_estado_ingreso==2){
@@ -396,8 +396,8 @@ function editar(cod_salida,nro_salida,cod_estado_salida,swValFecha,swValIngreso)
 					$sql9.=" where ot.cod_cliente=c.cod_cliente ";
 					$sql9.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
 
-					$resp9=mysql_query($sql9);
-						while($dat9=mysql_fetch_array($resp9))
+					$resp9=mysqli_query($enlaceCon,$sql9);
+						while($dat9=mysqli_fetch_array($resp9))
 						{
 							$cod_orden_trabajo=$dat9['cod_orden_trabajo'];
 							$numero_orden_trabajo=$dat9['numero_orden_trabajo'];	

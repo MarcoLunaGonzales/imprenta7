@@ -160,8 +160,8 @@ function anularNotaRemision(cod_nota_remision)
 		}	
 
 		}
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -225,7 +225,7 @@ function anularNotaRemision(cod_nota_remision)
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 		$sql.=" limit 50";
 		//	echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">   
@@ -246,7 +246,7 @@ function anularNotaRemision(cod_nota_remision)
 		</thead>
 		<tbody>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			
 			$cod_nota_remision=$dat['cod_nota_remision'];
 			$cod_gestion=$dat['cod_gestion'];
@@ -268,8 +268,8 @@ function anularNotaRemision(cod_nota_remision)
 					$usuarioEntregadoPor="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_entregado_por."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){	
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){	
 							$nombres_usuario=$dat2['nombres_usuario'];	
 							$ap_paterno_usuario=$dat2['ap_paterno_usuario'];	
 							$ap_materno_usuario=$dat2['ap_materno_usuario'];				
@@ -281,8 +281,8 @@ function anularNotaRemision(cod_nota_remision)
 					$sql2.=" from hojas_rutas hr, gestiones g ";
 					$sql2.=" where hr.cod_hoja_ruta=".$cod_hoja_ruta;
 					$sql2.=" and hr.cod_gestion=g.cod_gestion ";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){	
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){	
 							$hoja_ruta=$dat2['nro_hoja_ruta']."/".$dat2['gestion'];	
 							$cod_cotizacion=$dat2['cod_cotizacion'];	
 							$cod_usuario_comision=$dat2['cod_usuario_comision'];
@@ -290,8 +290,8 @@ function anularNotaRemision(cod_nota_remision)
 												$nombre_usuario_comision="";				
 					$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_comision."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_usuario_comision=$dat2['nombres_usuario']." ".$dat2['ap_paterno_usuario']." ".$dat2['ap_materno_usuario'];
 					}
 			//*******************************FIN HOJA DE RUTA*******************************
@@ -303,8 +303,8 @@ function anularNotaRemision(cod_nota_remision)
 					$sql2.=" and c.cod_gestion=g.cod_gestion";
 					$sql2.=" and c.cod_cliente=cli.cod_cliente";
 	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){	
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){	
 							$cotizacion=$dat2['nro_cotizacion']."/".$dat2['gestion'];	
 							$nombre_cliente=$dat2['nombre_cliente'];	
 							$direccion_cliente=$dat2['direccion_cliente'];	
@@ -319,8 +319,8 @@ function anularNotaRemision(cod_nota_remision)
 					  $sql5.=" email_contacto, cargo_contacto ";
 					  $sql5.="  from clientes_contactos ";
 					  $sql5.=" where cod_contacto=".$cod_contacto;
-					  $resp5= mysql_query($sql5);
-					  while($dat5=mysql_fetch_array($resp5)){
+					  $resp5= mysqli_query($enlaceCon,$sql5);
+					  while($dat5=mysqli_fetch_array($resp5)){
 							$contacto=$dat5['nombre_contacto']." ".$dat5['ap_paterno_contacto']." ".$dat5['ap_materno_contacto'];
 							$telefono_contacto=$dat5['telefono_contacto'];
 							$celular_contacto=$dat5['celular_contacto'];
@@ -332,8 +332,8 @@ function anularNotaRemision(cod_nota_remision)
 					if($cod_unidad<>"" and $cod_unidad<>0 and $cod_unidad<>NULL){
 					  $sql2="  select nombre_unidad,direccion_unidad, telf_unidad  from clientes_unidades ";
 					  $sql2.=" where cod_unidad=".$cod_unidad;
-					  $resp2= mysql_query($sql2);
-					  while($dat2=mysql_fetch_array($resp2)){
+					  $resp2= mysqli_query($enlaceCon,$sql2);
+					  while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_unidad=$dat2['nombre_unidad'];
 							$direccion_unidad=$dat2['direccion_unidad'];
 							$telf_unidad=$dat2['telf_unidad'];
@@ -345,8 +345,8 @@ function anularNotaRemision(cod_nota_remision)
 					if($cod_usuario_registro<>0 and $cod_usuario_registro=="")	{					
 						$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 						$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-						$resp2= mysql_query($sql2);
-						$dat2=mysql_fetch_array($resp2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombres_usuario_reg=$dat2[0];
 						$ap_paterno_usuario_reg=$dat2[1];
 						$ap_materno_usuario_reg=$dat2[2];
@@ -359,8 +359,8 @@ function anularNotaRemision(cod_nota_remision)
 					if($cod_usuario_modifica<>0 and $cod_usuario_modifica=="")	{		
 						$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 						$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-						$resp2= mysql_query($sql2);
-						$dat2=mysql_fetch_array($resp2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombres_usuario_mod=$dat2[0];
 						$ap_paterno_usuario_mod=$dat2[1];
 						$ap_materno_usuario_mod=$dat2[2];
@@ -373,8 +373,8 @@ function anularNotaRemision(cod_nota_remision)
 				$sql2=" select nombre_estado_nota_remision from estados_notas_remision ";
 				$sql2.=" where cod_estado_nota_remision=".$cod_estado_nota_remision;
 					
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 				$nombre_estado_nota_remision=$dat2[0];						
 			//**************************************************************												
 			

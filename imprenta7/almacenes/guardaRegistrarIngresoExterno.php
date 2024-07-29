@@ -48,13 +48,13 @@ $sql.=" total_bs='".$_POST['total_bs']."',";
 $sql.=" dias_plazo_pago='".$_POST['dias_plazo_pago']."',";
 $sql.=" cod_tipo_pago='".$_POST['cod_tipo_pago']."',";
 $sql.=" cod_estado_pago_doc='1'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 $sql5="select cod_ingreso from ingresos where cod_ingreso=".$cod_ingreso."";
-$resp=mysql_query($sql5);
+$resp=mysqli_query($enlaceCon,$sql5);
 
-while($dat=mysql_fetch_array($resp)){
+while($dat=mysqli_fetch_array($resp)){
 	$cod_ingreso=$dat[0];
 }	
 
@@ -84,13 +84,13 @@ if($cod_ingreso<>""){
 			$sql3.=" cantidad='".$cantidad."',";	
 			$sql3.=" cant_actual='".$cantidad."'";				
 
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 			
 			$sql3=" update materiales set";
 			$sql3.=" precio_venta=".$precioVenta;
 			$sql3.=" where cod_material=".$cod_material;	
 			
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 		}
 	}
 	///CREACION DE CUENTA////

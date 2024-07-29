@@ -23,16 +23,16 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 	$sql2=" select nombre_cliente";
 	$sql2.=" from clientes ";
 	$sql2.=" where cod_cliente=".$codcliente;
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2['nombre_cliente'];
 	}
 	
 	$sql2=" select count(*)";
 	$sql2.=" from clientes_unidades";
 	$sql2.=" where cod_cliente=".$codcliente;
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nro_filas=$dat2[0];
 	}
 		
@@ -72,8 +72,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 	$sql2.=" from clientes_unidades";
 	$sql2.=" where cod_cliente=".$codcliente;
 	$sql2.=" order by nombre_unidad";
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$cod_unidad=$dat2['cod_unidad'];
 		$nombre_unidad=$dat2['nombre_unidad'];
 		$telf_unidad=$dat2['telf_unidad'];
@@ -85,8 +85,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 			$sql3=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 			$sql3.=" from usuarios ";
 			$sql3.=" where cod_usuario=".$cod_usuario_registro;
-			$resp3=mysql_query($sql3);
-			while($dat3=mysql_fetch_array($resp3)){
+			$resp3=mysqli_query($enlaceCon,$sql3);
+			while($dat3=mysqli_fetch_array($resp3)){
 				$usuario_registro=$dat3['nombres_usuario'][0].$dat3['ap_paterno_usuario'][0].$dat3['ap_materno_usuario'][0];
 			}
 			if($fecha_registro<>""){
@@ -102,8 +102,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 			$sql3=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 			$sql3.=" from usuarios ";
 			$sql3.=" where cod_usuario=".$cod_usuario_modifica;
-			$resp3=mysql_query($sql3);
-			while($dat3=mysql_fetch_array($resp3)){
+			$resp3=mysqli_query($enlaceCon,$sql3);
+			while($dat3=mysqli_fetch_array($resp3)){
 				$usuario_modifica=$dat3['nombres_usuario'][0].$dat3['ap_paterno_usuario'][0].$dat3['ap_materno_usuario'][0];
 			}
 			if($fecha_modifica<>""){

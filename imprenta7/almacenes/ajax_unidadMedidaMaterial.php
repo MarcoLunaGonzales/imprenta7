@@ -7,8 +7,8 @@ include("funciones.php");
 		$nombre_unidad_medida="";
 		$sql=" select  abrev_unidad_medida from unidades_medidas  ";
 		$sql.=" where cod_unidad_medida in(select cod_unidad_medida from materiales where cod_material=".$cod_material.")";	
-		$resp= mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp= mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 				$abrev_unidad_medida=$dat[0]; 
 									
 		}

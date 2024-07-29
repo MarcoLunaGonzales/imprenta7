@@ -191,9 +191,9 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 	include("funciones.php");
 
 	$sql2="select nombre_almacen from almacenes where cod_almacen='".$_COOKIE['cod_almacen_global']."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_almacen="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_almacen=$dat2[0];
 	}	
 	
@@ -280,8 +280,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -361,7 +361,7 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 
 	$sql.=" order by  i.cod_ingreso desc";
 	$sql.=" limit 50";
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$cont=0;
 ?>
 <table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgcolor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -389,7 +389,7 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
  </thead> 
  <tbody>
   <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			$cod_ingreso=$dat['cod_ingreso'];
 			$cod_gestion=$dat['cod_gestion'];
@@ -431,8 +431,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 			if($cod_usuario_modifica!="" || $cod_usuario_modifica!=NULL){
 				$datosEdicion=strftime("%d/%m/%Y",strtotime($fecha_modifica));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosEdicion=$datosEdicion." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -449,8 +449,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
             		$sql2="select u.nombres_usuario, u.ap_paterno_usuario, u.ap_materno_usuario ";
 					$sql2.=" from usuarios u ";
 					$sql2.=" where u.cod_usuario=".$cod_usuario_ingreso;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$ap_paterno_usuario=$dat2['ap_paterno_usuario'];
 						$ap_materno_usuario=$dat2['ap_materno_usuario'];
@@ -480,9 +480,9 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 		$sql2.=" inner join  pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov and pp.cod_estado_pago_prov<>2) ";
 		$sql2.=" and ppd.codigo_doc=".$cod_ingreso;
 		$sql2.=" and ppd.cod_tipo_doc=4 ";
-		$resp2 = mysql_query($sql2);
+		$resp2 = mysqli_query($enlaceCon,$sql2);
 		$acuenta_pago_prov=0;
-		while($dat2=mysql_fetch_array($resp2)){					
+		while($dat2=mysqli_fetch_array($resp2)){					
 			$num_pago_prov=$dat2[0];
 			if($num_pago_prov>0){
 				$acuenta_pago_prov=$dat2[1];									
@@ -510,9 +510,9 @@ $sql3.=" from (select sdi.* from salidas s inner join salidas_detalle_ingresos s
 				$sql3.=" from ingresos_detalle ";
 				$sql3.=" where cod_ingreso='".$cod_ingreso."'";
 				$sql3.=" )";
-				$resp3= mysql_query($sql3);	
+				$resp3= mysqli_query($enlaceCon,$sql3);	
 				$numSalidas=0;		
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numSalidas=$dat3[0];
 				}				
 				$swValIngreso=0;
@@ -571,8 +571,8 @@ $sql3.=" from (select sdi.* from salidas s inner join salidas_detalle_ingresos s
 <option value="0">Elija un Opci&oacute;n</option>
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	
@@ -589,8 +589,8 @@ $sql3.=" from (select sdi.* from salidas s inner join salidas_detalle_ingresos s
 					$sql2=" select cod_estado_pago_doc, desc_estado_pago_doc";
 					$sql2.=" from   estado_pago_documento ";
 					$sql2.=" order by cod_estado_pago_doc asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_pago_doc=$dat2['cod_estado_pago_doc'];	
 			  		 		$desc_estado_pago_doc=$dat2['desc_estado_pago_doc'];	
@@ -607,8 +607,8 @@ $sql3.=" from (select sdi.* from salidas s inner join salidas_detalle_ingresos s
 <option value="0">Elija un Opci&oacute;n</option>
 				<?php
 					$sql4="select cod_tipo_ingreso,nombre_tipo_ingreso from tipos_ingreso";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_ingreso=$dat4['cod_tipo_ingreso'];	
 			  		 		$nombre_tipo_ingreso=$dat4['nombre_tipo_ingreso'];	
@@ -623,8 +623,8 @@ $sql3.=" from (select sdi.* from salidas s inner join salidas_detalle_ingresos s
 <option value="0">Elija un Opci&oacute;n</option>
 				<?php
 					$sql4="select cod_estado_ingreso, desc_estado_ingreso from estados_ingresos_almacen";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_estado_ingreso=$dat4['cod_estado_ingreso'];	
 			  		 		$desc_estado_ingreso=$dat4['desc_estado_ingreso'];	

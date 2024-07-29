@@ -36,8 +36,8 @@
 		$sql.=" usuario_interno, cod_perfil";
 		$sql.=" from usuarios";
 		$sql.=" where  cod_usuario=".$_GET['cod_usuario'];
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){		
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){		
 			$codarea=$dat['cod_area'];
 			$codcargo=$dat['cod_cargo'];
 			$codgrado=$dat['cod_grado'];
@@ -64,8 +64,8 @@
 		$autorizado_firma_cotizacion="";				
 		$sql2="select count(*) from autorizados_firma_cotizacion";
 		$sql2.=" where cod_usuario='".$cod_usuario."'";	
-		$resp2= mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 				$var=$dat2[0];
 		}	
 		if($var>0){
@@ -115,8 +115,8 @@
 			<select name="cod_ciudad" id="cod_ciudad"  class="textoform">				
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades  where cod_pais=1 order by desc_ciudad";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2['cod_ciudad'];	
 			  		 		$desc_ciudad=$dat2['desc_ciudad'];	
@@ -138,8 +138,8 @@
 			<select name="cod_area" id="cod_area" class="textoform">				
 				<?php
 					$sql2="select cod_area, nombre_area from areas  order by nombre_area";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_area=$dat2['cod_area'];	
 			  		 		$nombre_area=$dat2['nombre_area'];	
@@ -156,8 +156,8 @@
 			<select name="cod_cargo" id="cod_cargo" class="textoform">				
 				<?php
 					$sql2="select cod_cargo, desc_cargo from cargos order by desc_cargo ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cargo=$dat2[0];	
 			  		 		$desc_cargo=$dat2[1];	
@@ -174,8 +174,8 @@
 			<select name="cod_grado" id="cod_grado" class="textoform">				
 				<?php
 					$sql2="select cod_grado, desc_grado from grado_academico ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_grado=$dat2[0];	
 			  		 		$desc_grado=$dat2[1];	
@@ -193,8 +193,8 @@
 			<select name="cod_perfil" id="cod_perfil" class="textoform">			
 				<?php
 					$sql2="select cod_perfil, nombre_perfil from perfiles ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_perfil=$dat2[0];	
 			  		 		$nombre_perfil=$dat2[1];	
@@ -234,8 +234,8 @@
 			<select name="cod_estado_registro" id="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2['cod_estado_registro'];	
 			  		 		$nombre_estado_registro=$dat2['nombre_estado_registro'];	
@@ -254,15 +254,15 @@
 					$sql="select cod_modulo, nombre_modulo";
 					$sql.=" from modulos  ";
 					$sql.=" order by nombre_modulo asc ";
-					$resp = mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){						
+					$resp = mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){						
 						$cod_modulo=$dat['cod_modulo'];
 						$nombre_modulo=$dat['nombre_modulo'];
 						
 					   $swModulo=0;
 			$sql2="select count(*) from usuarios_modulos where cod_modulo=".$cod_modulo." and cod_usuario=".$_GET['cod_usuario'];
-					  $resp2 = mysql_query($sql2);
- 					 while($dat2=mysql_fetch_array($resp2)){
+					  $resp2 = mysqli_query($enlaceCon,$sql2);
+ 					 while($dat2=mysqli_fetch_array($resp2)){
 						  $swModulo=$dat2[0];
 					 }
 						

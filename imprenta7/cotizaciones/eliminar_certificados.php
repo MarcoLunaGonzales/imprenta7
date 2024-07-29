@@ -8,9 +8,9 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_cert_prod=$vector_datos[$i];
 		$sql=" delete from certificados_producto where cod_cert_prod='".$cod_cert_prod."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 		$sql=" delete from fichas_certificados_producto where cod_cert_prod='".$cod_cert_prod."'";
-		mysql_query($sql);	
+		mysqli_query($enlaceCon,$sql);	
 	}	
 	
 require("cerrar_conexion.inc");

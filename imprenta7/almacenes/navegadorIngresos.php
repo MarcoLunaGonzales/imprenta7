@@ -118,9 +118,9 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 	
 	$cod_almacenP=$_COOKIE['cod_almacen_global'];
 	$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacenP."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_almacen="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_almacen=$dat2[0];
 	}		
 
@@ -135,8 +135,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				<option value="0">Seleccione una opcion</option>	
               <?php
 					$sql2="select cod_proveedor, nombre_proveedor from proveedores order by  nombre_proveedor asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_proveedor=$dat2[0];	
 			  		 		$nombre_proveedor=$dat2[1];	
@@ -159,8 +159,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
               <?php
 					$sql2=" select cod_almacen, nombre_almacen from almacenes where cod_almacen<>'".$cod_almacenP."'";
 					$sql2.=" order by  nombre_almacen asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_almacen=$dat2[0];	
 			  		 		$nombre_almacen=$dat2[1];	
@@ -182,8 +182,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
               <?php
 					$sql2=" select cod_tipo_ingreso, nombre_tipo_ingreso from tipos_ingreso ";
 					$sql2.=" order by  nombre_tipo_ingreso asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_ingreso=$dat2[0];	
 			  		 		$nombre_tipo_ingreso=$dat2[1];	
@@ -236,8 +236,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 	
 	$sql_aux=" select count(*) from ingresos  where cod_almacen=".$cod_almacenP;
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -283,7 +283,7 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 		$sql.=" and i.cod_almacen='".$cod_almacenP."'";
 		$sql.=" order by g.gestion desc , i.nro_ingreso desc";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -304,7 +304,7 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_ingreso=$dat[0];
 				$cod_gestion=$dat[1];
@@ -330,19 +330,19 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				//**************************************************************
 				$nombre_proveedor="";
 				$sql2="select nombre_proveedor from proveedores where cod_proveedor='".$cod_proveedor."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_proveedor=$dat2[0];
 				}					
 
 				
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 				$sql2.=" where cod_usuario='".$cod_usuario_ingreso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombres_usuario="";
 				$ap_paterno_usuario="";
 				$ap_materno_usuario="";		
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$nombres_usuario=$dat2[0];
 					$ap_paterno_usuario=$dat2[1];
 					$ap_materno_usuario=$dat2[2];		
@@ -351,8 +351,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				//******************************TIPO DE INGRESO********************************
 				$nombre_tipo_ingreso="";
 				$sql2="select nombre_tipo_ingreso from tipos_ingreso where cod_tipo_ingreso='".$cod_tipo_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_ingreso=$dat2[0];
 				}
 
@@ -361,8 +361,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				//******************************AlMACEN INGRESO********************************
 				
 					$sql2="select nombre_almacen from almacenes where cod_almacen_ingreso=".$cod_almacen_ingreso."";
-					$resp2= mysql_query($sql2);			
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);			
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_almacen_ingreso=$dat2[0];
 					}
 				}
@@ -371,8 +371,8 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				$desc_estado_ingreso="";
 				$sql2=" select desc_estado_ingreso from estados_ingresos_almacen ";
 				$sql2.=" where cod_estado_ingreso='".$cod_estado_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_ingreso=$dat2[0];
 				}
 				
@@ -407,9 +407,9 @@ function editar(cod_ingreso,nro_ingreso, swValFecha,swValIngreso,cod_estado_ingr
 				$sql3.=" from ingresos_detalle ";
 				$sql3.=" where cod_ingreso='".$cod_ingreso."'";
 				$sql3.=" )";
-				$resp3= mysql_query($sql3);	
+				$resp3= mysqli_query($enlaceCon,$sql3);	
 				$numSalidas=0;		
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numSalidas=$dat3[0];
 				}
 				

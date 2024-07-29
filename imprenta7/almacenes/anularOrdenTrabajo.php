@@ -57,8 +57,8 @@
 	$sql.=" and ot.cod_est_ot=eo.cod_est_ot ";
 	$sql.=" and ot.cod_cliente=cli.cod_cliente ";
 	$sql.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
-    $resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+    $resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		$cod_gestion=$dat['cod_gestion'];
@@ -81,15 +81,15 @@
 		
 		$nombre_tipo_pago="";
 		$sql2="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-		$resp2= mysql_query($sql2);	
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);	
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago=$dat2['nombre_tipo_pago'];
 		}
 		
 		$desc_estado_pago_doc="";
 		$sql2="select desc_estado_pago_doc from estado_pago_documento where cod_estado_pago_doc=".$cod_estado_pago_doc;
-		$resp2= mysql_query($sql2);	
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);	
+		while($dat2=mysqli_fetch_array($resp2)){
 			$desc_estado_pago_doc=$dat2['desc_estado_pago_doc'];
 		}
 		

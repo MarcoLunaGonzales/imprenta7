@@ -85,8 +85,8 @@ function buscar(f){
 				<option value="0">Todos los Clientes</option>
 				<?php
 				$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -159,8 +159,8 @@ function buscar(f){
 		}
 	}	
 	
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -224,7 +224,7 @@ function buscar(f){
 	}			
 		$sql.=" order by cod_nota_remision desc	";	
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -254,7 +254,7 @@ function buscar(f){
 			<td>Estado</td>		
 		</tr>
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_nota_remision=$dat[0];
 			$cod_gestion_nota_remision=$dat[1];			
@@ -285,16 +285,16 @@ function buscar(f){
 			//*************************Datos Hoja de Ruta*************************************								
 				$sql2=" select cod_cotizacion, cod_gestion, nro_hoja_ruta from hojas_rutas";
 				$sql2.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";	
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 					$cod_cotizacion=$dat2[0];	 
 					$cod_gestion_hoja_ruta=$dat2[1];	
 					$nro_hoja_ruta=$dat2[2];	
 			//**************************************************************
 				$gestionHojaRuta="";				
 				$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_hoja_ruta."'";	
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 				$gestionHojaRuta=$dat2[0];						
 			//**************************************************************
 													
@@ -304,23 +304,23 @@ function buscar(f){
 			//*************************Datos de Cotizacion*************************************								
 				$sql2=" select cod_gestion, nro_cotizacion, cod_cliente from cotizaciones";
 				$sql2.=" where cod_cotizacion='".$cod_cotizacion."'";	
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 					$cod_gestion_cotizacion=$dat2[0];	 
 					$nro_cotizacion=$dat2[1];	
 					$cod_cliente=$dat2[2];
 			//**************************************************************
 				$gestionCotizacion="";				
 				$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_cotizacion."'";	
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 				$gestionCotizacion=$dat2[0];						
 			//**************************************************************		
 				//*****************************CLIENTE*********************************
 					$nombre_cliente="";				
 					$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 						$nombre_cliente=$dat2[0];
 				//*****************************FIN CLIENTE*********************************												
 			//*************************Fin Datos de Cotizacion*************************************
@@ -328,8 +328,8 @@ function buscar(f){
 			//**************************************************************
 				$gestionNotaRemision="";				
 				$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";	
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 				$gestionNotaRemision=$dat2[0];						
 			//**************************************************************
 			//**************************************************************
@@ -337,24 +337,24 @@ function buscar(f){
 				$sql2=" select nombre_estado_nota_remision from estados_notas_remision ";
 				$sql2.=" where cod_estado_nota_remision=".$cod_estado_nota_remision;
 					
-				$resp2=mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 				$nombre_estado_nota_remision=$dat2[0];						
 			//**************************************************************
 				//******************************USUARIO ENTREGADO POR********************************
 					$usuarioEntregadoPor="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_entregado_por."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioEntregadoPor=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO ENTREGADO POR*******************************				
 				//******************************USUARIO REGISTRO********************************
 					$usuarioRegistro="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					//$usuarioRegistro=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 					$nombres_usuario_reg=$dat2[0];
 					$ap_paterno_usuario_reg=$dat2[1];
@@ -366,8 +366,8 @@ function buscar(f){
 					$usuarioModifica="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					//$usuarioModifica=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 					$nombres_usuario_mod=$dat2[0];
 					$ap_paterno_usuario_mod=$dat2[1];

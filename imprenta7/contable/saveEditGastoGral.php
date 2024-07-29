@@ -23,7 +23,7 @@ include("funciones.php");
 	$sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."'";
 	$sql.=" where cod_gasto_gral='".$_POST['cod_gasto_gral']."'";
 	//echo $sql;
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 	if($_POST['cod_tipo_doc']<>null && $_POST['cod_tipo_doc']<>"" ){
 		$sql2=" select  count(*),sum(ppd.monto_pago_prov_detalle) ";
@@ -31,9 +31,9 @@ include("funciones.php");
 		$sql2.=" inner join  pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov and pp.cod_estado_pago_prov<>2) ";
 		$sql2.=" and ppd.codigo_doc=".$_POST['codigo_doc'];
 		$sql2.=" and ppd.cod_tipo_doc=".$_POST['cod_tipo_doc'];
-		$resp2 = mysql_query($sql2);
+		$resp2 = mysqli_query($enlaceCon,$sql2);
 		$acuenta_pago_prov=0;
-		while($dat2=mysql_fetch_array($resp2)){					
+		while($dat2=mysqli_fetch_array($resp2)){					
 			$num_pago_prov=$dat2[0];
 			if($num_pago_prov>0){
 				$acuenta_pago_prov=$dat2[1];									
@@ -47,20 +47,20 @@ include("funciones.php");
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_gasto_gral='".$_POST['cod_gasto_gral']."'"; 
 
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_pago_prov==0){
 						$sql4=" update gastos_gral set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_gasto_gral='".$_POST['cod_gasto_gral']."'";  	
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 								
 				}else{
 
 						$sql4=" update gastos_gral set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_gasto_gral='".$_POST['cod_gasto_gral']."'";  		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 								
 				}		
 			}

@@ -33,18 +33,18 @@
 	$cod_grupo=$_POST['cod_grupo'];
 	
 	$sql="select nombre_grupo from grupos where cod_grupo=".$cod_grupo;
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$nombre_grupo="";
-	if($dat=mysql_fetch_array($resp)){
+	if($dat=mysqli_fetch_array($resp)){
 		$nombre_grupo=$dat[0];
 	}	
 	
 	$cod_estado_registro=1;
 	
 	$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$nombre_estado_registro="";
-	$dat2=mysql_fetch_array($resp2);
+	$dat2=mysqli_fetch_array($resp2);
 	$nombre_estado_registro=$dat2[0];
 
 ?>

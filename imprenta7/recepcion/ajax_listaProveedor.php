@@ -24,8 +24,8 @@ $codproveedor=$_GET['cod_proveedor'];
 					$sql2="select cod_proveedor, nombre_proveedor";
 	            	$sql2.=" from proveedores ";
     	        	$sql2.=" order by nombre_proveedor asc ";
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cod_proveedor=$dat2['cod_proveedor'];
 						$nombre_proveedor=$dat2['nombre_proveedor'];
 				 ?>

@@ -32,7 +32,7 @@ $sql.=" cod_estado_hoja_ruta=1, ";
 $sql.=" factura_si_no='".$factura_si_no."',";
 $sql.=" cod_usuario_comision='".$cod_usuario_comision."'";
 \echo $sql."<br>";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 $vectorCotizacionDetalle = $_POST['vectorCotizacionDetalle'];
@@ -66,9 +66,9 @@ $n=sizeof($vectorCotizacionDetalle_2);
 
 
 $sql=" delete from hojas_rutas_detalle_maquinaria where cod_hoja_ruta='".$cod_hoja_ruta."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 $sql=" delete from hojas_rutas_detalle where cod_hoja_ruta='".$cod_hoja_ruta."'";
-mysql_query($sql);	
+mysqli_query($enlaceCon,$sql);	
 		
 	for($i=0;$i<$n;$i++){	
 			
@@ -83,7 +83,7 @@ mysql_query($sql);
 		$sql.=" placas='".$vectorPlacas_2[$i]."',";
 		$sql.=" cantidad_cpt='".$vectorCantidad_2[$i]."'";
 		//echo "sql=".$sql."<br>";
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 
 	
 		$vectorMaquinaria_3=explode("|",$vectorMaquinaria_2[$i]);
@@ -97,7 +97,7 @@ mysql_query($sql);
 			$sql.=" cod_cotizaciondetalle='".$vectorCotizacionDetalle_2[$i]."',";
 			$sql.=" cod_maquina='".$vectorMaquinaria_3[$j]."'";
 			//echo "sql=".$sql."<br>";
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 
 	}	

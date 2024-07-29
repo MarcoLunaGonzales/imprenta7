@@ -90,9 +90,9 @@ function datosCliente(f)
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 		
@@ -101,9 +101,9 @@ function datosCliente(f)
 	
 	$cod_est_ot=1;
 	$sql2=" select desc_est_ot from estado_ordentrabajo where cod_est_ot='".$cod_est_ot."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_ot=$dat2['desc_est_ot'];
 	}
 
@@ -141,8 +141,8 @@ function datosCliente(f)
 				<option value="0">Seleccione un Opci&oacute;n</option>
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	

@@ -93,14 +93,14 @@ function cancelar(){
 <?php	
 	$codItem=$_GET['codigo'];
 	$sql_00="select desc_item from items where cod_item=".$codItem;
-	$resp_00 = mysql_query($sql_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql_00);
 	$nombreItem="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreItem=$dat_00[0];
 	}
 	$sql_aux=" select count(*) from componente_items where cod_item=".$codItem;
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -121,7 +121,7 @@ function cancelar(){
 	}else{
 		$sql="select cod_compitem,nombre_componenteitem from componente_items  where cod_item=".$codItem;
 		$sql.=" order by nombre_componenteitem asc";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="50%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -132,7 +132,7 @@ function cancelar(){
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$codCompItem=$dat[0];
 				$nombreCompItem=$dat[1]; 
@@ -146,8 +146,8 @@ function cancelar(){
 			<?php
 			$sql_01="select c.desc_carac,cc.orden from componentes_caracteristica cc,caracteristicas c";
 			$sql_01.=" where cc.cod_carac=c.cod_carac and  cc.cod_compitem=".$codCompItem." order by cc.orden  asc";
-			$resp_01 = mysql_query($sql_01);
-			while($dat_01=mysql_fetch_array($resp_01)){	
+			$resp_01 = mysqli_query($enlaceCon,$sql_01);
+			while($dat_01=mysqli_fetch_array($resp_01)){	
 				$nombreCaracteristica=$dat_01[0];
 				$orden=$dat_01[1];
 			?>

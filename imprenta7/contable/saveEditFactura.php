@@ -20,7 +20,7 @@ $sql.=" monto_factura='".$_POST['monto_factura']."',";
 $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_factura='".$_POST['cod_factura']."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 
 require("cerrar_conexion.inc");

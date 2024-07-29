@@ -21,14 +21,14 @@ $sql.=" cod_estado_registro=1,";
 $sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_registro='".date('Y-m-d H:i:s', time())."'";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 if($_POST['cod_cliente']!=NULL){
 
 	$sql=" update clientes set ";
 	$sql.=" cod_cuenta=".$cod_cuenta;
 	$sql.=" where cod_cliente=".$_POST['cod_cliente'];
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 }
 if($_POST['cod_proveedor']!=NULL){
@@ -36,7 +36,7 @@ if($_POST['cod_proveedor']!=NULL){
 	$sql=" update proveedores set ";
 	$sql.=" cod_cuenta=".$cod_cuenta;
 	$sql.=" where cod_proveedor=".$_POST['cod_proveedor'];
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 }
 
 

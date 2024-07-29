@@ -5,8 +5,8 @@ include("funciones.php");
 $cod_hoja_ruta = $_POST['cod_hoja_ruta'];
 
 $sql="select cod_cotizacion from hojas_rutas where cod_hoja_ruta='".$cod_hoja_ruta."'";
-$resp= mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp= mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$cod_cotizacion=$dat[0];
 }
 
@@ -32,10 +32,10 @@ $sql.=" cod_usuario_diseno=0,";
 $sql.=" obs_trabajo=''";
 $sql.=" where cod_cotizacion='".$cod_cotizacion."'";
 echo "sql=".$sql."<br>";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 $sql=" delete from cotizaciones_detalle_maquinaria where cod_cotizacion='".$cod_cotizacion."'";
-mysql_query($sql);		
+mysqli_query($enlaceCon,$sql);		
 		
 for($i=0;$i<$n;$i++){	
 		//echo "Itmeeeeeeeee".$i;
@@ -57,7 +57,7 @@ for($i=0;$i<$n;$i++){
 		$sql.=" where cod_cotizacion='".$cod_cotizacion."'";
 		$sql.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
 		//echo "sql=".$sql."<br>";
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 		
 
 
@@ -74,7 +74,7 @@ for($i=0;$i<$n;$i++){
 			$sql.=" cod_cotizaciondetalle='".$cod_cotizaciondetalle."',";
 			$sql.=" cod_maquina='".$cod_maquina."'";
 		//	echo "sql=".$sql."<br>";
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 
 }	

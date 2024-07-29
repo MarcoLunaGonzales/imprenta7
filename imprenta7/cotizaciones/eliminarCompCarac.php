@@ -9,7 +9,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$codCarac=$vector_datos[$i];
 		$sql=" delete from componentes_caracteristica where cod_compitem='".$codCompItem."' and cod_carac=".$codCarac;
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

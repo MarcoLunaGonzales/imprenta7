@@ -126,8 +126,8 @@ function eliminar(f)
 	
 	$sql_aux=" select count(*) from areas a , estados_referenciales e ";
 	$sql_aux.=" where a.cod_estado_registro=e.cod_estado_registro";		
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -139,7 +139,7 @@ function eliminar(f)
 		$sql.=" from areas a , estados_referenciales e ";
 		$sql.=" where a.cod_estado_registro=e.cod_estado_registro ";
 		$sql.=" order by a.nombre_area asc ";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -157,7 +157,7 @@ function eliminar(f)
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_area=$dat['cod_area'];
 				$nombre_area=$dat['nombre_area'];
@@ -212,8 +212,8 @@ function eliminar(f)
           <?php 
 		  	$queryEstado=" select cod_estado_registro, nombre_estado_registro  from estados_referenciales ";
 			$queryEstado.=" order by  cod_estado_registro ";
-			$resp= mysql_query($queryEstado);
-			while($dat=mysql_fetch_array($resp)){
+			$resp= mysqli_query($enlaceCon,$queryEstado);
+			while($dat=mysqli_fetch_array($resp)){
 				$cod_estado_registro=$dat['cod_estado_registro'];
 				$nombre_estado_registro=$dat['nombre_estado_registro'];
 		 ?>

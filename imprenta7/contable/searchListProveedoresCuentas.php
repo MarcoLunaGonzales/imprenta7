@@ -43,8 +43,8 @@ require("conexion.inc");
 		if($_GET['codcuentaB']=="true"){
 			$sql.=" and (cod_cuenta IS NULL or cod_cuenta='')";
 		}	
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}
 
@@ -80,7 +80,7 @@ require("conexion.inc");
 		$sql.=" order by nombre_proveedor asc";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -104,7 +104,7 @@ require("conexion.inc");
     <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_proveedor=$dat['cod_proveedor'];
 				$nombre_proveedor=$dat['nombre_proveedor'];
@@ -128,32 +128,32 @@ require("conexion.inc");
 				$cod_cuenta=$dat['cod_cuenta'];
 		
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2[0];
 				}					
 
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************
 					$nroContactos=0;							
 					$sql2="select count(*) from proveedores_contactos";
 					$sql2.=" where cod_proveedor='".$cod_proveedor."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nroContactos=$dat2[0];
 					}	
 					$nro_cuenta="";	
 					$desc_cuenta="";
 					if($cod_cuenta!='' and $cod_cuenta!=null )	{			
 					$sql2="select nro_cuenta,desc_cuenta from cuentas where cod_cuenta=".$cod_cuenta;	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nro_cuenta=$dat2['nro_cuenta'];
 						$desc_cuenta=$dat2['desc_cuenta'];
 					}	
@@ -161,8 +161,8 @@ require("conexion.inc");
 				$nroING=0;
 				$sqlAux2=" select count(*) from  ingresos ";
 				$sqlAux2.=" where cod_estado_ingreso<>2 and cod_proveedor=".$cod_proveedor."";
-				$respAux2= mysql_query($sqlAux2);
-					while($datAux2=mysql_fetch_array($respAux2)){
+				$respAux2= mysqli_query($enlaceCon,$sqlAux2);
+					while($datAux2=mysqli_fetch_array($respAux2)){
 						$nroING=$datAux2[0];
 					}	
 ?> 
@@ -193,8 +193,8 @@ require("conexion.inc");
 				$sqlAux.=" from proveedores_contactos ";
 				$sqlAux.=" where cod_proveedor=".$cod_proveedor;
 				$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-				$respAux= mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux= mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$cod_contacto_proveedor=$datAux['cod_contacto_proveedor'];
 					$nombre_contacto=$datAux['nombre_contacto'];
 					$ap_paterno_contacto=$datAux['ap_paterno_contacto'];

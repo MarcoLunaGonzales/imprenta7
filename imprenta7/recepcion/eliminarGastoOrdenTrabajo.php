@@ -7,7 +7,7 @@ include("funciones.php");
 			
 		$sql2=" delete from gastos_ordentrabajo ";
 		$sql2.=" where  cod_gasto_ordentrabajo=".$cod_gasto_ordentrabajo."";	
-		mysql_query($sql2);
+		mysqli_query($enlaceCon,$sql2);
 
 
 

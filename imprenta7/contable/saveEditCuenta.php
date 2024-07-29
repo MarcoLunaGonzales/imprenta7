@@ -16,7 +16,7 @@ $sql.=" cod_estado_registro=1,";
 $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y-m-d H:i:s', time())."'";
 $sql.=" where cod_cuenta='".$_POST['cod_cuenta']."' "; 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 if($_POST['codcliente']!=NULL){	
@@ -24,14 +24,14 @@ if($_POST['codcliente']!=NULL){
 	$sql.=" cod_cuenta=NULL";
 	$sql.=" where cod_cliente=".$_POST['codcliente'];
 	//echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 }
 if($_POST['cod_cliente']!=NULL){
 
 	$sql=" update clientes set ";
 	$sql.=" cod_cuenta=".$cod_cuenta;
 	$sql.=" where cod_cliente=".$_POST['cod_cliente'];
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 }
 
 if($_POST['codproveedor']!=NULL){	
@@ -39,14 +39,14 @@ if($_POST['codproveedor']!=NULL){
 	$sql.=" cod_cuenta=NULL";
 	$sql.=" where cod_proveedor=".$_POST['codproveedor'];
 	//echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 }
 if($_POST['cod_proveedor']!=NULL){
 
 	$sql=" update proveedores set ";
 	$sql.=" cod_cuenta=".$cod_cuenta;
 	$sql.=" where cod_proveedor=".$_POST['cod_proveedor'];
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 }
 
 

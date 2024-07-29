@@ -25,9 +25,9 @@ include("funcionCantActualMaterial.php");
 		}			
 
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$numRows=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			$numRows=$dat[0];			
 		}
 		if($numRows==0){
@@ -67,7 +67,7 @@ include("funcionCantActualMaterial.php");
 		}			
 
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="98%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -82,7 +82,7 @@ include("funcionCantActualMaterial.php");
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_grupo=$dat['cod_grupo']; 
 				$nombre_grupo=$dat['nombre_grupo'];
@@ -107,8 +107,8 @@ include("funcionCantActualMaterial.php");
 				//**************************************************************
 				$nombre_unidad_medida="";
 				$sql2="select nombre_unidad_medida from unidades_medidas where cod_unidad_medida='".$cod_unidad_medida."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_unidad_medida=$dat2[0];
 				}					
 				//**************************************************************								

@@ -34,11 +34,11 @@ $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y/m/d', time())."',"; 
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
 $sql.=" where cod_proveedor='".$cod_proveedor."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 
 	$sql="delete from proveedores_grupos where cod_proveedor='".$cod_proveedor."'"; 
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 		
 	$vector_datos=explode(",",$datos_grupos);	
 	$n=sizeof($vector_datos);
@@ -47,7 +47,7 @@ $resp=mysql_query($sql);
 		$sql="insert into proveedores_grupos set ";
 		$sql.=" cod_proveedor='".$cod_proveedor."',"; 
 		$sql.=" cod_grupo='".$cod_grupo."'"; 
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}
 	
 

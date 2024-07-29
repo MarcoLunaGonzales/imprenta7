@@ -263,8 +263,8 @@ function anular(f)
 				<?php
 					$sql3="select cod_gestion,gestion from gestiones order by  gestion desc";
 					echo $sql3;	
-					$resp3=mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3))
 					{
 							$cod_gestion=$dat3[0];	
 			  		 		$gestion=$dat3[1];	 
@@ -293,8 +293,8 @@ function anular(f)
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
 					echo $sql2;	
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -358,8 +358,8 @@ function anular(f)
 		$sql.=" and cod_cliente=".$codclienteB;
 	}
 
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -410,7 +410,7 @@ function anular(f)
 	
 		$sql.=" ORDER BY COD_COTIZACION desc";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -429,7 +429,7 @@ function anular(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				$cont++;
 				$codCotizacion=$dat[0];
 				$nroCotizacion=$dat[1];
@@ -451,8 +451,8 @@ function anular(f)
 					$nombreCliente="";				
 					$sql2="select nombre_cliente from clientes";
 					$sql2.=" where cod_cliente='".$codCliente."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreCliente=$dat2[0];
 					}
 				//**************************************************************								
@@ -460,8 +460,8 @@ function anular(f)
 					$nombreTipoCotizacion="";				
 					$sql2="select nombre_tipo_cotizacion from tipos_cotizacion";
 					$sql2.=" where cod_tipo_cotizacion='".$codTipoCotizacion."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreTipoCotizacion=$dat2[0];
 					}
 				//**************************************************************
@@ -469,8 +469,8 @@ function anular(f)
 					$nombreEstadoCotizacion="";				
 					$sql2="select nombre_estado_cotizacion from estados_cotizacion";
 					$sql2.=" where cod_estado_cotizacion='".$codEstadoCotizacion."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreEstadoCotizacion=$dat2[0];
 					}
 				//**************************************************************
@@ -478,8 +478,8 @@ function anular(f)
 					$nombreTipoPago="";				
 					$sql2="select nombre_tipo_pago from tipos_pago";
 					$sql2.=" where cod_tipo_pago='".$codTipoPago."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreTipoPago=$dat2[0];
 					}
 				//**************************************************************
@@ -487,16 +487,16 @@ function anular(f)
 					$nombreUsuarioRegistro="";
 					$sql2="select nombres_usuario,ap_paterno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$codUsuarioRegistro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreUsuarioRegistro=$dat2[0]." ".$dat2[1];
 					}	
 				//**************************************************************
 					$gestion="";				
 					$sql2="select gestion from gestiones";
 					$sql2.=" where cod_gestion='".$codGestion."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$gestion=$dat2[0];
 					}
 				//**************************************************************									

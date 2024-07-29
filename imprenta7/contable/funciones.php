@@ -9,12 +9,12 @@ date_default_timezone_set('America/Caracas');
  **/
 function obtenerCodigo($sql)
 {	require("conexion.inc");
-	$resp=mysql_query($sql);
-	$nro_filas_sql = mysql_num_rows($resp);
+	$resp=mysqli_query($enlaceCon,$sql);
+	$nro_filas_sql = mysqli_num_rows($resp);
 	if($nro_filas_sql==0){
 		$codigo=1;
 	}else{
-		while($dat=mysql_fetch_array($resp))
+		while($dat=mysqli_fetch_array($resp))
 		{	$codigo =$dat[0];
 		}
 			$codigo = $codigo+1;
@@ -26,8 +26,8 @@ function gestionActiva()
 {	require("conexion.inc");
 	$codigo=0;
 	$sql="select cod_gestion from gestiones where gestion_activa=1";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp))
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp))
 	{	
 		$codigo=$dat[0];
 	}

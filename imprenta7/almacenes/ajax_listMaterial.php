@@ -93,8 +93,8 @@ require("conexion.inc");
 				<option value="0">Seleccione una opcion</option>	
               <?php
 					$sql2="select cod_grupo, nombre_grupo from grupos where cod_estado_registro=1 order by  nombre_grupo asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_grupo=$dat2[0];	
 			  		 		$nombre_grupo=$dat2[1];	

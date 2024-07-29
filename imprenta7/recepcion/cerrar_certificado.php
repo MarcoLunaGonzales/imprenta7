@@ -12,7 +12,7 @@
 	$sql.=" cod_estado_certificado=2 ";
 	$sql.=" where cod_cert_prod='".$cod_cert_prod."'";
 	//echo $sql;
-	$resp=mysql_query($sql);
+	$resp=mysqli_query($enlaceCon,$sql);
 	
 	 require("cerrar_conexion.inc");
 ?>

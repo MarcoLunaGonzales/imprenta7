@@ -99,8 +99,8 @@ function eliminarProveedor(){
 	$sql.=" cod_estado, cod_usuario_anulacion, fecha_anulacion, obs_anulacion";
 	$sql.=" from gastos_gral";
 	$sql.=" where cod_gasto_gral=".$_GET['cod_gasto_gral'];
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$cod_gestion=$dat['cod_gestion']; 
 		$nro_gasto_gral=$dat['nro_gasto_gral'];
@@ -127,8 +127,8 @@ $datosRegistro="";
 			if($cod_usuario_registro!="" || $cod_usuario_registro!=NULL){
 				$datosRegistro=strftime("%d/%m/%Y %H:%M:%S",strtotime($fecha_registro));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosRegistro=$datosRegistro." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -137,8 +137,8 @@ $datosRegistro="";
 			if($cod_usuario_modifica!="" || $cod_usuario_modifica!=NULL){
 				$datosEdicion=strftime("%d/%m/%Y %H:%M:%S",strtotime($fecha_modifica));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosEdicion=$datosEdicion." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -147,8 +147,8 @@ $datosAnulacion="";
 			if($cod_usuario_anulacion!="" || $cod_usuario_anulacion!=NULL){
 				$datosEdicion=strftime("%d/%m/%Y %H:%M:%S",strtotime($fecha_anulacion));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_anulacion;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosAnulacion=$datosAnulacion." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -156,14 +156,14 @@ $datosAnulacion="";
 	}
 
  	$sql2="select gestion_nombre from gestiones where cod_gestion=".$cod_gestion;
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion_nombre=$dat2['gestion_nombre'];
 	}
 	if($codproveedor<>"" and $codproveedor!=NULL){
 		$sql="select nombre_proveedor  from proveedores where cod_proveedor=".$codproveedor;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nombre_proveedor=$dat['nombre_proveedor'];
 		}	
 	}	
@@ -171,8 +171,8 @@ $datosAnulacion="";
 	$abrev_tipo_doc="";
 	if($codtipodoc<>"" and $codtipodoc!=NULL){
 		$sql="select abrev_tipo_doc  from tipo_documento where cod_tipo_doc=".$codtipodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$abrev_tipo_doc=$dat['abrev_tipo_doc'];
 		}	
 	}
@@ -183,8 +183,8 @@ $datosAnulacion="";
 		$sql.=" left join  clientes cli on(c.cod_cliente=cli.cod_cliente)";
 		$sql.=" left join  gestiones g on(hr.cod_gestion=g.cod_gestion)";
 		$sql.=" where cod_hoja_ruta=".$codigodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$desc_documento=$abrev_tipo_doc." ".$dat['nro_hoja_ruta']."/".$dat['gestion_nombre']." ".$dat['nombre_cliente']." (".strftime("%d/%m/%Y",strtotime($dat['fecha_hoja_ruta'])).")";
 		}
 	
@@ -195,8 +195,8 @@ $datosAnulacion="";
 		$sql.=" left join  clientes cli on(ot.cod_cliente=cli.cod_cliente)";
 		$sql.=" left join  gestiones g on(ot.cod_gestion=g.cod_gestion)";
 		$sql.=" where cod_orden_trabajo=".$codigodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$desc_documento=$abrev_tipo_doc." ".$dat['nro_orden_trabajo']."/".$dat['gestion_nombre']." ".$dat['nombre_cliente']." (".strftime("%d/%m/%Y",strtotime($dat['fecha_orden_trabajo'])).")";
 		}
 	
@@ -238,8 +238,8 @@ $datosAnulacion="";
 			<td >
 				<?php
 					$sql4="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$codtipopago;
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							echo $nombre_tipo_pago=$dat4['nombre_tipo_pago'];			
 					}
@@ -252,8 +252,8 @@ $datosAnulacion="";
             <?php
             	$sql2="select cod_gasto, desc_gasto";
             	$sql2.=" from gastos  where cod_gasto=".$codgasto;
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					 echo $desc_gasto=$dat2['desc_gasto'];
 			
 				}				

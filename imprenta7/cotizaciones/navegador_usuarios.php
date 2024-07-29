@@ -99,8 +99,8 @@ function eliminar(f)
 	}	
 	
 	$sql_aux=" select count(*) from usuarios ";
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -136,7 +136,7 @@ function eliminar(f)
 		$sql.=" from usuarios ";
 		$sql.=" order by ap_paterno_usuario asc, ap_materno_usuario asc, nombre_usuario asc ";
 		$sql.=" limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="85%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -150,7 +150,7 @@ function eliminar(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				$cod_usuario=$dat[0];
 				$nombre_usuario=$dat[1];
 				$ap_paterno_usuario=$dat[2];
@@ -160,25 +160,25 @@ function eliminar(f)
 				$cod_cargo=$dat[6];
 				/**************************************************************************/
 					$sql2=" select nombre_cargo from cargos where cod_cargo='".$cod_cargo."'";
-	    			$resp2 = mysql_query($sql2);	
+	    			$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_cargo="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_cargo=$dat2[0];					
 				/**************************************************************************/				
 				$cod_grado=$dat[7];
 				/**************************************************************************/
 					$sql2=" select nombre_grado from grados where cod_grado='".$cod_grado."'";
-	    			$resp2 = mysql_query($sql2);	
+	    			$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_grado="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_grado=$dat2[0];					
 				/**************************************************************************/						
 				$cod_estado_registro=$dat[8];
 				/**************************************************************************/
 					$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-	    			$resp2 = mysql_query($sql2);	
+	    			$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];					
 				/**************************************************************************/
 							

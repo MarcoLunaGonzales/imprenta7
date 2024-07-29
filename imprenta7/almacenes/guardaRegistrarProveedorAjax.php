@@ -23,11 +23,11 @@ $sql.=" fecha_registro='".date('Y/m/d', time())."',";
 /*$sql.=" cod_usuario_modifica='".."',";
 $sql.=" fecha_modifica='".."',";*/
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 
 	/*$sql="delete from proveedores_grupos where cod_proveedor='".$cod_proveedor."'"; 
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 		
 	$vector_datos=explode(",",$datos_grupos);	
 	$n=sizeof($vector_datos);
@@ -36,7 +36,7 @@ $resp=mysql_query($sql);
 		$sql="insert into proveedores_grupos set ";
 		$sql.=" cod_proveedor='".$cod_proveedor."',"; 
 		$sql.=" cod_grupo='".$cod_grupo."'"; 
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}
 	require("cerrar_conexion.inc");*/
 

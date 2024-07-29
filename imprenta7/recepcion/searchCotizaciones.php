@@ -81,8 +81,8 @@ include("funciones.php");
 
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -148,7 +148,7 @@ include("funciones.php");
 			$sql.=" order by g.gestion desc, c.nro_cotizacion desc ";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 		//	echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -173,7 +173,7 @@ include("funciones.php");
 		</thead>    
 		<tbody>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_cotizacion=$dat['cod_cotizacion'];
 			 $cod_tipo_cotizacion=$dat['cod_tipo_cotizacion'];
@@ -211,9 +211,9 @@ include("funciones.php");
 
 			    $sql2="  select count(*) swHojasRuta from hojas_rutas ";
 				$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and (cod_estado_hoja_ruta=1 or cod_estado_hoja_ruta=3)";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$swHojasRuta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$swHojasRuta=$dat2[0];
 				}
 	 
@@ -230,9 +230,9 @@ include("funciones.php");
 			<?php
 					    $sql2="  select cod_hoja_ruta from hojas_rutas ";
 						$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and (cod_estado_hoja_ruta=1 or cod_estado_hoja_ruta=3)";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$cod_hoja_ruta=0;
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$cod_hoja_ruta=$dat2[0];
 						}
 				
@@ -243,8 +243,8 @@ include("funciones.php");
 							$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 							$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 							$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_factura=$datAux[0];
 							}
 							echo $monto_factura." Bs.";
@@ -252,8 +252,8 @@ include("funciones.php");
 						 	$sqlAux=" select sum(cd.IMPORTE_TOTAL) ";
 							$sqlAux.=" from cotizaciones_detalle cd ";
 							$sqlAux.=" where  cd.cod_cotizacion=".$cod_cotizacion;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_factura=$datAux[0];
 							}
 							echo $monto_factura." Bs.";

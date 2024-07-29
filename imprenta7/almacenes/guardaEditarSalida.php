@@ -30,8 +30,8 @@ $sql=" select cod_material, cod_ingreso_detalle , cant_salida_ingreso";
 $sql.=" from salidas_detalle_ingresos";
 $sql.=" where cod_salida='".$cod_salida."'";
 $sql.=" order by cod_material, cod_ingreso_detalle";
-$resp= mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp= mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 		$cod_material=$dat[0]; 
 		$cod_ingreso_detalle=$dat[1];
 		$cant_salida_ingreso=$dat[2];
@@ -40,15 +40,15 @@ while($dat=mysql_fetch_array($resp)){
 		$sql2.=" from ingresos_detalle";
 		$sql2.=" where cod_ingreso_detalle='".$cod_ingreso_detalle."'";
 		$sql2.= "and cod_material='".$cod_material."'";
-		$resp2= mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 			$cant_actual=$dat2[0];
 			
 			$sql3=" update ingresos_detalle set ";
 			$sql3.=" cant_actual=".($cant_actual+$cant_salida_ingreso);
 			$sql3.=" where cod_ingreso_detalle='".$cod_ingreso_detalle."'";
 			$sql3.=" and cod_material='".$cod_material."'";
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 		}
 				
 }
@@ -83,16 +83,16 @@ $sql.=" obs_salida='".$obs_salida."'";
 $sql.=" where cod_salida='".$cod_salida."'"; 
 //echo $sql;
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 //echo "cod_salida=".$cod_salida;
 
 if($cod_salida<>""){
 		$sql3=" delete from  salidas_detalle where  cod_salida='".$cod_salida."'";
-		mysql_query($sql3);
+		mysqli_query($enlaceCon,$sql3);
 		$sql3=" delete from  salidas_detalle_ingresos where  cod_salida='".$cod_salida."'";
-		mysql_query($sql3);		
+		mysqli_query($enlaceCon,$sql3);		
 				
 	for($i = 1;$i <=$num ;$i++) {	
 		
@@ -115,7 +115,7 @@ if($cod_salida<>""){
 				$sql3.=" cod_material='".$cod_material."',";
 				$sql3.=" cant_salida='".$cant_salida."',";
 				$sql3.=" precio_venta='".$precio_venta."'";	
-				mysql_query($sql3);
+				mysqli_query($enlaceCon,$sql3);
 				$cant_salida2=$cant_salida;
 		
 				$sql4=" select id.cod_ingreso,i.fecha_ingreso,id.cod_ingreso_detalle,id.cant_actual,id.precio_compra_uni "; 
@@ -125,10 +125,10 @@ if($cod_salida<>""){
 				$sql4.=" and id.cod_ingreso=i.cod_ingreso";
 				$sql4.=" order by i.fecha_ingreso,id.cod_ingreso,id.cod_ingreso_detalle asc";
 			//	echo $sql4."<br>";
-				$resp4=mysql_query($sql4);
+				$resp4=mysqli_query($enlaceCon,$sql4);
 				$bandera=0;
 		
-				while(($dat4=mysql_fetch_array($resp4)) && ($bandera==0)){
+				while(($dat4=mysqli_fetch_array($resp4)) && ($bandera==0)){
 			
 					$cod_ingreso=$dat4[0];
 					$fecha_ingreso=$dat4[1];
@@ -148,7 +148,7 @@ if($cod_salida<>""){
 					$sql5.=" where cod_ingreso_detalle=".$cod_ingreso_detalle;
 					$sql5.=" and cod_material=".$cod_material;
 			//		echo "<br>".$sql5;
-					mysql_query($sql5);
+					mysqli_query($enlaceCon,$sql5);
 				
 				
 						$sql6=" insert into salidas_detalle_ingresos set  ";
@@ -162,7 +162,7 @@ if($cod_salida<>""){
 							$sql6.=" cant_salida_ingreso=".$cant_actual;
 							$cant_salida2=$cant_salida2-$cant_actual;
 						}
-						mysql_query($sql6);
+						mysqli_query($enlaceCon,$sql6);
 									
 				}	
 		
@@ -190,7 +190,7 @@ if($cod_salida<>""){
 				$sql.=" obs_ingreso='".$obs_ingreso."',";
 				$sql.=" cod_estado_ingreso='".$cod_estado_ingreso."'";	
 			//	echo $sql."<br>";
-				mysql_query($sql);			
+				mysqli_query($enlaceCon,$sql);			
 		 	//	echo "traspaso";
 				
 				///Detalle Ingreso
@@ -200,8 +200,8 @@ if($cod_salida<>""){
 				$sql.=" from salidas_detalle_ingresos  sdi, ingresos_detalle id";
 				$sql.=" where sdi.cod_salida=".$cod_salida;
 				$sql.=" and sdi.cod_ingreso_detalle=id.cod_ingreso_detalle";
-				$resp=mysql_query($sql);				
-				while($dat=mysql_fetch_array($resp)){
+				$resp=mysqli_query($enlaceCon,$sql);				
+				while($dat=mysqli_fetch_array($resp)){
 					$cod_material=$dat[0];
 					$cod_ingreso_detalle_salida=$dat[1];
 					$precio_compra_uni=$dat[2];
@@ -218,7 +218,7 @@ if($cod_salida<>""){
 					$sql3.=" cantidad='".$cant_salida_ingreso."',";	
 					$sql3.=" cant_actual='".$cant_salida_ingreso."'";				
 				//	echo "sql3".$sql3."<br>";
-					mysql_query($sql3);					
+					mysqli_query($enlaceCon,$sql3);					
 				
 				
 				

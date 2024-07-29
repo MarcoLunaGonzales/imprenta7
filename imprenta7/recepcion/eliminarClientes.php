@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_cliente=$vector_datos[$i];
 		$sql=" delete from clientes where cod_cliente='".$cod_cliente."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

@@ -63,8 +63,8 @@
 	$codCompItem=$_GET['codCompItem'];
 	
 	$sql=" select nombre_componenteitem from componente_items where  cod_compitem=".$codCompItem;
-    $resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+    $resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_componenteitem=$dat[0];
 	}
 
@@ -90,16 +90,16 @@
 
 	<?php   
 		$sql="select cod_carac, desc_carac from  caracteristicas  order by desc_carac asc";
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){	
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){	
 				$codCarac=$dat[0];
 				$nombreCarac=$dat[1]; 
 					$sw=0;
 					$orden="";
 					$sql2="select orden from componentes_caracteristica ";
 					$sql2.=" where cod_carac=".$codCarac." and cod_compitem=".$codCompItem;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$orden=$dat2[0];
 						$sw=1;
 					}

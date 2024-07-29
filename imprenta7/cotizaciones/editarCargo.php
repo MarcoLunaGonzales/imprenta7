@@ -35,8 +35,8 @@
 	$sql=" select desc_cargo, obs_cargo,  cod_estado_registro ";
 	$sql.=" from cargos ";
 	$sql.=" where cod_cargo=".$cod_cargo;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$desc_cargo=$dat[0];
 		$obs_cargo=$dat[1];
 		$codestadoregistro=$dat[2];
@@ -68,8 +68,8 @@
 			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

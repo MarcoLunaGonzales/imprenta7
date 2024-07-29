@@ -149,8 +149,8 @@ function registrar(f){
 			$sql.=" or cod_cliente in (select cod_cliente from clientes_contactos ";
 			$sql.=" where CONCAT(nombre_contacto,ap_paterno_contacto,ap_materno_contacto)like'%".$_GET['clienteProveedorB']."%')";
 		}
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql_clientes=$dat_aux[0];
 		}		
 		$sql=" select count(*) ";
@@ -160,8 +160,8 @@ function registrar(f){
 		$sql.=" or cod_proveedor in (select cod_proveedor from proveedores_contactos  ";
 		$sql.=" where CONCAT(nombre_contacto,ap_paterno_contacto,ap_materno_contacto)like'%".$_GET['clienteProveedorB']."%') ";
 		}
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql_proveedores=$dat_aux[0];
 		}
 		$nro_filas_sql=$nro_filas_sql_clientes+$nro_filas_sql_proveedores;
@@ -220,7 +220,7 @@ order BY  asc
 		$sql.=" order BY nom  asc";
 		$sql.=" limit 50";
 		
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="100%" align="center" cellpadding="1" cellspacing="1" bgColor="#CCCCCC" class="tablaReporte" style="width:100% !important;">
@@ -244,7 +244,7 @@ order BY  asc
    <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				$tipo_desc="";
 				$tipo=$dat[0];
 				if($tipo==1){
@@ -258,8 +258,8 @@ order BY  asc
 				$ciudad=$dat[3];
 				$desc_ciudad="";
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$ciudad."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2[0];
 				}	
 				$direccion=$dat[4];
@@ -274,16 +274,16 @@ order BY  asc
 				$cod_usuario_modifica=$dat[13];						
 				$nombre_estado_registro="";
 				$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_estado_registro=$dat2[0];
 				}		
 ///////////////////////Usuario Registro//////////////////////////
 			  $usuario_registro="";
 			  if($cod_usuario_registro<>"" && $cod_usuario_registro<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_registro=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 
@@ -292,8 +292,8 @@ order BY  asc
 			  $usuario_modifica="";
 			  if($cod_usuario_modifica<>"" && $cod_usuario_modifica<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_modifica=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 
@@ -319,8 +319,8 @@ order BY  asc
 					$sqlAux.=" from clientes_contactos ";
 					$sqlAux.=" where cod_cliente=".$codigo;
 					$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-					$respAux= mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux= mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 						$cod_contacto=$datAux['cod_contacto'];
 						$nombre_contacto=$datAux['nombre_contacto'];
 						$ap_paterno_contacto=$datAux['ap_paterno_contacto'];
@@ -341,12 +341,12 @@ order BY  asc
 					$sqlAux=" select contacto1_proveedor, cel_contacto1_proveedor, contacto2_proveedor, cel_contacto2_proveedor";
 					$sqlAux.=" from proveedores ";
 					$sqlAux.=" where cod_proveedor=".$codigo;
-					$respAux= mysql_query($sqlAux);
+					$respAux= mysqli_query($enlaceCon,$sqlAux);
 					$contacto1_proveedor="";
 					$cel_contacto1_proveedor="";
 					$contacto2_proveedor=""; 
 					$cel_contacto2_proveedor="";
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 							$contacto1_proveedor=$datAux['contacto1_proveedor'];
 							$cel_contacto1_proveedor=$datAux['cel_contacto1_proveedor'];
 							$contacto2_proveedor=$datAux['contacto2_proveedor']; 
@@ -370,8 +370,8 @@ order BY  asc
 					$sqlAux.=" from proveedores_contactos ";
 					$sqlAux.=" where cod_proveedor=".$codigo;
 					$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-					$respAux= mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux= mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 						$cod_contacto_proveedor=$datAux['cod_contacto_proveedor'];
 						$nombre_contacto=$datAux['nombre_contacto'];
 						$ap_paterno_contacto=$datAux['ap_paterno_contacto'];

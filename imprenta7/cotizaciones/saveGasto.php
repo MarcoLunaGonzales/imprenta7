@@ -17,7 +17,7 @@ $sql.=" desc_gasto='".$desc_gasto."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."',";
 $sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',"; 
 $sql.=" fecha_registro='".date('Y/m/d', time())."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

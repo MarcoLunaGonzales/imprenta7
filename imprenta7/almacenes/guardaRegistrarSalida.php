@@ -81,12 +81,12 @@ if($cod_tipo_salida==6){
 $sql.=" obs_salida='".$obs_salida."'";
 //echo $sql;
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 $sql="select cod_salida from ingresos where cod_salida=".$cod_salida;
-$resp=mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp=mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$cod_salida=$dat[0];
 }	
 //echo "cod_salida=".$cod_salida;
@@ -95,8 +95,8 @@ if($cod_salida<>""){
 
 	/*if($_POST['cod_tipo_salida']==1){
 		$sql3="select cod_cuenta, nombre_cliente from clientes where cod_cliente=".$_POST['cod_cliente_venta'];
-		$resp3 = mysql_query($sql3);
-		while($dat3=mysql_fetch_array($resp3)){	
+		$resp3 = mysqli_query($enlaceCon,$sql3);
+		while($dat3=mysqli_fetch_array($resp3)){	
 			$cod_cuenta=$dat3['cod_cuenta'];
 			$nombre_cliente=$dat3['nombre_cliente'];		
 		}
@@ -111,11 +111,11 @@ if($cod_salida<>""){
 			$sql.=" cod_estado_registro=1,"; 
 			$sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',";
 			$sql.=" fecha_registro='".date('Y-m-d H:i:s', time())."'";
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 			$sql=" update clientes set ";
 			$sql.=" cod_cuenta=".$cod_cuenta;
 			$sql.=" where cod_cliente=".$_POST['cod_cliente_venta'];
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 
 	}*/
@@ -143,7 +143,7 @@ if($cod_salida<>""){
 				$sql3.=" cant_salida='".$cant_salida."',";
 				$sql3.=" precio_venta='".$precio_venta."'";	
 			//	echo $sql3;		
-				mysql_query($sql3);
+				mysqli_query($enlaceCon,$sql3);
 				$cant_salida2=$cant_salida;
 		
 				$sql4=" select id.cod_ingreso,i.fecha_ingreso,id.cod_ingreso_detalle,id.cant_actual,id.precio_compra_uni "; 
@@ -154,10 +154,10 @@ if($cod_salida<>""){
 				$sql4.=" and i.cod_estado_ingreso<>2";
 				$sql4.=" order by i.fecha_ingreso,id.cod_ingreso,id.cod_ingreso_detalle asc";
 				//echo $sql4."<br>";
-				$resp4=mysql_query($sql4);
+				$resp4=mysqli_query($enlaceCon,$sql4);
 				$bandera=0;
 		
-				while(($dat4=mysql_fetch_array($resp4)) && ($bandera==0)){
+				while(($dat4=mysqli_fetch_array($resp4)) && ($bandera==0)){
 			
 					$cod_ingreso=$dat4[0];
 					$fecha_ingreso=$dat4[1];
@@ -177,7 +177,7 @@ if($cod_salida<>""){
 					$sql5.=" where cod_ingreso_detalle=".$cod_ingreso_detalle;
 					$sql5.=" and cod_material=".$cod_material;
 				//echo "<br>".$sql5;
-					mysql_query($sql5);
+					mysqli_query($enlaceCon,$sql5);
 				
 				
 						$sql6=" insert into salidas_detalle_ingresos set  ";
@@ -191,7 +191,7 @@ if($cod_salida<>""){
 							$sql6.=" cant_salida_ingreso=".$cant_actual;
 							$cant_salida2=$cant_salida2-$cant_actual;
 						}
-						mysql_query($sql6);
+						mysqli_query($enlaceCon,$sql6);
 						//echo $sql6."<br/>";
 						//echo "canta salida=".$cant_salida2."<br/>";
 									
@@ -221,7 +221,7 @@ if($cod_salida<>""){
 				$sql.=" obs_ingreso='".$obs_ingreso."',";
 				$sql.=" cod_estado_ingreso='".$cod_estado_ingreso."'";	
 			//	echo $sql."<br>";
-				mysql_query($sql);			
+				mysqli_query($enlaceCon,$sql);			
 		 	//	echo "traspaso";
 				
 				///Detalle Ingreso
@@ -231,8 +231,8 @@ if($cod_salida<>""){
 				$sql.=" from salidas_detalle_ingresos  sdi, ingresos_detalle id";
 				$sql.=" where sdi.cod_salida=".$cod_salida;
 				$sql.=" and sdi.cod_ingreso_detalle=id.cod_ingreso_detalle";
-				$resp=mysql_query($sql);				
-				while($dat=mysql_fetch_array($resp)){
+				$resp=mysqli_query($enlaceCon,$sql);				
+				while($dat=mysqli_fetch_array($resp)){
 					$cod_material=$dat[0];
 					$cod_ingreso_detalle_salida=$dat[1];
 					$precio_compra_uni=$dat[2];
@@ -249,7 +249,7 @@ if($cod_salida<>""){
 					$sql3.=" cantidad='".$cant_salida_ingreso."',";	
 					$sql3.=" cant_actual='".$cant_salida_ingreso."'";				
 				//	echo "sql3".$sql3."<br>";
-					mysql_query($sql3);					
+					mysqli_query($enlaceCon,$sql3);					
 				
 				
 				
@@ -264,27 +264,27 @@ if($cod_salida<>""){
 	if($_POST['cod_tipo_salida']==1){
 	///CREACION DE CUENTA////
 	$sql3=" select cod_cliente_venta from salidas where cod_salida=".$cod_salida;
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cliente=$dat3['cod_cliente_venta'];
 	}
 	$sql3="select  nombre_cliente from clientes where cod_cliente=".$cod_cliente;
 
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$nombre_cliente=$dat3['nombre_cliente'];		
 	}	
 		$sql3=" select  cod_cuenta_conf,parametro1,parametro2 ";
 	$sql3.=" from configuracion_cuentas where cod_conf_cuenta=1";
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta_conf=$dat3['cod_cuenta_conf'];
 		$parametro1=$dat3['parametro1'];
 		$parametro2=$dat3['parametro2'];
 	}	
 	$sql3=" select  cod_cuenta_padre from cuentas where cod_cuenta=".$cod_cuenta_conf;
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta_padre_conf=$dat3['cod_cuenta_padre'];
 	}		
 	$fechaFinal=date('Y-m-d', time());
@@ -316,7 +316,7 @@ if($cod_salida<>""){
 	$sql3.=" LEFT JOIN cuentas  on (cli.cod_cuenta=cuentas.cod_cuenta) ";
 	$sql3.=" where cli.cod_cliente=".$cod_cliente;
 	//echo $sql3."<br/>";
-	$resp3 = mysql_query($sql3);
+	$resp3 = mysqli_query($enlaceCon,$sql3);
 	$cod_cuenta=NULL;
 	$nro_cuenta="";
 	$desc_cuenta="";
@@ -324,7 +324,7 @@ if($cod_salida<>""){
 	$nroHR=0;
 	$nroOT=0;
 	$nroDoc=0;
-	while($dat3=mysql_fetch_array($resp3)){	
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta=$dat3['cod_cuenta'];
 		$nro_cuenta=$dat3['nro_cuenta'];
 		$desc_cuenta=$dat3['desc_cuenta'];
@@ -353,11 +353,11 @@ if($cod_salida<>""){
 				$sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',";
 				$sql.=" fecha_registro='".date('Y-m-d H:i:s', time())."'";
 				//echo $sql."<br/>";
-				mysql_query($sql);
+				mysqli_query($enlaceCon,$sql);
 				$sql=" update clientes set ";
 				$sql.=" cod_cuenta=".$cod_cuenta_nueva;
 				$sql.=" where cod_cliente=".$cod_cliente;
-				mysql_query($sql);		
+				mysqli_query($enlaceCon,$sql);		
 			}
 	}else{
 	//echo "entro por falso";
@@ -365,7 +365,7 @@ if($cod_salida<>""){
 			$sql=" update clientes set ";
 			$sql.=" cod_cuenta=".$cod_cuenta_conf;
 			$sql.=" where cod_cliente=".$cod_cliente;
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 	
 	}

@@ -178,9 +178,9 @@ function guardar(f){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 		
@@ -189,9 +189,9 @@ function guardar(f){
 	
 	$cod_est_ot=1;
 	$sql2=" select desc_est_ot from estado_ordentrabajo where cod_est_ot='".$cod_est_ot."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_ot=$dat2['desc_est_ot'];
 	}	
 
@@ -240,8 +240,8 @@ function guardar(f){
         <td><select name="cod_tipo_pago" id="cod_tipo_pago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago order by cod_tipo_pago asc";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	

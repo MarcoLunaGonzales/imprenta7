@@ -48,8 +48,8 @@
 	
 	$sql=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, usuario, password, cod_cargo, cod_grado,cod_estado_registro ";
 	$sql.=" from usuarios where cod_usuario='".$cod_usuario."'";
-    $resp= mysql_query($sql);	
-	$dat=mysql_fetch_array($resp);
+    $resp= mysqli_query($enlaceCon,$sql);	
+	$dat=mysqli_fetch_array($resp);
 	$nombre_usuario=$dat[0];
 	$ap_paterno_usuario=$dat[1];
 	$ap_materno_usuario=$dat[2];		
@@ -89,8 +89,8 @@
 			<select name="cod_grado" class="textoform">
 				<?php
 					$sql_2="select cod_grado,nombre_grado from grados order by nombre_grado asc  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_grado= $dat_2[0];
     					$nombre_grado=$dat_2[1];
 						
@@ -117,8 +117,8 @@
 			<select name="cod_cargo" class="textoform">
 				<?php
 					$sql_2="select cod_cargo,nombre_cargo from cargos order by nombre_cargo asc  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_cargo= $dat_2[0];
     					$nombre_cargo=$dat_2[1];
 						if($cod_cargo==$codcargo){
@@ -154,8 +154,8 @@
 			<select name="cod_estado_registro" class="textoform">
 				<?php
 					$sql_2="select cod_estado_registro,nombre_estado_registro from estados_referenciales  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_estado_registro= $dat_2[0];
     					$nombre_estado_registro=$dat_2[1];
 				 ?>

@@ -34,8 +34,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -46,8 +46,8 @@ class PDF extends FPDF
 	$sql.=" co.fecha_registro,co.cod_usuario_modifica,co.fecha_modifica";
 	$sql.=" from comprobante co inner join tipo_comprobante tco on(co.cod_tipo_cbte=tco.cod_tipo_cbte)";
 	$sql.=" where cod_cbte='".$_GET['cod_cbte']."'";
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 
 		$cod_gestion=$dat['cod_gestion'];
 		$cod_tipo_cbte=$dat['cod_tipo_cbte'];
@@ -65,17 +65,17 @@ class PDF extends FPDF
 
 		//Aqui se obtiene el Pago que genero Automaticamente el Comprobate		
 			$sql2="select count(*) from pagos where cod_cbte=".$_GET['cod_cbte'];
-			$resp2=mysql_query($sql2);
+			$resp2=mysqli_query($enlaceCon,$sql2);
 			$nro_pago=0;
-			while ($dat2=mysql_fetch_array($resp2)){
+			while ($dat2=mysqli_fetch_array($resp2)){
 				$nro_pago=$dat2[0];							
 			}
 			if($nro_pago>0){
 				$sql2=" select pagos.nro_pago,pagos.fecha_pago,pagos.cod_cliente, clientes.nombre_cliente";
 				$sql2.=" from pagos inner join clientes on(pagos.cod_cliente=clientes.cod_cliente)";
 				$sql2.=" where cod_cbte=".$_GET['cod_cbte'];
-				$resp2=mysql_query($sql2);
-				while ($dat2=mysql_fetch_array($resp2)){
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while ($dat2=mysqli_fetch_array($resp2)){
 					$nro_pago=$dat2['nro_pago'];
 					$fecha_pago=$dat2['fecha_pago'];
 					$cod_cliente=$dat2['cod_cliente'];
@@ -92,8 +92,8 @@ class PDF extends FPDF
 			$this->Text(84,24,"Del ".$_POST['fecha_inicio']." al ".$_POST['fecha_final']);
 			if($_POST['cod_tipo_cbte']<>0){
 					$sql5="select nombre_tipo_cbte from tipo_comprobante where cod_tipo_cbte=".$_POST['cod_tipo_cbte'];
-					$resp5=mysql_query($sql5);
-					while ($dat5=mysql_fetch_array($resp5)){
+					$resp5=mysqli_query($enlaceCon,$sql5);
+					while ($dat5=mysqli_fetch_array($resp5)){
 						$nombre_tipo_cbte=$dat5['nombre_tipo_cbte'];
 					}
 				$this->Text(82,29,"Tipo de Comprobante:".$nombre_tipo_cbte);
@@ -137,8 +137,8 @@ class PDF extends FPDF
 	
 }
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 	}
@@ -160,8 +160,8 @@ class PDF extends FPDF
 	}
 	$sql.=" order by orden asc";
 	
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 			$cod_tipo_cbte=$dat['cod_tipo_cbte'];
 			$nombre_tipo_cbte=$dat['nombre_tipo_cbte'];
 			$orden=$dat['orden'];
@@ -172,11 +172,11 @@ class PDF extends FPDF
 		$sql2.=" where fecha_cbte>='".llevarAFormatoFechaSqlMarco($_POST['fecha_inicio'])."' and fecha_cbte<='".llevarAFormatoFechaSqlMarco($_POST['fecha_final'])."'";
 		$sql2.=" and cod_tipo_cbte=".$cod_tipo_cbte;
 		$sql2.=" order by nro_cbte asc";
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$sumaDebe=0;
 		$sumaHaber=0;
 		$nombre="";
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$cod_cbte=$dat2['cod_cbte'];
 			$cod_empresa=$dat2['cod_empresa'];
 			$cod_gestion=$dat2['cod_gestion'];
@@ -195,14 +195,14 @@ class PDF extends FPDF
 			$fecha_modifica=$dat2['fecha_modifica'];
 			
 			$sql3="select nombre_estado_cbte from estado_comprobante where cod_estado_cbte=".$cod_estado_cbte;
-			$resp3=mysql_query($sql3);
-			while ($dat3=mysql_fetch_array($resp3)){
+			$resp3=mysqli_query($enlaceCon,$sql3);
+			while ($dat3=mysqli_fetch_array($resp3)){
 				$nombre_estado_cbte=$dat3['nombre_estado_cbte'];
 			}
 			$sql7="select count(*) from pagos where cod_cbte=".$cod_cbte;
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$nro_pago=0;
-			while ($dat7=mysql_fetch_array($resp7)){
+			while ($dat7=mysqli_fetch_array($resp7)){
 				$nro_pago=$dat7[0];							
 			}
 			$nombre_cliente="";
@@ -210,8 +210,8 @@ class PDF extends FPDF
 				$sql7=" select pagos.cod_pago, pagos.nro_pago,pagos.fecha_pago,pagos.cod_cliente, clientes.nombre_cliente";
 				$sql7.=" from pagos inner join clientes on(pagos.cod_cliente=clientes.cod_cliente)";
 				$sql7.=" where cod_cbte=".$cod_cbte;
-				$resp7=mysql_query($sql7);
-				while ($dat7=mysql_fetch_array($resp7)){
+				$resp7=mysqli_query($enlaceCon,$sql7);
+				while ($dat7=mysqli_fetch_array($resp7)){
 					$cod_pago=$dat7['cod_pago'];
 					$nro_pago=$dat7['nro_pago'];
 					$fecha_pago=$dat7['fecha_pago'];
@@ -236,14 +236,14 @@ class PDF extends FPDF
 			$sql3.=" from comprobante_detalle";
 			$sql3.=" where cod_cbte=".$cod_cbte;
 			$sql3.=" order by cod_cbte_detalle asc";
-			$resp3=mysql_query($sql3);
-			while ($dat3=mysql_fetch_array($resp3)){
+			$resp3=mysqli_query($enlaceCon,$sql3);
+			while ($dat3=mysqli_fetch_array($resp3)){
 				 $cod_cbte_detalle=$dat3['cod_cbte_detalle'];
 				 $cod_cuenta=$dat3['cod_cuenta'];
 				 
 				 $sql4="select nro_cuenta,desc_cuenta from cuentas where cod_cuenta=".$cod_cuenta;
-				 $resp4=mysql_query($sql4);
-				 while($dat4=mysql_fetch_array($resp4)){
+				 $resp4=mysqli_query($enlaceCon,$sql4);
+				 while($dat4=mysqli_fetch_array($resp4)){
 				 	$nro_cuenta=$dat4['nro_cuenta'];
 					$desc_cuenta=$dat4['desc_cuenta'];
 				 }

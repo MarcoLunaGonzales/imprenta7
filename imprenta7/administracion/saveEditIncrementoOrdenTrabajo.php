@@ -8,7 +8,7 @@ include("funciones.php");
 	$sql.=" cod_usuario_incremento='".$_COOKIE['usuario_global']."',";
 	$sql.=" incremento_obs='".$_POST['incremento_obs']."'";
 	$sql.=" where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'"; 
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 		
 
 					$monto_orden_trabajo=0;
@@ -16,8 +16,8 @@ include("funciones.php");
 					$incremento_cotizacion=0;
 					$sqlAux=" select monto_orden_trabajo, incremento_orden_trabajo, descuento_orden_trabajo ";
 					$sqlAux.=" from ordentrabajo where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'";
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$monto_orden_trabajo=$datAux['monto_orden_trabajo'];
 							$incremento_orden_trabajo=$datAux['incremento_orden_trabajo'];
 							$descuento_orden_trabajo=$datAux['descuento_orden_trabajo'];
@@ -32,9 +32,9 @@ include("funciones.php");
 			 	$sql2.=" and p.cod_estado_pago<>2";
 			 	$sql2.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sql2.=" and pd.cod_tipo_doc=2";
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_ordentrabajo=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_moneda=$dat2['cod_moneda'];
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$fecha_pago=$dat2['fecha_pago'];
@@ -44,9 +44,9 @@ include("funciones.php");
 							$sql3="select cambio_bs from tipo_cambio";
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
-							$resp3 = mysql_query($sql3);
+							$resp3 = mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=0;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							if($cambio_bs<>0){
@@ -67,20 +67,20 @@ include("funciones.php");
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'"; 
 
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_ordentrabajo==0){
 						$sql4=" update ordentrabajo set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'"; 	
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 								
 				}else{
 
 						$sql4=" update ordentrabajo set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'"; 		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 								
 				}		
 			}

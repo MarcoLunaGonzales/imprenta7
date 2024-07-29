@@ -183,8 +183,8 @@ function paginar1(f,pagina)
 	}	
 	$sql.=" order by  f.nro_factura desc";
 		
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -253,7 +253,7 @@ if($descEstFacB<>""){
 		
 		$sql.=" order by f.nro_factura desc ";
 			$sql.=" limit 50";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -277,7 +277,7 @@ if($descEstFacB<>""){
   <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_factura=$dat['cod_factura'];
 				$nro_factura=$dat['nro_factura'];
@@ -297,9 +297,9 @@ if($descEstFacB<>""){
 				///Datos Hoja Ruta////
 				$queryFacHojaRuta="select cod_hoja_ruta from factura_hojaruta where cod_factura=".$cod_factura;
 				//echo $queryFacHojaRuta;
-				$resp3 = mysql_query($queryFacHojaRuta);
+				$resp3 = mysqli_query($enlaceCon,$queryFacHojaRuta);
 					$cod_hoja_ruta=0;
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$cod_hoja_ruta=$dat3['cod_hoja_ruta'];
 				}
 				$cod_gestion="";
@@ -315,9 +315,9 @@ if($descEstFacB<>""){
 				///Fin Datos Hoja Ruta//
 				///Datos Orden Trabajo////
 				$queryFacOrdenTrabajo="select cod_orden_trabajo from factura_ordentrabajo where cod_factura=".$cod_factura;
-				$resp3 = mysql_query($queryFacOrdenTrabajo);
+				$resp3 = mysqli_query($enlaceCon,$queryFacOrdenTrabajo);
 				$cod_orden_trabajo=0;
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$cod_orden_trabajo=$dat3['cod_orden_trabajo'];
 				}
 					$nro_orden_trabajo="";
@@ -363,8 +363,8 @@ if($descEstFacB<>""){
 						$sql3.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 						$sql3.=" and c.cod_cliente=cli.cod_cliente ";
 						$sql3.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-						$resp3 = mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3 = mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$cod_gestion=$dat3['cod_gestion'];
 							$nro_hoja_ruta=$dat3['nro_hoja_ruta'];
 							$gestion=$dat3['gestion'];
@@ -397,8 +397,8 @@ if($descEstFacB<>""){
 				$sql3.=" and ot.cod_est_ot=eo.cod_est_ot ";
 				$sql3.=" and ot.cod_cliente=cli.cod_cliente ";
 				$sql3.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
-			    $resp3= mysql_query($sql3);	
-				while($dat3=mysql_fetch_array($resp3)){
+			    $resp3= mysqli_query($enlaceCon,$sql3);	
+				while($dat3=mysqli_fetch_array($resp3)){
 		
 					$nro_orden_trabajo=$dat3['nro_orden_trabajo'];
 					$cod_gestion=$dat3['cod_gestion'];

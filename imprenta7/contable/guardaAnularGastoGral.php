@@ -9,7 +9,7 @@ $sql.=" fecha_anulacion='".date('Y-m-d h:i:s', time())."',";
 $sql.=" cod_usuario_anulacion='".$_COOKIE['usuario_global']."',";
 $sql.=" cod_estado=2 ";
 $sql.=" where cod_gasto_gral='".$_POST['cod_gasto_gral']."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 

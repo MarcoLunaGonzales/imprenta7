@@ -5,8 +5,8 @@
 	$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica ";
 	$sql.=" from areas ";
 	$sql.=" where cod_area=".$cod_area;	
-	$resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_area=$dat['nombre_area'];
 		$codestadoregistro=$dat['cod_estado_registro'];
 		$obs_area=$dat['obs_area'];
@@ -77,8 +77,8 @@
       		  <select name="cod_estado_registro" id="cod_estado_registro" class="textoform">
 	<?php
     		$sql2=" select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-		    $resp2 = mysql_query($sql2);				
-				while($dat2=mysql_fetch_array($resp2)){
+		    $resp2 = mysqli_query($enlaceCon,$sql2);				
+				while($dat2=mysqli_fetch_array($resp2)){
 						$cod_estado_registro=$dat2['cod_estado_registro'];
 						$nombre_estado_registro=$dat2['nombre_estado_registro'];
 	?>s

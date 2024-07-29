@@ -12,8 +12,8 @@ class PDF extends FPDF
 		
 		$cod_hoja_ruta=$_GET['cod_hoja_ruta'];
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -23,15 +23,15 @@ class PDF extends FPDF
 	$sql.=" obs_hoja_ruta, cod_cotizacion, cod_estado_hoja_ruta, factura_si_no, cod_usuario_comision ";
 	$sql.=" from hojas_rutas ";
 	$sql.=" where  cod_hoja_ruta='".$cod_hoja_ruta."'";
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 	
 		$cod_gestion=$dat[0];
 		/************GESTION********************/
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestionHojaRuta="";
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$gestionHojaRuta=$dat2[0];
 		}		
 		/************FIN GESTION********************/		
@@ -43,8 +43,8 @@ class PDF extends FPDF
 		/********************************/	
 		$cod_usuario_hoja_ruta=$dat[3];
 		$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$cod_usuario_hoja_ruta."'";	
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$usuarioHojaRuta=$dat2[0]." ".$dat2[1]." ".$dat2[2];
 				
 		$obs_hoja_ruta=$dat[4];
@@ -54,8 +54,8 @@ class PDF extends FPDF
 		$cod_usuario_comision=$dat[8]; 
 		if($cod_usuario_comision<>0){
 			$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$cod_usuario_comision."'";	
-			$resp2= mysql_query($sql2);
-			$dat2=mysql_fetch_array($resp2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			$dat2=mysqli_fetch_array($resp2);
 			$nombres_usuario=$dat2[0];
 			$ap_paterno_usuario=$dat2[1];
 
@@ -66,8 +66,8 @@ class PDF extends FPDF
 	$sql=" select nro_cotizacion, cod_cliente, fecha_cotizacion, cod_gestion ";
 	$sql.=" from cotizaciones ";
 	$sql.=" where  cod_cotizacion='".$cod_cotizacion."'";
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 
 		$nro_cotizacion=$dat[0];
 		$cod_cliente=$dat[1];
@@ -78,15 +78,15 @@ class PDF extends FPDF
 		$fechaCotizacionVectoAux=explode("-",$fechaCotizacionVecto[0]);	
 		
 		$sql5="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$gestionCotizacion=$dat5[0];
 		}			
 
 		$sql2=" select nombre_cliente, telefono_cliente, celular_cliente, fax_cliente";
 		$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-		$resp2=mysql_query($sql2);
-		while ($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while ($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2[0];		
 				$telefono_cliente=$dat2[1];
 				$celular_cliente=$dat2[2];
@@ -99,9 +99,9 @@ class PDF extends FPDF
 	/*****************************NOTAS DE REMISION***********************************/
 		$sql2="select count(*) from notas_remision where cod_hoja_ruta='".$cod_hoja_ruta."'";
 		$sql2.=" and cod_estado_nota_remision=1";
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$numeroNotasRemision=0;
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 				$numeroNotasRemision=$dat2[0];	
 		}
 		
@@ -110,9 +110,9 @@ class PDF extends FPDF
 		$sql2.=" where nr.cod_gestion=g.cod_gestion ";
 		$sql2.=" and nr.cod_hoja_ruta='".$cod_hoja_ruta."' ";
 		$sql2.=" and nr.cod_estado_nota_remision=1";
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$notasRemision="";
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 				$cod_nota_remision=$dat2['cod_nota_remision'];	
 				$nro_nota_remision=$dat2['nro_nota_remision'];
 				$cod_gestion=$dat2['cod_gestion'];
@@ -125,9 +125,9 @@ class PDF extends FPDF
 		$sql2.=" from facturas ";
 		$sql2.=" where cod_factura in( select cod_factura from factura_hojaruta where cod_hoja_ruta='".$cod_hoja_ruta."')";
 		$sql2.=" and cod_est_fac=1";				
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$numeroFacturas=0;
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 				$numeroFacturas=$dat2[0];	
 		}
 		
@@ -135,9 +135,9 @@ class PDF extends FPDF
 		$sql2.=" from facturas ";
 		$sql2.=" where cod_factura in( select cod_factura from factura_hojaruta where cod_hoja_ruta='".$cod_hoja_ruta."')";
 		$sql2.=" and cod_est_fac=1";
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$facturas="";
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 				$nro_factura=$dat2['nro_factura'];	
 				$facturas=$facturas.$nro_factura."; ";
 		}
@@ -219,8 +219,8 @@ class PDF extends FPDF
 	
 	$cod_hoja_ruta=$_GET['cod_hoja_ruta'];
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 		$valorX=$dat5[0];
 		$valorY=$dat5[1];
 	}
@@ -229,8 +229,8 @@ class PDF extends FPDF
 	$sql.=" obs_hoja_ruta, cod_cotizacion, cod_estado_hoja_ruta ";
 	$sql.=" from hojas_rutas ";
 	$sql.=" where  cod_hoja_ruta='".$cod_hoja_ruta."'";
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 		$fecha_hoja_ruta=$dat[0];
 		/********************************/
 		$fechaHojaRutaVecto=explode(" ",$fecha_hoja_ruta);
@@ -238,8 +238,8 @@ class PDF extends FPDF
 		/********************************/	
 		$cod_usuario_hoja_ruta=$dat[1];
 		$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$cod_usuario_hoja_ruta."'";	
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$usuarioHojaRuta=$dat2[0]." ".$dat2[1]." ".$dat2[2];
 
 		$obs_hoja_ruta=$dat[2];
@@ -258,12 +258,12 @@ class PDF extends FPDF
 		$sql.=" where  cod_cotizacion='".$cod_cotizacion."'";
 		$sql.=" and cod_cotizaciondetalle in (select cod_cotizaciondetalle from hojas_rutas_detalle where cod_hoja_ruta='".$cod_hoja_ruta."')";
 		$sql.=" order by cod_cotizaciondetalle asc";
-		$resp=mysql_query($sql);
+		$resp=mysqli_query($enlaceCon,$sql);
 		$suma=0;
 
 		$val_aux_coordenadaY=0;
 		$numeroItem=0;
-		while ($dat=mysql_fetch_array($resp)){
+		while ($dat=mysqli_fetch_array($resp)){
 			$numeroItem=$numeroItem+1;
 			$val_aux_coordenadaY=$pdf->GetY();
 			
@@ -272,8 +272,8 @@ class PDF extends FPDF
 			
 			$sql4= " select desc_item  from items  where cod_item='".$cod_item."'";
 			$desc_item="";
-			$resp4=mysql_query($sql4);
-			while ($dat4=mysql_fetch_array($resp4)){
+			$resp4=mysqli_query($enlaceCon,$sql4);
+			while ($dat4=mysqli_fetch_array($resp4)){
 		
 				$desc_item=$dat4[0];
 			}
@@ -309,9 +309,9 @@ class PDF extends FPDF
 			$sql7=" select count(DISTINCT(cod_compitem))as cant_comp ";
 			$sql7.=" from cotizacion_detalle_caracteristica";
 			$sql7.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$cant_comp=0;
-			while ($dat7=mysql_fetch_array($resp7)){
+			while ($dat7=mysqli_fetch_array($resp7)){
 				$cant_comp=$dat7[0];	
 			}
 			
@@ -319,16 +319,16 @@ class PDF extends FPDF
 			$sql2=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql2.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 			
-			$resp2=mysql_query($sql2);
-			while ($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while ($dat2=mysqli_fetch_array($resp2)){
 		
 				$cod_compitem=$dat2[0];
 				$sql4=" select  count(*) from cotizacion_detalle_caracteristica ";
 				$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 				$sql4.=" and cod_compitem='".$cod_compitem."' and cod_estado_registro=1";
-				$resp4=mysql_query($sql4);
+				$resp4=mysqli_query($enlaceCon,$sql4);
 				$nro_carac=0;
-				while($dat4=mysql_fetch_array($resp4)){
+				while($dat4=mysqli_fetch_array($resp4)){
 					$nro_carac=$dat4[0];
 				}
 				
@@ -337,8 +337,8 @@ class PDF extends FPDF
 				
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				if($cant_comp>1){
@@ -354,16 +354,16 @@ class PDF extends FPDF
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1 order by orden asc";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_carac=$dat3[0];
 						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/
@@ -385,14 +385,14 @@ class PDF extends FPDF
 				$sql8.=" where  cod_hoja_ruta='".$cod_hoja_ruta."'";
 				$sql8.=" and  cod_cotizacion='".$cod_cotizacion."'";
 				$sql8.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
-				$resp8=mysql_query($sql8);			
+				$resp8=mysqli_query($enlaceCon,$sql8);			
 				$cod_usuario_diseno=0;
 				$obs_trabajo="";
 				$diseno="";
 				$diseno_aprobacion=""; 
 				$placas="";
 				$cantidad_cpt="";
-				while ($dat8=mysql_fetch_array($resp8)){
+				while ($dat8=mysqli_fetch_array($resp8)){
 					$cod_usuario_diseno=$dat8[0];
 					$obs_trabajo=$dat8[1];
 					$diseno=$dat8[2];
@@ -403,8 +403,8 @@ class PDF extends FPDF
 					
 					$sql2="select nombres_usuario,ap_paterno_usuario from usuarios ";
 					$sql2.=" where cod_usuario='".$cod_usuario_diseno."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioDiseno=$dat2[0]." ".$dat2[1]." ".$dat2[2];
 				
 					$prensa="";
@@ -420,14 +420,14 @@ class PDF extends FPDF
 					$sql4.=" where cod_cotizacion='".$cod_cotizacion."'"; 
 					$sql4.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
 					$sql4.=" and cod_hoja_ruta='".$cod_hoja_ruta."'";
-					$resp4=mysql_query($sql4);
-					while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+					while($dat4=mysqli_fetch_array($resp4))
 					{
 						$cod_maquina=$dat4[0];
 						$desc_maquina="";
 						$sql5="select desc_maquina from maquinaria where cod_maquina='".$cod_maquina."'";
-						$resp5=mysql_query($sql5);
-						while($dat5=mysql_fetch_array($resp5))
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while($dat5=mysqli_fetch_array($resp5))
 						{
 							$desc_maquina=$dat5[0];
 							$prensa=$prensa.$desc_maquina.";";

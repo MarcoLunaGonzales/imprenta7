@@ -33,8 +33,8 @@
  $sql.=" and  hr.cod_cotizacion=c.cod_cotizacion ";
  $sql.=" and c.cod_cliente=cli.cod_cliente ";
  $sql.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
- $resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+ $resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_hoja_ruta=$dat['nro_hoja_ruta'];
 		$cod_gestion=$dat['cod_gestion'];
 		$gestion=$dat['gestion'];
@@ -57,8 +57,8 @@
 	$sql.=" and ghr.cod_hoja_ruta=".$cod_hoja_ruta;
 	$sql.=" order by ghr.fecha_gasto desc";
 
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat[0];
 	}
 ?>
@@ -86,7 +86,7 @@
 		$sql.=" and ghr.cod_hoja_ruta=".$cod_hoja_ruta;
 		$sql.=" order by ghr.fecha_gasto desc";
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -107,7 +107,7 @@
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_gasto_hojaruta=$dat['cod_gasto_hojaruta'];
 				$cod_gasto=$dat['cod_gasto']; 

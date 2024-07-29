@@ -50,8 +50,8 @@ function abrirVentana(){
 				$sql2.=" or  cod_cliente in(select DISTINCT(cod_cliente_venta) from salidas where cod_tipo_salida=1";
 				$sql2.=" and cod_estado_salida=1 and cod_estado_pago_doc<>3))";				
 				$sql2.=" order by nombre_cliente";				
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2['cod_cliente'];	
 			  		 		$nombre_cliente=$dat2['nombre_cliente'];	
@@ -68,8 +68,8 @@ function abrirVentana(){
       		<td>
 				<?php
 					$sql2=" select cod_tipo_pago, nombre_tipo_pago from tipos_pago ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_pago=$dat2[0];	
 			  		 		$nombre_tipo_pago=$dat2[1];	
@@ -93,8 +93,8 @@ function abrirVentana(){
 				<option value="0">Todos los Tipos de Documentos</option>            
 				<?php
 					$sql2=" select cod_tipo_doc, desc_tipo_doc from tipo_documento ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_doc=$dat2[0];	
 			  		 		$desc_tipo_doc=$dat2[1];	

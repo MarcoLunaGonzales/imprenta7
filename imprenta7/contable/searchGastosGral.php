@@ -82,8 +82,8 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 	}	
 	$sql.=" order by gg.fecha_gasto_gral,gg.nro_gasto_gral desc";
 
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -156,7 +156,7 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 	$sql.=" order by gg.fecha_gasto_gral desc ,gg.nro_gasto_gral desc";
 	$sql.=" limit 50";
 
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$cont=0;
 ?>
 <table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgcolor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -182,7 +182,7 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
   </thead>
   <tbody>
   <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			$cod_gasto_gral=$dat['cod_gasto_gral']; 
 			$cod_gestion=$dat['cod_gestion']; 
 			$gestion=$dat['gestion'];
@@ -215,8 +215,8 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 			if($cod_usuario_registro!="" || $cod_usuario_registro!=NULL){
 				$datosRegistro=strftime("%d/%m/%Y %H:%M:%S",strtotime($fecha_registro));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosRegistro=$datosRegistro." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -225,8 +225,8 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 			if($cod_usuario_modifica!="" || $cod_usuario_modifica!=NULL){
 				$datosEdicion=strftime("%d/%m/%Y %H:%M:%S",strtotime($fecha_modifica));
 				$sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$datosEdicion=$datosEdicion." ".$datAux['nombres_usuario']." ".$datAux['ap_paterno_usuario'];
 
 				}
@@ -263,8 +263,8 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 				$sqlAux.=" left join clientes cli on (cli.cod_cliente=c.cod_cliente)";
 				$sqlAux.=" left join gestiones g on (hr.cod_gestion =g.cod_gestion )";
 				$sqlAux.=" where hr.cod_hoja_ruta=".$codigo_doc;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$nro_doc=$datAux['nro_hoja_ruta'];
 					$cod_gestion_doc=$datAux['cod_gestion'];
 					$gestion_nombre_doc=$datAux['gestion_nombre'];
@@ -285,8 +285,8 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 				$sqlAux.=" left join clientes cli on (cli.cod_cliente=ot.cod_cliente) ";
 				$sqlAux.=" left join gestiones g on (ot.cod_gestion =g.cod_gestion )";
 				$sqlAux.=" where ot.cod_orden_trabajo=".$codigo_doc;
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$nro_doc=$datAux['nro_orden_trabajo'];
 					$cod_gestion_doc=$datAux['cod_gestion'];
 					$gestion_nombre_doc=$datAux['gestion_nombre'];
@@ -314,15 +314,15 @@ $sql.=" left join proveedores p on(gg.cod_proveedor=p.cod_proveedor)";
 		$sqlAux.=" left join pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov) ";
 		$sqlAux.=" where ppd.cod_tipo_doc=5 and ppd.codigo_doc=".$cod_gasto_gral;
 		$sqlAux.=" and pp.cod_estado_pago_prov<>2 ";
-		$respAux = mysql_query($sqlAux);
+		$respAux = mysqli_query($enlaceCon,$sqlAux);
 		$nroPagoProv=0;
-		while($datAux=mysql_fetch_array($respAux)){
+		while($datAux=mysqli_fetch_array($respAux)){
 			$nroPagoProv=$datAux[0];
 		}
 		if($cod_estado==1 and $nroPagoProv==0){	
 			$sqlAux=" select cod_perfil from usuarios where cod_usuario=".$_COOKIE['usuario_global'];
-			$respAux = mysql_query($sqlAux);
-			while($datAux=mysql_fetch_array($respAux)){
+			$respAux = mysqli_query($enlaceCon,$sqlAux);
+			while($datAux=mysqli_fetch_array($respAux)){
 				$cod_perfil=$datAux['cod_perfil'];
 			}
 			if($cod_perfil==1){

@@ -24,8 +24,8 @@
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";		
 		//echo $sql."<br>";
 	//echo $sql_aux;
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_material=$dat[0];
 		
 		//echo $_POST['cod_material'.$cod_material];
@@ -38,7 +38,7 @@
 				$sql3.=" precio_venta=".$precioVenta;
 				$sql3.=" where cod_material=".$cod_material;
 				//echo $sql3."<br>";			
-				mysql_query($sql3);
+				mysqli_query($enlaceCon,$sql3);
 			}
 		}
 

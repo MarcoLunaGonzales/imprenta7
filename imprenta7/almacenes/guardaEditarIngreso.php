@@ -30,7 +30,7 @@ $sql.=" dias_plazo_pago='".$_POST['dias_plazo_pago']."',";
 $sql.=" cod_tipo_pago='".$_POST['cod_tipo_pago']."',";
 $sql.=" obs_ingreso='".$_POST['obs_ingreso']."' ";
 $sql.=" where cod_ingreso='".$_POST['cod_ingreso']."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
  if($_POST['cod_tipo_ingreso']==1){
 		//ACTUALIZACION DE ESTADO PAGO DE INGRESO//
 		$sql2=" select  count(*),sum(ppd.monto_pago_prov_detalle) ";
@@ -38,9 +38,9 @@ mysql_query($sql);
 		$sql2.=" inner join  pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov and pp.cod_estado_pago_prov<>2) ";
 		$sql2.=" and ppd.codigo_doc=".$_POST['cod_ingreso'];
 		$sql2.=" and ppd.cod_tipo_doc=4 ";
-		$resp2 = mysql_query($sql2);
+		$resp2 = mysqli_query($enlaceCon,$sql2);
 		$acuenta_pago_prov=0;
-		while($dat2=mysql_fetch_array($resp2)){					
+		while($dat2=mysqli_fetch_array($resp2)){					
 			$num_pago_prov=$dat2[0];
 			if($num_pago_prov>0){
 				$acuenta_pago_prov=$dat2[1];									
@@ -54,20 +54,20 @@ mysql_query($sql);
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_ingreso='".$_POST['cod_ingreso']."'"; 
 
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_pago_prov==0){
 						$sql4=" update ingresos set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_ingreso='".$_POST['cod_ingreso']."'";  	
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 								
 				}else{
 
 						$sql4=" update ingresos set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_ingreso='".$_POST['cod_ingreso']."'";  		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 								
 				}		
 			}
@@ -79,7 +79,7 @@ if($_POST['num']){
 		if($cod_ingreso<>""){
 	
 			$sql3="delete from  ingresos_detalle where cod_ingreso='".$cod_ingreso."'";	
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 
 			for($i = 1;$i <=$num ;$i++) {	
 			
@@ -106,12 +106,12 @@ if($_POST['num']){
 				$sql3.=" cant_actual='".$cantidad."'";	
 				
 				//echo $sql3."<br/>";
-				mysql_query($sql3);
+				mysqli_query($enlaceCon,$sql3);
 			
 				$sql3=" update materiales set";
 				$sql3.=" precio_venta=".$precioVenta;
 				$sql3.=" where cod_material=".$cod_material;					
-				mysql_query($sql3);
+				mysqli_query($enlaceCon,$sql3);
 			}
 		}
 	}

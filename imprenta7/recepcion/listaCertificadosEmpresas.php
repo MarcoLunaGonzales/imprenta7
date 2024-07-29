@@ -151,8 +151,8 @@ function eliminar(f)
 	include("funciones.php");
 	$cod_empresa=$_GET['cod_empresa'];
 	$sql=" select  rotulo_comercial from empresas  where cod_empresa='".$cod_empresa."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$rotulo_comercial=$dat[0];
 	}	
 ?>
@@ -180,8 +180,8 @@ function eliminar(f)
 		$sql_aux.=" where cod_empresa='".$cod_empresa."'";
 
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -226,7 +226,7 @@ function eliminar(f)
 		$sql.=" where cod_empresa='".$cod_empresa."'";
 		$sql.=" order by fecha_emision desc ";
 		$sql.="  limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -245,20 +245,20 @@ function eliminar(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_cert_prod=$dat[0]; 
 			$cod_producto=$dat[1];
 			$sql2="select nombre_producto, cod_marca from productos where cod_producto='".$cod_producto."'";
-			$resp2 = mysql_query($sql2);
+			$resp2 = mysqli_query($enlaceCon,$sql2);
 			$nombre_marca="";
-			$dat2=mysql_fetch_array($resp2);
+			$dat2=mysqli_fetch_array($resp2);
 				$nombre_producto=$dat2[0];
 				$cod_marca=$dat2[1];
 			/*------------------------------*/
 				$sql5=" select nombre_marca from marcas where cod_marca='".$cod_marca."'";
-				$resp5= mysql_query($sql5);
-				$dat5=mysql_fetch_array($resp5);				
+				$resp5= mysqli_query($enlaceCon,$sql5);
+				$dat5=mysqli_fetch_array($resp5);				
 				$nombre_marca=$dat5[0];					
 			/*------------------------------*/										
 			
@@ -279,23 +279,23 @@ function eliminar(f)
 			 	$cod_grado=0;
 				$cod_cargo=0; 
 				$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, cod_grado, cod_cargo from usuarios where cod_usuario='".$cod_usuario_firma."'";
-				$resp4= mysql_query($sql4);
-				$dat4=mysql_fetch_array($resp4);				
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				$dat4=mysqli_fetch_array($resp4);				
 					$nombre_usuario_firma=$dat4[0];
 					$ap_paterno_usuario_firma=$dat4[1];
 					$ap_materno_usuario_firma=$dat4[2];	
 				 	$cod_grado=$dat4[3];
 					/*------------------------------*/
 						$sql5=" select abrev_grado from grados where cod_grado='".$cod_grado."'";
-						$resp5= mysql_query($sql5);
-						$dat5=mysql_fetch_array($resp5);				
+						$resp5= mysqli_query($enlaceCon,$sql5);
+						$dat5=mysqli_fetch_array($resp5);				
 						$abrev_grado=$dat5[0];					
 					/*------------------------------*/
 					$cod_cargo=$dat4[4];
 					/*------------------------------*/
 						$sql5=" select nombre_cargo from cargos where cod_cargo='".$cod_cargo."'";
-						$resp5= mysql_query($sql5);
-						$dat5=mysql_fetch_array($resp5);				
+						$resp5= mysqli_query($enlaceCon,$sql5);
+						$dat5=mysqli_fetch_array($resp5);				
 						$nombre_cargo=$dat5[0];					
 					/*------------------------------*/					
 											
@@ -307,8 +307,8 @@ function eliminar(f)
 			$ap_paterno_usuario_registro="";
 			$ap_materno_usuario_registro="";
 			$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, cod_grado, cod_cargo from usuarios where cod_usuario='".$cod_usuario_registro."'";
-			$resp4= mysql_query($sql4);
-			$dat4=mysql_fetch_array($resp4);				
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			$dat4=mysqli_fetch_array($resp4);				
 					$nombre_usuario_registro=$dat4[0];
 					$ap_paterno_usuario_registro=$dat4[1];
 					$ap_materno_usuario_registro=$dat4[2];							
@@ -328,8 +328,8 @@ function eliminar(f)
 			$ap_materno_usuario_modifica="";
 			$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, cod_grado, cod_cargo";
 			$sql4.=" from usuarios where cod_usuario='".$cod_usuario_modifica."'";
-			$resp4= mysql_query($sql4);
-			$dat4=mysql_fetch_array($resp4);				
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			$dat4=mysqli_fetch_array($resp4);				
 					$nombre_usuario_modifica=$dat4[0];
 					$ap_paterno_usuario_modifica=$dat4[1];
 					$ap_materno_usuario_modifica=$dat4[2];							
@@ -344,14 +344,14 @@ function eliminar(f)
 						
 			$cod_estado_certificado=$dat[11];
 			$sql4=" select nombre_estado_certificado  from estados_certificados where cod_estado_certificado='".$cod_estado_certificado."'";
-			$resp4= mysql_query($sql4);
-			$dat4=mysql_fetch_array($resp4);				
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			$dat4=mysqli_fetch_array($resp4);				
 			$nombre_estado_certificado=$dat4[0];
 			
 			$cod_ciudad=$dat[12];
 			$sql4=" select nombre_ciudad  from ciudades where cod_ciudad='".$cod_ciudad."'";
-			$resp4= mysql_query($sql4);
-			$dat4=mysql_fetch_array($resp4);				
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			$dat4=mysqli_fetch_array($resp4);				
 			$nombre_ciudad=$dat4[0];
 			
 			$cod_usuario_cierre=$dat[13];
@@ -361,8 +361,8 @@ function eliminar(f)
 			$ap_materno_usuario_cierre="";
 			$sql4=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, cod_grado, cod_cargo ";
 			$sql4.=" from usuarios where cod_usuario='".$cod_usuario_cierre."'";
-			$resp4= mysql_query($sql4);
-			$dat4=mysql_fetch_array($resp4);				
+			$resp4= mysqli_query($enlaceCon,$sql4);
+			$dat4=mysqli_fetch_array($resp4);				
 			$nombre_usuario_cierra=$dat4[0];
 			$ap_paterno_usuario_cierra=$dat4[1];
 			$ap_materno_usuario_cierra=$dat4[2];							
@@ -391,8 +391,8 @@ function eliminar(f)
 				$sql4=" select cod_ficha, sku, presentacion ";
 				$sql4.=" from fichas_producto ";
 				$sql4.=" where cod_ficha in(select cod_ficha from certificados_producto where cod_cert_prod='".$cod_cert_prod."')";
-				$resp4= mysql_query($sql4);
-				while($dat4=mysql_fetch_array($resp4)){				
+				$resp4= mysqli_query($enlaceCon,$sql4);
+				while($dat4=mysqli_fetch_array($resp4)){				
 					$cod_ficha=$dat4[0];
 					$sku=$dat4[1];
 					$presentacion=$dat4[2];

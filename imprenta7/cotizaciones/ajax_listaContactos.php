@@ -25,8 +25,8 @@ $codcontacto=$_GET['cod_contacto'];
 					$sql2.=" from clientes_contactos";
 					$sql2.=" where cod_cliente=".$codcliente;
 					$sql2.=" order by  ap_paterno_contacto asc, ap_materno_contacto asc , nombre_contacto asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto=$dat2['cod_contacto'];
 							$nombre_contacto=$dat2['nombre_contacto'];

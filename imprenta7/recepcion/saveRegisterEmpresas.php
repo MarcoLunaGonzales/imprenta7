@@ -34,7 +34,7 @@ include("funciones.php");
 	$sql.=" pagina_web='".$pagina_web."',";
 	$sql.=" obs_empresa='".$obs_empresa."'";
 
-	mysql_query($sql);*/
+	mysqli_query($enlaceCon,$sql);*/
 
 //require("cerrar_conexion1.inc");
 ?>

@@ -45,14 +45,14 @@
 <?php 	require("conexion.inc");
 
 	$sql2="select nombre_cliente from clientes where cod_cliente=".$_POST['cod_cliente'];
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2[0];
 	}	
 
 	$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=1";
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_estado_registro=$dat2[0];
 	}	
 ?>
@@ -99,8 +99,8 @@
       		<td><select name="cod_estado_registro" class="textoform">
 				<?php
 					$sql2="select cod_estado_registro,nombre_estado_registro from estados_referenciales order by cod_estado_registro asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

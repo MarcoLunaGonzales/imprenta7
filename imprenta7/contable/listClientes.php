@@ -123,8 +123,8 @@ function paginar1(f,pagina)
 	if($_GET['descGastoB']<>""){
 			$sql.=" and g.desc_gasto like '%".$_GET['descGastoB']."%'";
 	}	*/
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat[0];
 	}
 		//Calculo de Nro de Paginas
@@ -158,7 +158,7 @@ function paginar1(f,pagina)
 		}		*/	
 		$sql.=" order by cli.nombre_cliente asc";
 		$sql.=" limit 50";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -181,7 +181,7 @@ function paginar1(f,pagina)
     <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			
 				$cod_cliente=$dat['cod_cliente'];
 				$nombre_cliente=$dat['nombre_cliente'];
@@ -207,11 +207,11 @@ function paginar1(f,pagina)
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_registro;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_registro="";
 					$ap_paterno_usuario_registro="";
 					$ap_materno_usuario_registro="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_registro=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_registro=$datAux['ap_paterno_usuario'];
@@ -224,11 +224,11 @@ function paginar1(f,pagina)
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_modifica;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_modifica="";
 					$ap_paterno_usuario_modifica="";
 					$ap_materno_usuario_modifica="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_modifica=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_modifica=$datAux['ap_paterno_usuario'];
@@ -297,8 +297,8 @@ function paginar1(f,pagina)
           <?php 
 		  	$queryEstado=" select cod_estado_registro, nombre_estado_registro  from estados_referenciales ";
 			$queryEstado.=" order by  cod_estado_registro ";
-			$resp= mysql_query($queryEstado);
-			while($dat=mysql_fetch_array($resp)){
+			$resp= mysqli_query($enlaceCon,$queryEstado);
+			while($dat=mysqli_fetch_array($resp)){
 				$cod_estado_registro=$dat['cod_estado_registro'];
 				$nombre_estado_registro=$dat['nombre_estado_registro'];
 		 ?>
@@ -332,8 +332,8 @@ function paginar1(f,pagina)
 		<?php
         
 			$sql2=" select cod_ciudad, desc_ciudad from ciudades ";
-		    $resp2 = mysql_query($sql2);	
-			while($dat2=mysql_fetch_array($resp2)){
+		    $resp2 = mysqli_query($enlaceCon,$sql2);	
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_ciudad=$dat2['cod_ciudad'];
 				$desc_ciudad=$dat2['desc_ciudad'];
 		?>
@@ -352,8 +352,8 @@ function paginar1(f,pagina)
 		<?php
         
 			$sql2=" select cod_categoria, desc_categoria from clientes_categorias ";
-		    $resp2 = mysql_query($sql2);	
-			while($dat2=mysql_fetch_array($resp2)){
+		    $resp2 = mysqli_query($enlaceCon,$sql2);	
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_categoria=$dat2['cod_categoria'];
 				$desc_categoria=$dat2['desc_categoria'];
 		?>
@@ -372,8 +372,8 @@ function paginar1(f,pagina)
 		<?php
         
 			$sql2=" select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-		    $resp2 = mysql_query($sql2);	
-			while($dat2=mysql_fetch_array($resp2)){
+		    $resp2 = mysqli_query($enlaceCon,$sql2);	
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_estado_registro=$dat2['cod_estado_registro'];
 				$nombre_estado_registro=$dat2['nombre_estado_registro'];
 		?>

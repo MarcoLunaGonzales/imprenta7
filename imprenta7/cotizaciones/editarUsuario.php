@@ -34,8 +34,8 @@
 		$sql.=" ap_paterno_usuario,ap_materno_usuario, cod_estado_registro, usuario_interno, cod_perfil ";
 		$sql.="from usuarios ";	
 		$sql.=" where  cod_usuario=".$cod_usuario;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$codcargo=$dat[0];
 				$codgrado=$dat[1];
@@ -51,8 +51,8 @@
 		$autorizado_firma_cotizacion="";				
 		$sql2="select count(*) from autorizados_firma_cotizacion";
 		$sql2.=" where cod_usuario='".$cod_usuario."'";	
-		$resp2= mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 				$var=$dat2[0];
 		}	
 		if($var>0){
@@ -91,8 +91,8 @@
 			<select name="cod_cargo" class="textoform">				
 				<?php
 					$sql2="select cod_cargo, desc_cargo from cargos ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cargo=$dat2[0];	
 			  		 		$desc_cargo=$dat2[1];	
@@ -109,8 +109,8 @@
 			<select name="cod_grado" class="textoform">				
 				<?php
 					$sql2="select cod_grado, desc_grado from grado_academico ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_grado=$dat2[0];	
 			  		 		$desc_grado=$dat2[1];	
@@ -129,8 +129,8 @@
 			<option value="">Seleccione una Opci&oacute;n</option>				
 				<?php
 					$sql2="select cod_perfil, nombre_perfil from perfiles ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_perfil=$dat2[0];	
 			  		 		$nombre_perfil=$dat2[1];	
@@ -147,8 +147,8 @@
       		<td>			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

@@ -67,8 +67,8 @@ require("conexion.inc");
 				<?php
 					$sql2=" select cod_tipo_doc, desc_tipo_doc";
 					$sql2.=" from   tipo_documento ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_doc=$dat2['cod_tipo_doc'];	
 			  		 		$desc_tipo_doc=$dat2['desc_tipo_doc'];	

@@ -206,8 +206,8 @@ function anular(cod_pago_prov,nro_pago_prov)
 			}
 		}
 		//echo $sql;
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -277,7 +277,7 @@ function anular(cod_pago_prov,nro_pago_prov)
 		$sql.=" order  by pp.fecha_pago_prov desc,pp.nro_pago_prov desc ";
 		//echo $sql;
 		$sql.=" limit 50";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -301,7 +301,7 @@ function anular(cod_pago_prov,nro_pago_prov)
 <?php   
 
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				$cod_pago_prov=$dat['cod_pago_prov'];
 				$cod_proveedor=$dat['cod_proveedor'];
 				$nombre_proveedor=$dat['nombre_proveedor'];
@@ -351,9 +351,9 @@ function anular(cod_pago_prov,nro_pago_prov)
 				$sql2.=" left join tipo_documento td on(ppd.cod_tipo_doc=td.cod_tipo_doc) ";
 				$sql2.=" where cod_pago_prov=".$cod_pago_prov;
 				$sql2.=" order by ppd.cod_pago_prov_detalle asc";
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$datos_documento="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					if($dat2['cod_tipo_doc']==4){
 						$datos_documento=$dat2['abrev_tipo_doc']." ".$dat2['nro_ingreso']."/".$dat2['gestion_ingreso'];
 					?>
@@ -372,9 +372,9 @@ function anular(cod_pago_prov,nro_pago_prov)
 	 			$sqlAux.=" from comprobante_detalle cd left join comprobante c on( cd.cod_cbte=c.cod_cbte) ";
  				$sqlAux.=" where c.cod_tipo_cbte=2 and c.cod_estado_cbte<>2 ";
 	 			$sqlAux.=" and cd.id_pago=".$cod_pago_prov;
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$cantCbte=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 					$cantCbte=$datAux[0];
 				}	
 			?></td>    
@@ -428,9 +428,9 @@ function anular(cod_pago_prov,nro_pago_prov)
 
 					$sqlAux2=" select c.nro_cbte, g.gestion_nombre from comprobante c left join gestiones g on(c.cod_gestion=g.cod_gestion) ";
  					$sqlAux2.=" where cod_cbte=".$cod_cbte;
-					$respAux2 = mysql_query($sqlAux2);
+					$respAux2 = mysqli_query($enlaceCon,$sqlAux2);
 					$datosCbte="";
-					while($datAux2=mysql_fetch_array($respAux2)){
+					while($datAux2=mysqli_fetch_array($respAux2)){
 						$datosCbte=$datAux2['nro_cbte']."/".$datAux2['gestion_nombre'];
 					}
 						
@@ -492,8 +492,8 @@ function anular(cod_pago_prov,nro_pago_prov)
 					$sql2=" select cod_estado_pago_prov, desc_estado_pago_prov";
 					$sql2.=" from   estado_pago_proveedor ";
 					$sql2.=" order by cod_estado_pago_prov asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_pago_prov=$dat2['cod_estado_pago_prov'];	
 			  		 		$desc_estado_pago_prov=$dat2['desc_estado_pago_prov'];	
@@ -513,8 +513,8 @@ function anular(cod_pago_prov,nro_pago_prov)
 					$sql2=" select cod_tipo_doc, desc_tipo_doc";
 					$sql2.=" from   tipo_documento  where (cod_tipo_doc=4 or cod_tipo_doc=5)";
 					$sql2.=" order by cod_tipo_doc asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_doc=$dat2['cod_tipo_doc'];	
 			  		 		$desc_tipo_doc=$dat2['desc_tipo_doc'];	

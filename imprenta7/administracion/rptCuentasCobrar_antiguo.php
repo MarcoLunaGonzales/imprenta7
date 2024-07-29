@@ -21,9 +21,9 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 	 $sql.=" and c.cod_cliente=".$cliente;
 	/////////////////////FILTRO POR TIPO DE PAGO//////////
 	$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-	$respAux3=mysql_query($sqlAux3);
+	$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 	$swAux=0;
-	while($datAux3=mysql_fetch_array($respAux3))
+	while($datAux3=mysqli_fetch_array($respAux3))
 	{
 			$cod_tipo_pago=$datAux3[0];	
 
@@ -44,8 +44,8 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 	/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 $sql.=" order by hr.fecha_hoja_ruta  asc ";	
 
-	 $resp=mysql_query($sql);
-	 while($dat=mysql_fetch_array($resp))
+	 $resp=mysqli_query($enlaceCon,$sql);
+	 while($dat=mysqli_fetch_array($resp))
 	 {	
 				$cod_hoja_ruta=$dat['cod_hoja_ruta'];
 				$cod_gestion=$dat['cod_gestion']; 
@@ -69,8 +69,8 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp2 = mysql_query($sqlCotizacion);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_cotizacion=$dat2['nro_cotizacion'];
 					$gestion_cotizacion=$dat2['gestion'];
 				}		
@@ -83,15 +83,15 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 				$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 				$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 				$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-				$respAux = mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 							$monto_hojaruta=$datAux[0];
 				}	
 				////Descuento Cotizacion////////
 					 $descuento_cotizacion=0;
 						$sqlAux="select descuento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-						$respAux = mysql_query($sqlAux);
-						while($datAux=mysql_fetch_array($respAux)){
+						$respAux = mysqli_query($enlaceCon,$sqlAux);
+						while($datAux=mysqli_fetch_array($respAux)){
 							$descuento_cotizacion=$datAux[0];
 						}
 					
@@ -99,8 +99,8 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 				////Incremento Cotizacion////////
 					 $incremento_cotizacion=0;
 						$sqlAux="select incremento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-						$respAux = mysql_query($sqlAux);
-						while($datAux=mysql_fetch_array($respAux)){
+						$respAux = mysqli_query($enlaceCon,$sqlAux);
+						while($datAux=mysqli_fetch_array($respAux)){
 							$incremento_cotizacion=$datAux[0];
 						}
 					
@@ -113,9 +113,9 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 					 	$sql2.=" and p.cod_estado_pago<>2";
 					 	$sql2.=" and pd.codigo_doc=".$cod_hoja_ruta;
 						$sql2.=" and pd.cod_tipo_doc=1";
-						$resp2 = mysql_query($sql2);
+						$resp2 = mysqli_query($enlaceCon,$sql2);
 						$acuenta_hojaruta=0;
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$cod_moneda=$dat2['cod_moneda'];
 							$monto_pago_detalle=$dat2['monto_pago_detalle'];
 							$fecha_pago=$dat2['fecha_pago'];
@@ -126,9 +126,9 @@ function saldoAnteriorClienteHR($cliente,$fecha){
 									$sql3=" select cambio_bs from tipo_cambio";
 									$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 									$sql3.=" and cod_moneda=".$cod_moneda;
-									$resp3=mysql_query($sql3);
+									$resp3=mysqli_query($enlaceCon,$sql3);
 									$cambio_bs=0;
-									while($dat3=mysql_fetch_array($resp3)){
+									while($dat3=mysqli_fetch_array($resp3)){
 										$cambio_bs=$dat3['cambio_bs'];
 									}
 									if($cambio_bs<>0){
@@ -163,9 +163,9 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 	 $sql.=" and ot.cod_cliente=".$cliente;
 	/////////////////////FILTRO POR TIPO DE PAGO//////////
 	$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-	$respAux3=mysql_query($sqlAux3);
+	$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 	$swAux=0;
-	while($datAux3=mysql_fetch_array($respAux3))
+	while($datAux3=mysqli_fetch_array($respAux3))
 	{
 			$cod_tipo_pago=$datAux3[0];	
 
@@ -186,8 +186,8 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 	/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 $sql.=" order by ot.fecha_orden_trabajo  asc ";
 
-	 $resp=mysql_query($sql);
-	 while($dat=mysql_fetch_array($resp))
+	 $resp=mysqli_query($enlaceCon,$sql);
+	 while($dat=mysqli_fetch_array($resp))
 	 {	
 				$cod_orden_trabajo=$dat['cod_orden_trabajo'];
 				$cod_gestion=$dat['cod_gestion'];
@@ -206,9 +206,9 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 					 	$sql2.=" and p.cod_estado_pago<>2";
 					 	$sql2.=" and pd.codigo_doc=".$cod_orden_trabajo;
 						$sql2.=" and pd.cod_tipo_doc=2";
-						$resp2 = mysql_query($sql2);
+						$resp2 = mysqli_query($enlaceCon,$sql2);
 						$acuenta_ordentrabajo=0;
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$cod_moneda=$dat2['cod_moneda'];
 							$monto_pago_detalle=$dat2['monto_pago_detalle'];
 							$fecha_pago=$dat2['fecha_pago'];
@@ -219,9 +219,9 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 									$sql3=" select cambio_bs from tipo_cambio";
 									$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 									$sql3.=" and cod_moneda=".$cod_moneda;
-									$resp3=mysql_query($sql3);
+									$resp3=mysqli_query($enlaceCon,$sql3);
 									$cambio_bs=0;
-									while($dat3=mysql_fetch_array($resp3)){
+									while($dat3=mysqli_fetch_array($resp3)){
 										$cambio_bs=$dat3['cambio_bs'];
 									}
 									if($cambio_bs<>0){
@@ -247,8 +247,8 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 	$codcliente=$_POST['cod_cliente'];
 	if($codcliente<>0){
 		$sql="select nombre_cliente from clientes where cod_cliente=".$codcliente;
-		$resp = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp)){
 			$nombrecliente=$dat_aux[0];
 		}
 	}
@@ -266,8 +266,8 @@ function saldoAnteriorClienteOT($cliente,$fecha){
 	 
 	 if($codtipodoc<>0){
 		$sql="select desc_tipo_doc from tipo_documento where cod_tipo_doc=".$codtipodoc;
-		$resp = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp)){
 			$desc_tipo_doc=$dat_aux[0];
 		}
 	}else{
@@ -312,9 +312,9 @@ function imprimirPagina() {
 <h3 align="center" style="background:#FFF;font-size: 10px;color: #000;font-weight:bold;">TIPO PAGO:
 <?php
 	$sqlAux3=" select cod_tipo_pago, nombre_tipo_pago from tipos_pago ";
-	$respAux3=mysql_query($sqlAux3);
+	$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 	$swAux=0;
-	while($datAux3=mysql_fetch_array($respAux3)){
+	while($datAux3=mysqli_fetch_array($respAux3)){
 			$cod_tipo_pago=$datAux3[0];	
 			$nombre_tipo_pago=$datAux3[1];	
 
@@ -347,8 +347,8 @@ function imprimirPagina() {
 			$nro_filas_sql_hr=0;
 			$nro_filas_sql_ot=0;
 			$nro_filas_sql=0;
-		$resp2=mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 			$cod_cliente=$dat2['cod_cliente'];	
 			$nombre_cliente=$dat2['nombre_cliente'];		
 			
@@ -369,9 +369,9 @@ function imprimirPagina() {
 
 			/////////////////////FILTRO POR TIPO DE PAGO//////////
 			$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-			$respAux3=mysql_query($sqlAux3);
+			$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 			$swAux=0;
-			while($datAux3=mysql_fetch_array($respAux3)){
+			while($datAux3=mysqli_fetch_array($respAux3)){
 				$cod_tipo_pago=$datAux3[0];	
 	
 				if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -387,9 +387,9 @@ function imprimirPagina() {
 			if($swAux==1){
 				$sql.=" )";
 			}	
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 			$nro_filas_sql_hr=0;
-			while($dat_aux=mysql_fetch_array($resp)){
+			while($dat_aux=mysqli_fetch_array($resp)){
 				$nro_filas_sql_hr=$dat_aux[0];
 				
 			}
@@ -413,9 +413,9 @@ function imprimirPagina() {
 
 			/////////////////////FILTRO POR TIPO DE PAGO//////////
 			$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-			$respAux3=mysql_query($sqlAux3);
+			$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 			$swAux=0;
-			while($datAux3=mysql_fetch_array($respAux3)){
+			while($datAux3=mysqli_fetch_array($respAux3)){
 				$cod_tipo_pago=$datAux3[0];	
 	
 				if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -432,8 +432,8 @@ function imprimirPagina() {
 				$sql.=" )";
 			}
 			$nro_filas_sql_ot=0;	
-			$resp = mysql_query($sql);
-			while($dat_aux=mysql_fetch_array($resp)){
+			$resp = mysqli_query($enlaceCon,$sql);
+			while($dat_aux=mysqli_fetch_array($resp)){
 				$nro_filas_sql_ot=$dat_aux[0];
 			}
 			$nro_filas_sql=$nro_filas_sql+$nro_filas_sql_ot;
@@ -499,14 +499,14 @@ function imprimirPagina() {
 			$sql2.=" and cod_cliente=".$codcliente;
 		}		
 		$sql2.=" order by nombre_cliente";				
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		$saldoInicialInventa=0;
 		$totalDeudaInventa=0;
 		$aCuentaInventa=0;
 		$saldoInventa=0;
 		$cont=0;
 
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			
 			$cod_cliente=$dat2['cod_cliente'];	
 			$nombre_cliente=$dat2['nombre_cliente'];
@@ -542,9 +542,9 @@ function imprimirPagina() {
 				$sql.=" and c.cod_cliente=".$cod_cliente;
 				/////////////////////FILTRO POR TIPO DE PAGO//////////
 				$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-				$respAux3=mysql_query($sqlAux3);
+				$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 				$swAux=0;
-				while($datAux3=mysql_fetch_array($respAux3))
+				while($datAux3=mysqli_fetch_array($respAux3))
 				{
 					$cod_tipo_pago=$datAux3[0];	
 					if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -561,8 +561,8 @@ function imprimirPagina() {
 				}
 				/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 			$sql.=" order by hr.fecha_hoja_ruta  asc ";	
-		   		$resp = mysql_query($sql);  
-				while($dat=mysql_fetch_array($resp)){
+		   		$resp = mysqli_query($enlaceCon,$sql);  
+				while($dat=mysqli_fetch_array($resp)){
 					$nro_filas_hr=$dat[0];
 			
 				}
@@ -585,9 +585,9 @@ function imprimirPagina() {
 			$sql.=" and ot.cod_cliente=".$cod_cliente;
 			/////////////////////FILTRO POR TIPO DE PAGO//////////
 			$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-			$respAux3=mysql_query($sqlAux3);
+			$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 			$swAux=0;
-			while($datAux3=mysql_fetch_array($respAux3))
+			while($datAux3=mysqli_fetch_array($respAux3))
 			{
 				$cod_tipo_pago=$datAux3[0];	
 				if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -604,8 +604,8 @@ function imprimirPagina() {
 			}
 			/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 		$sql.=" order by ot.fecha_orden_trabajo  asc ";	
-	   		 $resp = mysql_query($sql);  
-			while($dat=mysql_fetch_array($resp)){
+	   		 $resp = mysqli_query($enlaceCon,$sql);  
+			while($dat=mysqli_fetch_array($resp)){
 				$nro_filas_ot=$dat[0];
 			}
 				//////////////////////////////////////////////////////////////////
@@ -644,9 +644,9 @@ function imprimirPagina() {
 		$sql.=" and c.cod_cliente=".$cod_cliente;
 		/////////////////////FILTRO POR TIPO DE PAGO//////////
 		$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-		$respAux3=mysql_query($sqlAux3);
+		$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 		$swAux=0;
-		while($datAux3=mysql_fetch_array($respAux3))
+		while($datAux3=mysqli_fetch_array($respAux3))
 		{
 			$cod_tipo_pago=$datAux3[0];	
 			if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -664,13 +664,13 @@ function imprimirPagina() {
 		/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 	$sql.=" order by hr.fecha_hoja_ruta  asc ";	
 		//echo $sql;
-	    $resp = mysql_query($sql);  
+	    $resp = mysqli_query($enlaceCon,$sql);  
 
 		$totalDeudaClienteHR=0;
 		$acuentaClienteHR=0;
 		$saldoClienteHR=0;
 
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 
 
 				$cod_hoja_ruta=$dat['cod_hoja_ruta'];
@@ -694,8 +694,8 @@ function imprimirPagina() {
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp3 = mysql_query($sqlCotizacion);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nro_cotizacion=$dat3['nro_cotizacion'];
 					$gestion_cotizacion=$dat3['gestion'];
 				}	
@@ -703,8 +703,8 @@ function imprimirPagina() {
 
 				///Tipo Pago Hoja Ruta//////
 					$sql3="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$nombre_tipo_pago=$dat3['nombre_tipo_pago'];
 					}
 				////Fin Tipo Pago Hoja Ruta//
@@ -717,15 +717,15 @@ function imprimirPagina() {
 							$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 							$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 							$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_hojaruta=$datAux[0];
 							}	
 				////Descuento Cotizacion////////
 					 $descuento_cotizacion=0;
 						$sqlAux="select descuento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-						$respAux = mysql_query($sqlAux);
-						while($datAux=mysql_fetch_array($respAux)){
+						$respAux = mysqli_query($enlaceCon,$sqlAux);
+						while($datAux=mysqli_fetch_array($respAux)){
 							$descuento_cotizacion=$datAux[0];
 						}
 					
@@ -733,8 +733,8 @@ function imprimirPagina() {
 				////Incremento Cotizacion////////
 					 $incremento_cotizacion=0;
 						$sqlAux="select incremento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-						$respAux = mysql_query($sqlAux);
-						while($datAux=mysql_fetch_array($respAux)){
+						$respAux = mysqli_query($enlaceCon,$sqlAux);
+						while($datAux=mysqli_fetch_array($respAux)){
 							$incremento_cotizacion=$datAux[0];
 						}
 					
@@ -747,9 +747,9 @@ function imprimirPagina() {
 					 	$sql8.=" and p.cod_estado_pago<>2";
 					 	$sql8.=" and pd.codigo_doc=".$cod_hoja_ruta;
 						$sql8.=" and pd.cod_tipo_doc=1";
-						$resp8 = mysql_query($sql8);
+						$resp8 = mysqli_query($enlaceCon,$sql8);
 						$acuenta_hojaruta=0;
-						while($dat8=mysql_fetch_array($resp8)){
+						while($dat8=mysqli_fetch_array($resp8)){
 							$cod_moneda=$dat8['cod_moneda'];
 							$monto_pago_detalle=$dat8['monto_pago_detalle'];
 							$fecha_pago=$dat8['fecha_pago'];
@@ -760,9 +760,9 @@ function imprimirPagina() {
 									$sql3=" select cambio_bs from tipo_cambio";
 									$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 									$sql3.=" and cod_moneda=".$cod_moneda;
-									$resp3=mysql_query($sql3);
+									$resp3=mysqli_query($enlaceCon,$sql3);
 									$cambio_bs=0;
-									while($dat3=mysql_fetch_array($resp3)){
+									while($dat3=mysqli_fetch_array($resp3)){
 										$cambio_bs=$dat3['cambio_bs'];
 									}
 									if($cambio_bs<>0){
@@ -786,8 +786,8 @@ function imprimirPagina() {
             <td align="right"><?php 
 				$numNotasRemision=0;
 				$sql3=" select count(*) from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numNotasRemision=$dat3[0];
 				}
 
@@ -800,8 +800,8 @@ function imprimirPagina() {
 					$sql3.=" fecha_nota_remision, cod_usuario_nota_remision,";
 					$sql3.=" obs_nota_remision, cod_estado_nota_remision ";
 					$sql3.=" from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_nota_remision=$dat3[0];
 						$nro_nota_remision=$dat3[1];
@@ -814,14 +814,14 @@ function imprimirPagina() {
 						$sql4=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario  ";
 						$sql4.=" from usuarios where cod_usuario='".$cod_usuario_nota_remision."'";
 						$UsuarioNotaRemision="";
-						$resp4= mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4)){
+						$resp4= mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4)){
 							$UsuarioNotaRemision=$dat4[0]." ".$dat4[1];
 						}
 						$sql4="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";
-						$resp4= mysql_query($sql4);
+						$resp4= mysqli_query($enlaceCon,$sql4);
 						$gestionNotaRemision="";
-						while($dat4=mysql_fetch_array($resp4)){
+						while($dat4=mysqli_fetch_array($resp4)){
 							$gestionNotaRemision=$dat4[0];
 						}
 						list($a2,$m2,$d2)=explode("-",$fecha_nota_remision);
@@ -846,9 +846,9 @@ function imprimirPagina() {
 				$sqlAux.=" and p.cod_estado_pago<>2 ";
 				$sqlAux.=" and pd.codigo_doc=".$cod_hoja_ruta;
 				$sqlAux.=" and pd.cod_tipo_doc=1";
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$numPagosHR=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 					$numPagosHR=$datAux[0];
 				}
 				if($numPagosHR>0){	
@@ -867,9 +867,9 @@ function imprimirPagina() {
 				$sqlAux.=" and pd.codigo_doc=".$cod_hoja_ruta;
 				$sqlAux.=" and pd.cod_tipo_doc=1";
 				$sqlAux.=" order by  pd.fecha_comprobante desc, pd.nro_comprobante desc  ";
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$monto_pago_detalle=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 					$nro_pago=$datAux['nro_pago'];
 					$cod_gestion=$datAux['cod_gestion'];
 					$gestionPago=$datAux['gestion'];
@@ -890,9 +890,9 @@ function imprimirPagina() {
 							$sql3="select cambio_bs from tipo_cambio";
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
-							$resp3 = mysql_query($sql3);
+							$resp3 = mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=1;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							$monto_pago_detalle=($monto_pago_detalle*$cambio_bs);
@@ -981,9 +981,9 @@ function imprimirPagina() {
 		$sql.=" and ot.cod_cliente=".$cod_cliente;
 		/////////////////////FILTRO POR TIPO DE PAGO//////////
 		$sqlAux3=" select cod_tipo_pago from tipos_pago ";
-		$respAux3=mysql_query($sqlAux3);
+		$respAux3=mysqli_query($enlaceCon,$sqlAux3);
 		$swAux=0;
-		while($datAux3=mysql_fetch_array($respAux3))
+		while($datAux3=mysqli_fetch_array($respAux3))
 		{
 			$cod_tipo_pago=$datAux3[0];	
 			if($_POST['cod_tipo_pago'.$cod_tipo_pago]){
@@ -1000,14 +1000,14 @@ function imprimirPagina() {
 		}
 		/////////////////////FILTRO POR TIPO DE PAGO//////////	 
 	 	$sql.=" order by ot.fecha_orden_trabajo  asc ";	
-	    $resp = mysql_query($sql);  
+	    $resp = mysqli_query($enlaceCon,$sql);  
 
 
 		$totalDeudaClienteOT=0;
 		$acuentaClienteOT=0;
 		$saldoClienteOT=0;
 
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 
 				$cod_orden_trabajo=$dat['cod_orden_trabajo'];
 				$cod_gestion=$dat['cod_gestion'];
@@ -1022,8 +1022,8 @@ function imprimirPagina() {
 
 				///Tipo Pago Hoja Ruta//////
 					$sql3="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$nombre_tipo_pago=$dat3['nombre_tipo_pago'];
 					}
 				////Fin Tipo Pago Hoja Ruta//
@@ -1036,9 +1036,9 @@ function imprimirPagina() {
 					 	$sql8.=" and p.cod_estado_pago<>2";
 					 	$sql8.=" and pd.codigo_doc=".$cod_orden_trabajo;
 						$sql8.=" and pd.cod_tipo_doc=2";
-						$resp8 = mysql_query($sql8);
+						$resp8 = mysqli_query($enlaceCon,$sql8);
 						$acuenta_ordentrabajo=0;
-						while($dat8=mysql_fetch_array($resp8)){
+						while($dat8=mysqli_fetch_array($resp8)){
 							$cod_moneda=$dat8['cod_moneda'];
 							$monto_pago_detalle=$dat8['monto_pago_detalle'];
 							$fecha_pago=$dat8['fecha_pago'];
@@ -1049,9 +1049,9 @@ function imprimirPagina() {
 									$sql3=" select cambio_bs from tipo_cambio";
 									$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 									$sql3.=" and cod_moneda=".$cod_moneda;
-									$resp3=mysql_query($sql3);
+									$resp3=mysqli_query($enlaceCon,$sql3);
 									$cambio_bs=0;
-									while($dat3=mysql_fetch_array($resp3)){
+									while($dat3=mysqli_fetch_array($resp3)){
 										$cambio_bs=$dat3['cambio_bs'];
 									}
 									if($cambio_bs<>0){
@@ -1087,9 +1087,9 @@ function imprimirPagina() {
 				$sqlAux.=" and p.cod_estado_pago<>2 ";
 				$sqlAux.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sqlAux.=" and pd.cod_tipo_doc=2";
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$numPagosOT=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 					$numPagosOT=$datAux[0];
 				}
 				if($numPagosOT>0){	
@@ -1108,9 +1108,9 @@ function imprimirPagina() {
 				$sqlAux.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sqlAux.=" and pd.cod_tipo_doc=2";
 				$sqlAux.=" order by  pd.fecha_comprobante desc, pd.nro_comprobante desc  ";
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$monto_pago_detalle=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 					$nro_pago=$datAux['nro_pago'];
 					$cod_gestion=$datAux['cod_gestion'];
 					$gestionPago=$datAux['gestion'];
@@ -1131,9 +1131,9 @@ function imprimirPagina() {
 							$sql3="select cambio_bs from tipo_cambio";
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
-							$resp3 = mysql_query($sql3);
+							$resp3 = mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=1;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							$monto_pago_detalle=($monto_pago_detalle*$cambio_bs);

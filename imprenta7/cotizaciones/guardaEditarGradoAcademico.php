@@ -18,7 +18,7 @@ $sql.=" cod_usuario_modifica=".$_COOKIE['usuario_global'].",";
 $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_grado=".$cod_grado.""; 
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

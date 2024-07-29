@@ -39,8 +39,8 @@
 	
 	$sql=" select desc_item, cod_estado_registro ";
 	$sql.=" from items where cod_item='".$cod_item."'";
-    $resp= mysql_query($sql);	
-	$dat=mysql_fetch_array($resp);
+    $resp= mysqli_query($enlaceCon,$sql);	
+	$dat=mysqli_fetch_array($resp);
 	$desc_item=$dat[0];
 	$codestadoregistro=$dat[1];		
 
@@ -66,8 +66,8 @@
 			<select name="cod_estado_registro" class="textoform">
 				<?php
 					$sql_2="select cod_estado_registro,nombre_estado_registro from estados_referenciales  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_estado_registro= $dat_2[0];
     					$nombre_estado_registro=$dat_2[1];
 				 ?>

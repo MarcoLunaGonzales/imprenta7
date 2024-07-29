@@ -75,8 +75,8 @@ f.pagina.value=pagina*1;
 	$sql.=" and p.nombre_proveedor like'%".$nombreProveedorB."%'";
 	}
 	$sql.=" order by p.nombre_proveedor asc ";
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -131,7 +131,7 @@ f.pagina.value=pagina*1;
 	
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 		//echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -169,7 +169,7 @@ f.pagina.value=pagina*1;
 		</tr>
 <?php   
 			$nro=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			$cod_proveedor=$dat['cod_proveedor']; 
 			$nombre_proveedor=$dat['nombre_proveedor'];
@@ -193,8 +193,8 @@ f.pagina.value=pagina*1;
 			  $usuario_registro="";
 			  if($cod_usuario_registro<>"" && $cod_usuario_registro<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_registro=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 
@@ -203,8 +203,8 @@ f.pagina.value=pagina*1;
 			  $usuario_modifica="";
 			  if($cod_usuario_modifica<>"" && $cod_usuario_modifica<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_modifica=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 

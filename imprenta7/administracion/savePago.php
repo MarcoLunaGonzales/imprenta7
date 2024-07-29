@@ -27,7 +27,7 @@ include("funciones.php");
 	$sql.=" fecha_registro='".date('Y-m-d', time())."',"; 
 	$sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."'"; 
 //	echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 ////////////////////////////////DETALLE HOJAS RUTAS///////////////////////////////////
 	$sql=" select hr.cod_hoja_ruta,hr. nro_hoja_ruta, hr.cod_gestion, g.gestion,  hr.fecha_hoja_ruta, hr.cod_cotizacion ";
@@ -38,9 +38,9 @@ include("funciones.php");
 	$sql.=" and hr.cod_estado_hoja_ruta<>2";
 	$sql.=" and hr.cod_estado_pago_doc<>3";
 	$sql.=" order by hr.fecha_hoja_ruta asc , nro_hoja_ruta asc  ";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_hoja_ruta=$dat['cod_hoja_ruta'];
 		 $nro_hoja_ruta=$dat['nro_hoja_ruta'];
 		 $cod_gestion=$dat['cod_gestion'];
@@ -65,7 +65,7 @@ include("funciones.php");
 			 $sql2.=" monto_pago_detalle='".$monto_pago_detalle."'";
 	 
 
-			 mysql_query($sql2);
+			 mysqli_query($enlaceCon,$sql2);
 			 
 			 /////////////////////ACTUALIZAR ESTADO DE PAGO DE HOJAS DE RUTAS////////////
 			 
@@ -78,12 +78,12 @@ include("funciones.php");
 						$sql4=" update hojas_rutas set ";
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_hoja_ruta=".$cod_hoja_ruta;
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 					}else{
 						$sql4=" update hojas_rutas set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_hoja_ruta=".$cod_hoja_ruta;		
-						mysql_query($sql4);				
+						mysqli_query($enlaceCon,$sql4);				
 					}
 					
 			///////////////////// FIN ACTUALIZAR ESTADO DE PAGO DE HOJAS DE RUTAS////////////
@@ -103,9 +103,9 @@ include("funciones.php");
 	$sql.=" and ot.cod_gestion=g.cod_gestion "; 
 	$sql.=" and ot.cod_cliente=".$cod_cliente;
 	$sql.=" order by ot.fecha_orden_trabajo desc, ot.nro_orden_trabajo desc ";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_orden_trabajo=$dat['cod_orden_trabajo'];
 		 $nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		 $gestion=$dat['gestion'];
@@ -131,7 +131,7 @@ include("funciones.php");
 
 			 
 
-			 mysql_query($sql2);
+			 mysqli_query($enlaceCon,$sql2);
 			 
 			 /////////////////////ACTUALIZAR ESTADO DE PAGO DE ORDENES DE TRABAJO////////////
 			 
@@ -145,12 +145,12 @@ include("funciones.php");
 						$sql4=" update ordentrabajo set ";
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_orden_trabajo=".$cod_orden_trabajo;
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 					}else{
 						$sql4=" update ordentrabajo set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_orden_trabajo=".$cod_orden_trabajo;		
-						mysql_query($sql4);				
+						mysqli_query($enlaceCon,$sql4);				
 					}
 					
 			///////////////////// FIN ACTUALIZAR ESTADO DE PAGO DE ORDENES DE TRABAJO////////////
@@ -170,8 +170,8 @@ include("funciones.php");
 	$sql.=" and s.cod_estado_pago_doc<>3 ";
 	$sql.=" and s.cod_cliente_venta=".$_POST['cod_cliente'];
 	$sql.=" order by fecha_salida asc,s.nro_salida asc ";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 		  $cod_salida=$dat['cod_salida'];
 		  $nro_salida=$dat['nro_salida'];
@@ -198,7 +198,7 @@ include("funciones.php");
 			 $sql2.=" monto_pago_detalle='".$monto_pago_detalle."'";
 	 
 
-			 mysql_query($sql2);
+			 mysqli_query($enlaceCon,$sql2);
 			 
 			 /////////////////////ACTUALIZAR ESTADO DE PAGO DE SALIDA////////////
 			 
@@ -211,12 +211,12 @@ include("funciones.php");
 						$sql4=" update salidas set ";
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_salida=".$cod_salida;
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 					}else{
 						$sql4=" update salidas set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_salida=".$cod_salida;		
-						mysql_query($sql4);				
+						mysqli_query($enlaceCon,$sql4);				
 					}
 					
 			///////////////////// FIN ACTUALIZAR ESTADO DE PAGO DE SALIDAS POR VENTA////////////
@@ -230,15 +230,15 @@ include("funciones.php");
 $sql3="select cambio_bs from tipo_cambio";
 $sql3.=" where fecha_tipo_cambio='".date('Y-m-d', time())."'";
 $sql3.=" and cod_moneda=2";
-$resp3 = mysql_query($sql3);
+$resp3 = mysqli_query($enlaceCon,$sql3);
 $cambio_bs=0;
-while($dat3=mysql_fetch_array($resp3)){
+while($dat3=mysqli_fetch_array($resp3)){
 	$cambio_bs=$dat3['cambio_bs'];
 }
 							
 $sql=" select cod_forma_pago from forma_pago";
-$resp= mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp= mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$cod_forma_pago=$dat['cod_forma_pago'];	
 	$montoPagoBs=0;	
 	if($_POST['montoPagoBs'.$cod_forma_pago]){
@@ -268,7 +268,7 @@ while($dat=mysql_fetch_array($resp)){
 		$sql2.=" nro_cheque='".$nro_chequeBs."',";
 		$sql2.=" nro_cuenta='".$nro_cuentaBs."'";
 		//echo $sql2;
-		 mysql_query($sql2);
+		 mysqli_query($enlaceCon,$sql2);
 	
 	}	
 	
@@ -300,15 +300,15 @@ while($dat=mysql_fetch_array($resp)){
 		$sql2.=" nro_cheque='".$nro_chequeSus."',";
 		$sql2.=" nro_cuenta='".$nro_cuentaSus."'";
 		//echo $sql2;
-		mysql_query($sql2);	
+		mysqli_query($enlaceCon,$sql2);	
 	}		
 	
 }
 /// CREACION DE COMPROBANTE/////
 
 	$sql="select cod_cuenta from clientes where cod_cliente=".$_POST['cod_cliente'];
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_cuenta_haber=$dat['cod_cuenta'];
 	}
 
@@ -323,34 +323,34 @@ while($dat=mysql_fetch_array($resp)){
 	$sql.=" from pagos_detalle ";
 	$sql.=" where cod_pago=".$cod_pago;
 	$sql.=" order by cod_tipo_doc,codigo_doc";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$glosa="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_tipo_doc=$dat['cod_tipo_doc'];
 		$codigo_doc=$dat['codigo_doc'];
 		$monto_pago_detalle=$dat['monto_pago_detalle']; 
 		$sql2="select abrev_tipo_doc from tipo_documento where cod_tipo_doc=".$cod_tipo_doc;
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$abrev_tipo_doc="";
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$abrev_tipo_doc=$dat2['abrev_tipo_doc'];
 		}
 		$nro_documento="";
 		if($cod_tipo_doc==1){	
 				$sql2=" select hr.nro_hoja_ruta,g.gestion from hojas_rutas hr, gestiones g ";
 				$sql2.=" where hr.cod_gestion=g.cod_gestion and hr.cod_hoja_ruta=".$codigo_doc;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nro_documento="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_documento=$dat2['nro_hoja_ruta']."/".$dat2['gestion'];
 				}	
 		}
 		if($cod_tipo_doc==2){
 				$sql2=" select ot.nro_orden_trabajo,g.gestion from ordentrabajo ot, gestiones g ";
 				$sql2.=" where ot.cod_gestion=g.cod_gestion and ot.cod_orden_trabajo=".$codigo_doc;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nro_documento="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_documento=$dat2['nro_orden_trabajo']."/".$dat2['gestion'];
 				}	
 		}
@@ -358,9 +358,9 @@ while($dat=mysql_fetch_array($resp)){
 				$sql2=" select sal.nro_salida,g.gestion from salidas sal, gestiones g ";
 				$sql2.=" where sal.cod_gestion=g.cod_gestion and sal.cod_salida=".$codigo_doc;
 				//echo $sql2;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nro_documento="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_documento=$dat2['nro_salida']."/".$dat2['gestion'];
 				}	
 		}	
@@ -385,38 +385,38 @@ while($dat=mysql_fetch_array($resp)){
 	//echo $sql."<br/>";
 	//$sql.=" cod_usuario_modifica="..",";
 	//$sql.=" fecha_modifica=".."";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	
 	$sql="update pagos set cod_cbte=".$cod_cbte." where cod_pago=".$cod_pago;
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	
 	$sql="select cod_cuenta from clientes where cod_cliente=".$_POST['cod_cliente'];
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_cuenta_haber=$dat['cod_cuenta'];
 				
 	}	
 	$sql="select cod_moneda  from monedas";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_moneda=$dat['cod_moneda'];
 		$sql2="select count(*) from pagos_descripcion where cod_pago=".$cod_pago." and cod_moneda=".$cod_moneda;
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$nroPagoMoneda=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nroPagoMoneda=$dat2[0];
 		}
 		if($nroPagoMoneda>0){
 			$sql2="select sum(monto_pago)  from pagos_descripcion where cod_pago=".$cod_pago." and cod_moneda=".$cod_moneda;
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$montoTotalPagoMoneda=0;
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$montoTotalPagoMoneda=$dat2[0];
 			}
 			
 			$sql2="select cod_cuenta from configuracion_tipo_cbte where cod_moneda=".$cod_moneda." and cod_tipo_cbte=3";
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_cuenta_debe=$dat2['cod_cuenta'];
 			}
 			$montoTotalPagoMonedaSus=0;
@@ -444,7 +444,7 @@ while($dat=mysql_fetch_array($resp)){
 			$sql3.=" debe_sus=0,";					 
 			$sql3.=" glosa='".$glosa."'";
 		//	echo $sql3."<br/>";
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 			$sql="select max(cod_cbte_detalle) from comprobante_detalle where cod_cbte='".$cod_cbte."'";
 			$cod_cbte_detalle=obtenerCodigo($sql);
 			$sql3=" insert into comprobante_detalle set ";
@@ -457,7 +457,7 @@ while($dat=mysql_fetch_array($resp)){
 			$sql3.=" debe_sus=".$montoTotalPagoMonedaSus.",";					 
 			$sql3.=" glosa='".$glosa."'";
 		//				echo $sql3."<br/>";
-			mysql_query($sql3);
+			mysqli_query($enlaceCon,$sql3);
 			
 		}
 

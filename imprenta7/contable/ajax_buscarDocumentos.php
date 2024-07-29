@@ -50,9 +50,9 @@ require("conexion.inc");
 		}
 
 		$sql.=" order by cod_tipo_doc asc, fecha_documento desc, nro_documento desc";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$numRows=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			$numRows=$dat[0];			
 		}
 
@@ -110,7 +110,7 @@ require("conexion.inc");
 
 		$sql.=" order by cod_tipo_doc asc, fecha_documento desc, nro_documento desc";
 		//echo $sql."<br/>";
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="98%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -122,7 +122,7 @@ require("conexion.inc");
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_tipo_doc=$dat['cod_tipo_doc'];
 			$abrev_tipo_doc=$dat['abrev_tipo_doc'];

@@ -98,8 +98,8 @@ function eliminarProveedor(){
 	$sql.=" cod_usuario_registro, fecha_modifica, cod_usuario_modifica";
 	$sql.=" from gastos_gral";
 	$sql.=" where cod_gasto_gral=".$_GET['cod_gasto_gral'];
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$cod_gestion=$dat['cod_gestion']; 
 		$nro_gasto_gral=$dat['nro_gasto_gral'];
@@ -121,14 +121,14 @@ function eliminarProveedor(){
 	}
 
  	$sql2="select gestion_nombre from gestiones where cod_gestion=".$cod_gestion;
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion_nombre=$dat2['gestion_nombre'];
 	}
 	if($codproveedor<>"" and $codproveedor!=NULL){
 		$sql="select nombre_proveedor  from proveedores where cod_proveedor=".$codproveedor;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nombre_proveedor=$dat['nombre_proveedor'];
 		}	
 	}	
@@ -136,8 +136,8 @@ function eliminarProveedor(){
 	$abrev_tipo_doc="";
 	if($codtipodoc<>"" and $codtipodoc!=NULL){
 		$sql="select abrev_tipo_doc  from tipo_documento where cod_tipo_doc=".$codtipodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$abrev_tipo_doc=$dat['abrev_tipo_doc'];
 		}	
 	}
@@ -148,8 +148,8 @@ function eliminarProveedor(){
 		$sql.=" left join  clientes cli on(c.cod_cliente=cli.cod_cliente)";
 		$sql.=" left join  gestiones g on(hr.cod_gestion=g.cod_gestion)";
 		$sql.=" where cod_hoja_ruta=".$codigodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$desc_documento=$abrev_tipo_doc." ".$dat['nro_hoja_ruta']."/".$dat['gestion_nombre']." ".$dat['nombre_cliente']." (".strftime("%d/%m/%Y",strtotime($dat['fecha_hoja_ruta'])).")";
 		}
 	
@@ -160,8 +160,8 @@ function eliminarProveedor(){
 		$sql.=" left join  clientes cli on(ot.cod_cliente=cli.cod_cliente)";
 		$sql.=" left join  gestiones g on(ot.cod_gestion=g.cod_gestion)";
 		$sql.=" where cod_orden_trabajo=".$codigodoc;
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$desc_documento=$abrev_tipo_doc." ".$dat['nro_orden_trabajo']."/".$dat['gestion_nombre']." ".$dat['nombre_cliente']." (".strftime("%d/%m/%Y",strtotime($dat['fecha_orden_trabajo'])).")";
 		}
 	
@@ -211,8 +211,8 @@ function eliminarProveedor(){
 			<td ><select name="cod_tipo_pago" id="cod_tipo_pago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	
@@ -229,8 +229,8 @@ function eliminarProveedor(){
             	$sql2="select cod_gasto, desc_gasto";
             	$sql2.=" from gastos ";
             	$sql2.=" order by desc_gasto asc ";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_gasto=$dat2['cod_gasto'];
 					$desc_gasto=$dat2['desc_gasto'];
 			?>

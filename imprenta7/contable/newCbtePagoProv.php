@@ -120,10 +120,10 @@ function generaNroComprobante(f)
 	<?php 
 	
 	$sql2="select count(*) from pago_proveedor_detalle where cod_pago_prov=".$_GET['cod_pago_prov'];
-	$resp2=mysql_query($sql2);
+	$resp2=mysqli_query($enlaceCon,$sql2);
 	$nroDetalle=0;
 
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nroDetalle=$dat2[0];
 	}
 	?>
@@ -242,9 +242,9 @@ function guardar(f){
 <?php
 include("funciones.php");
 	$sql="select cambio_bs from tipo_cambio where fecha_tipo_cambio='".date('Y-m-d', time())."'";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$cambio_bs='';
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		$cambio_bs=$dat['cambio_bs'];
 	}
 	$cod_gestion=gestionActiva();
@@ -264,9 +264,9 @@ if($cambio_bs==null or $cambio_bs=='' ){
 }
 
 $sql="select nombre_tipo_cbte from tipo_comprobante where cod_tipo_cbte=2";
-$resp= mysql_query($sql);
+$resp= mysqli_query($enlaceCon,$sql);
 $nombre_tipo_cbte="";
-while($dat=mysql_fetch_array($resp)){
+while($dat=mysqli_fetch_array($resp)){
 	$nombre_tipo_cbte=$dat['nombre_tipo_cbte'];
 }
 
@@ -291,8 +291,8 @@ while($dat=mysql_fetch_array($resp)){
       		<td><select name="cod_moneda" id="cod_moneda" class="textoform">				
 				<?php
 					$sql2="select cod_moneda, desc_moneda from monedas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_moneda=$dat2['cod_moneda'];		
 			  		 		$desc_moneda=$dat2['desc_moneda'];	
@@ -326,9 +326,9 @@ while($dat=mysql_fetch_array($resp)){
 	
 	$sql2="select count(*) from pago_proveedor_detalle where cod_pago_prov=".$_GET['cod_pago_prov'];
 	//echo $sql2;
-	$resp2=mysql_query($sql2);
+	$resp2=mysqli_query($enlaceCon,$sql2);
 	$nroDetalle=0;
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nroDetalle=$dat2[0];
 	}
 	$nroDetalle=$nroDetalle+1;
@@ -367,9 +367,9 @@ $totalDebe=0;
 			$sql2.=" where cod_pago_prov=".$_GET['cod_pago_prov'];
 			$sql2.=" order by cod_pago_prov_detalle asc ";
 //			echo $sql2;
-			$resp2=mysql_query($sql2);
+			$resp2=mysqli_query($enlaceCon,$sql2);
 			$swInicio=1;
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 								
 				$cod_pago_prov_detalle=$dat2['cod_pago_prov_detalle'];
 				$cod_tipo_doc=$dat2['cod_tipo_doc'];
@@ -389,8 +389,8 @@ $totalDebe=0;
 					$sql3.=" left join proveedores p on( i.cod_proveedor=p.cod_proveedor) ";
 					$sql3.=" where cod_ingreso=".$codigo_doc;
 					//echo $sql3;
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 								$nro_ingreso=$dat3['nro_ingreso'];
 								$cod_proveedor=$dat3['cod_proveedor'];
 								$nombre_proveedor=$dat3['nombre_proveedor'];
@@ -403,8 +403,8 @@ $totalDebe=0;
 								$desc_cuenta="";
 								if($cod_cuenta<>""){
 								$sql4="select nro_cuenta, desc_cuenta from cuentas where cod_cuenta=".$cod_cuenta;
-								$resp4=mysql_query($sql4);
-								while($dat4=mysql_fetch_array($resp4)){
+								$resp4=mysqli_query($enlaceCon,$sql4);
+								while($dat4=mysqli_fetch_array($resp4)){
 									$nro_cuenta=$dat4['nro_cuenta'];
 									$desc_cuenta=$dat4['desc_cuenta'];
 								}
@@ -432,8 +432,8 @@ $totalDebe=0;
 					$sql3.=" where cod_gasto_gral=".$codigo_doc;
 					//echo $sql3;
 					$descDoc="";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 								$nro_gasto_gral=$dat3['nro_gasto_gral'];
 								$cod_proveedor=$dat3['cod_proveedor'];
 								$nombre_proveedor=$dat3['nombre_proveedor'];
@@ -452,8 +452,8 @@ $totalDebe=0;
 								$desc_cuenta="";
 								if($cod_cuenta<>""){
 								$sql4="select nro_cuenta, desc_cuenta from cuentas where cod_cuenta=".$cod_cuenta;
-								$resp4=mysql_query($sql4);
-								while($dat4=mysql_fetch_array($resp4)){
+								$resp4=mysqli_query($enlaceCon,$sql4);
+								while($dat4=mysqli_fetch_array($resp4)){
 									$nro_cuenta=$dat4['nro_cuenta'];
 									$desc_cuenta=$dat4['desc_cuenta'];
 								}

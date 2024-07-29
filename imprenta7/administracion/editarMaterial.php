@@ -92,8 +92,8 @@ function listaSubGrupos(f)
 	$sql.=" stock_minimo, stock_maximo,cod_estado_registro, idMaterialDesc ";
 	$sql.=" from materiales ";
 	$sql.=" where cod_material='".$cod_material."'";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){	
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){	
 							
 				$nombre_material=$dat[0];				
 				$cod_subgrupo=$dat[1];
@@ -105,15 +105,15 @@ function listaSubGrupos(f)
 				$nombre_grupo="";
 				$sql2=" select cod_grupo,nombre_grupo from grupos ";
 				$sql2.=" where cod_grupo in(select cod_grupo from subgrupos where cod_subgrupo='".$cod_subgrupo."')";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_grupo=$dat2[0];
 					$nombre_grupo=$dat2[1];
 				}	
 				
 				$sql2="select nombre_subgrupo from subgrupos  where cod_subgrupo=".$cod_subgrupo;
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 						$nombre_subgrupo=$dat2[0];					
 				}
@@ -149,9 +149,9 @@ function listaSubGrupos(f)
 				<?php
 					$sql2=" select cod_grupo_carac, nombre_grupo_carac from grupos_caracteristicas ";
 					$sql2.=" where cod_estado_registro=1  and cod_grupo=".$cod_grupo." order by orden asc";
-					$resp2=mysql_query($sql2);
+					$resp2=mysqli_query($enlaceCon,$sql2);
 					$sw=0;
-					while($dat2=mysql_fetch_array($resp2))
+					while($dat2=mysqli_fetch_array($resp2))
 					{				
 							$cod_grupo_carac=$dat2[0];	
 			  		 		$nombre_grupo_carac=$dat2[1];	
@@ -160,9 +160,9 @@ function listaSubGrupos(f)
 							$sql3.=" from materiales_grupos_caracteristicas";
 							$sql3.=" where 	cod_material='".$cod_material."'";
 							$sql3.=" and  cod_grupo_carac='".$cod_grupo_carac."'";
-							$resp3=mysql_query($sql3);
+							$resp3=mysqli_query($enlaceCon,$sql3);
 							$desc_material_grupo_caracteristica="";
-							while($dat3=mysql_fetch_array($resp3))
+							while($dat3=mysqli_fetch_array($resp3))
 							{				
 								$desc_material_grupo_caracteristica=$dat3[0];	
 							}			
@@ -188,8 +188,8 @@ function listaSubGrupos(f)
 				<?php
 					$sql2=" select cod_unidad_medida, nombre_unidad_medida from unidades_medidas ";
 					$sql2.="  order by  nombre_unidad_medida asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_unidad_medida=$dat2[0];	
 			  		 		$nombre_unidad_medida=$dat2[1];	
@@ -216,8 +216,8 @@ function listaSubGrupos(f)
 			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

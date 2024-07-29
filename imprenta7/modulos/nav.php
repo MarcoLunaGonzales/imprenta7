@@ -4,8 +4,8 @@
 	require("../conexion_inicio.inc");
 	$sql=" select  nombres_usuario, ap_paterno_usuario, ap_materno_usuario,cod_perfil  from usuarios ";
 	$sql.=" where cod_usuario='".$_COOKIE['usuario_global']."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$nombres_usuario=$dat[0]; 
 		$ap_paterno_usuario=$dat[1];
@@ -17,9 +17,9 @@
 		
 	$sql=" select  nombre_modulo, ubicacion_fisica  from modulos ";
 			$sql.=" where cod_modulo=".$_GET['cod_modulo']."";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
-			while($dat=mysql_fetch_array($resp)){																 		
+			while($dat=mysqli_fetch_array($resp)){																 		
 				$nombre_modulo=$dat['nombre_modulo'];
 	
 			}

@@ -43,8 +43,8 @@
 				$cod_item=$vector_datos[$i];
 				$sw=0;			
 				$sql="select * from cotizacion_detalle_caracteristica where cod_compitem='".$cod_item."'";		
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -81,8 +81,8 @@
 			for($j=0;$j<$num;$j++){	
 				$cod_item=$vectordatosNoEliminar[$j];
 				$sql="select nombre_componenteitem from componente_items where cod_compitem='".$cod_item."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombreComponenteItem=$dat[0];																
 				}
 	
@@ -109,8 +109,8 @@
 			for($j=0;$j<$num;$j++){	
 				$cod_item=$vectordatosEliminar[$j];
 				$sql="select nombre_componenteitem from componente_items where cod_compitem='".$cod_item."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombreComponenteItem=$dat[0];																		
 				}
 		?>		

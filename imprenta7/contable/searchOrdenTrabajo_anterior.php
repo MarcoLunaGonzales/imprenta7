@@ -70,8 +70,8 @@ require("conexion.inc");
 	}
 	$sql.=" order by ot.nro_orden_trabajo desc,g.gestion desc ";
 
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -145,7 +145,7 @@ require("conexion.inc");
 	}
 	$sql.=" order by ot.nro_orden_trabajo desc,g.gestion desc ";
 	$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -181,7 +181,7 @@ require("conexion.inc");
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_orden_trabajo=$dat['cod_orden_trabajo'];
 				$nro_orden_trabajo=$dat['nro_orden_trabajo'];
@@ -224,8 +224,8 @@ require("conexion.inc");
 				$sqlFactura.=" where f.cod_est_fac=ef.cod_est_fac ";
 				$sqlFactura.=" and f.cod_factura in(select cod_factura from factura_ordentrabajo where cod_orden_trabajo=".$cod_orden_trabajo.")";
 				
-					$resp3= mysql_query($sqlFactura);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sqlFactura);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_factura=$dat3['cod_factura'];
 						$nro_factura=$dat3['nro_factura'];

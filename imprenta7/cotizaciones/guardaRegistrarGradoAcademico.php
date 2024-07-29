@@ -25,7 +25,7 @@ $sql.=" fecha_registro='".date('Y-m-d', time())."'";
 //$sql.=" cod_usuario_modifica='".$obs_cargo."',";
 //$sql.=" fecha_modifica='".$obs_cargo."'";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

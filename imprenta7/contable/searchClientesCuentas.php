@@ -75,8 +75,8 @@ include("funciones.php");
 			}
 		}
 		//echo $sql;
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}
 
@@ -170,7 +170,7 @@ and  (cli.cod_cuenta IS NULL or cli.cod_cuenta='')*/
 		}
 		$sql.=" order by cli.nombre_cliente asc";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;				
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -196,7 +196,7 @@ and  (cli.cod_cuenta IS NULL or cli.cod_cuenta='')*/
      <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 			$cod_cliente=$dat['cod_cliente'];
 			$nombre_cliente=$dat['nombre_cliente'];
 			$nit_cliente=$dat['nit_cliente'];
@@ -225,38 +225,38 @@ and  (cli.cod_cuenta IS NULL or cli.cod_cuenta='')*/
 			
 					$desc_categoria="";				
 					$sql2="select desc_categoria from clientes_categorias where cod_categoria='".$cod_categoria."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_categoria=$dat2[0];
 					}	
 
 				$desc_ciudad="";
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2[0];
 				}					
 
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 
 					$nroContactos=0;							
 					$sql2="select count(*) from clientes_contactos";
 					$sql2.=" where cod_cliente='".$cod_cliente."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nroContactos=$dat2[0];
 					}	
 					$nroUnidades=0;							
 					$sql2="select count(*) from clientes_unidades";
 					$sql2.=" where cod_cliente='".$cod_cliente."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nroUnidades=$dat2[0];
 					}	
 											
@@ -278,8 +278,8 @@ and  (cli.cod_cuenta IS NULL or cli.cod_cuenta='')*/
 				$sqlAux.=" from clientes_contactos ";
 				$sqlAux.=" where cod_cliente=".$cod_cliente;
 				$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-				$respAux= mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux= mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$cod_contacto=$datAux['cod_contacto'];
 					$nombre_contacto=$datAux['nombre_contacto'];
 					$ap_paterno_contacto=$datAux['ap_paterno_contacto'];
@@ -298,8 +298,8 @@ and  (cli.cod_cuenta IS NULL or cli.cod_cuenta='')*/
 				$sqlAux2="select nombre_unidad, telf_unidad from clientes_unidades";
 					$sqlAux2.=" where cod_cliente='".$cod_cliente."'";	
 					$sqlAux2.=" order by nombre_unidad asc";
-					$respAux2= mysql_query($sqlAux2);
-					while($datAux2=mysql_fetch_array($respAux2)){
+					$respAux2= mysqli_query($enlaceCon,$sqlAux2);
+					while($datAux2=mysqli_fetch_array($respAux2)){
 						$nombre_unidad=$datAux2['nombre_unidad'];
 						$telf_unidad=$datAux2['telf_unidad'];
 						echo "<br/>".$nombre_unidad;

@@ -120,8 +120,8 @@ function mostrar_idMaterial(f)
 <?php 	require("conexion.inc");
 
 	$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=1";
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_estado_registro=$dat2[0];
 	}	
 ?>
@@ -140,8 +140,8 @@ function mostrar_idMaterial(f)
 				<option value="0">Seleccione una opcion</option>	
               <?php
 					$sql2="select cod_grupo, nombre_grupo from grupos where cod_estado_registro=1 order by  nombre_grupo asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_grupo=$dat2[0];	
 			  		 		$nombre_grupo=$dat2[1];	
@@ -194,8 +194,8 @@ function mostrar_idMaterial(f)
 				<?php
 					$sql2=" select cod_unidad_medida, nombre_unidad_medida from unidades_medidas ";
 					$sql2.=" where cod_estado_registro=1 order by  nombre_unidad_medida asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_unidad_medida=$dat2[0];	
 			  		 		$nombre_unidad_medida=$dat2[1];	

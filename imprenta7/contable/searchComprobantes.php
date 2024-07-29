@@ -100,8 +100,8 @@ include("funciones.php");
 		if($_GET['proveedorB']<>""){
 			$sql.=" and  pro.nombre_proveedor like '%".$_GET['proveedorB']."%'";
 		}						
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}		
 
@@ -194,7 +194,7 @@ include("funciones.php");
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 //		echo $sql;
 		
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="95%" align="center" cellpadding="1" cellspacing="1" bgColor="#CCCCCC" class="tablaReporte" style="width:100% !important;">
@@ -216,7 +216,7 @@ include("funciones.php");
     <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 			$cod_cbte=$dat['cod_cbte'];
 			$cod_empresa=$dat['cod_empresa'];
 			$cod_gestion=$dat['cod_gestion'];
@@ -243,9 +243,9 @@ include("funciones.php");
 	
 			if($cod_moneda!= NULL){	
 					$sql2="select desc_moneda from monedas where cod_moneda=".$cod_moneda;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$desc_moneda="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_moneda=$dat2['desc_moneda'];
 					}
 				}
@@ -287,8 +287,8 @@ include("funciones.php");
 					 $sql2.=" where cd.cod_cbte=".$cod_cbte;
 					 $sql2.=" order by  cod_cbte_detalle asc";
 					 //echo $sql2;
-					 $resp2=mysql_query($sql2);
-					 while ($dat2=mysql_fetch_array($resp2)){
+					 $resp2=mysqli_query($enlaceCon,$sql2);
+					 while ($dat2=mysqli_fetch_array($resp2)){
 					 		$cod_cbte_detalle=$dat2['cod_cbte_detalle'];
 							$cod_cuenta=$dat2['cod_cuenta'];
 							$nro_cuenta=$dat2['nro_cuenta'];
@@ -315,8 +315,8 @@ include("funciones.php");
 							$sql3=" select hr.cod_hoja_ruta,hr.nro_hoja_ruta,g.gestion_nombre, hr.fecha_hoja_ruta ";
 							$sql3.=" from hojas_rutas hr left join gestiones g on (hr.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where hr.cod_hoja_ruta=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_hoja_ruta=$dat3['cod_hoja_ruta'];
 								$nro_hoja_ruta=$dat3['nro_hoja_ruta']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_hoja_ruta'])).")";									
 					 		}
@@ -329,8 +329,8 @@ include("funciones.php");
 						    $sql3=" select ot.cod_orden_trabajo,ot.nro_orden_trabajo,g.gestion_nombre, ot.fecha_orden_trabajo ";
 							$sql3.=" from ordentrabajo ot left join gestiones g on (ot.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where ot.cod_orden_trabajo=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_orden_trabajo=$dat3['cod_orden_trabajo'];
 								$nro_orden_trabajo=$dat3['nro_orden_trabajo']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_orden_trabajo'])).")";									
 					 		}
@@ -343,8 +343,8 @@ include("funciones.php");
 							$sql3=" select s.cod_salida,s.nro_salida,g.gestion_nombre, s.fecha_salida ";
 							$sql3.=" from salidas s left join gestiones g on (s.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where s.cod_salida=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_salida=$dat3['cod_salida'];
 								$nro_salida=$dat3['nro_salida']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_salida'])).")";									
 					 		}
@@ -357,8 +357,8 @@ include("funciones.php");
 								$sql3=" select i.cod_ingreso, i.nro_ingreso ,g.gestion_nombre, i.fecha_ingreso ";
 								$sql3.=" from ingresos i left join gestiones g on (i.cod_gestion=g.cod_gestion) ";
 								$sql3.=" where i.cod_ingreso=".$codigo_doc;
-								$resp3=mysql_query($sql3);
-								while ($dat3=mysql_fetch_array($resp3)){
+								$resp3=mysqli_query($enlaceCon,$sql3);
+								while ($dat3=mysqli_fetch_array($resp3)){
 									$cod_ingreso=$dat3['cod_ingreso'];
 									$nro_ingreso=$dat3['nro_ingreso']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_ingreso'])).")";									
 					 			}
@@ -372,8 +372,8 @@ include("funciones.php");
 								$sql3.=" from gastos_gral gg left join gestiones g on (gg.cod_gestion=g.cod_gestion) ";
 								$sql3.=" where gg.cod_gasto_gral=".$codigo_doc;
 							//	echo $sql3;
-								$resp3=mysql_query($sql3);
-								while ($dat3=mysql_fetch_array($resp3)){
+								$resp3=mysqli_query($enlaceCon,$sql3);
+								while ($dat3=mysqli_fetch_array($resp3)){
 									$cod_gasto_gral=$dat3['cod_gasto_gral'];
 									$nro_gasto_gral=$dat3['nro_gasto_gral']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_gasto_gral'])).")";									
 					 			}
@@ -406,8 +406,8 @@ include("funciones.php");
 					 $sql2.=" where cd.cod_cbte=".$cod_cbte;
 					// echo $sql2;
 					 $sql2.=" order by  cod_cbte_detalle asc";
-					 $resp2=mysql_query($sql2);
-					 while ($dat2=mysql_fetch_array($resp2)){
+					 $resp2=mysqli_query($enlaceCon,$sql2);
+					 while ($dat2=mysqli_fetch_array($resp2)){
 					 		$cod_cbte_detalle=$dat2['cod_cbte_detalle'];
 							$cod_cuenta=$dat2['cod_cuenta'];
 							$nro_cuenta=$dat2['nro_cuenta'];
@@ -434,8 +434,8 @@ include("funciones.php");
 							$sql3=" select hr.cod_hoja_ruta,hr.nro_hoja_ruta,g.gestion_nombre, hr.fecha_hoja_ruta ";
 							$sql3.=" from hojas_rutas hr left join gestiones g on (hr.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where hr.cod_hoja_ruta=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_hoja_ruta=$dat3['cod_hoja_ruta'];
 								$nro_hoja_ruta=$dat3['nro_hoja_ruta']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_hoja_ruta'])).")";									
 					 		}
@@ -448,8 +448,8 @@ include("funciones.php");
 						    $sql3=" select ot.cod_orden_trabajo,ot.nro_orden_trabajo,g.gestion_nombre, ot.fecha_orden_trabajo ";
 							$sql3.=" from ordentrabajo ot left join gestiones g on (ot.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where ot.cod_orden_trabajo=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_orden_trabajo=$dat3['cod_orden_trabajo'];
 								$nro_orden_trabajo=$dat3['nro_orden_trabajo']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_orden_trabajo'])).")";									
 					 		}
@@ -462,8 +462,8 @@ include("funciones.php");
 							$sql3=" select s.cod_salida,s.nro_salida,g.gestion_nombre, s.fecha_salida ";
 							$sql3.=" from salidas s left join gestiones g on (s.cod_gestion=g.cod_gestion) ";
 							$sql3.=" where s.cod_salida=".$codigo_doc;
-							$resp3=mysql_query($sql3);
-							while ($dat3=mysql_fetch_array($resp3)){
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while ($dat3=mysqli_fetch_array($resp3)){
 								$cod_salida=$dat3['cod_salida'];
 								$nro_salida=$dat3['nro_salida']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_salida'])).")";									
 					 		}
@@ -476,8 +476,8 @@ include("funciones.php");
 								$sql3=" select i.cod_ingreso, i.nro_ingreso ,g.gestion_nombre, i.fecha_ingreso ";
 								$sql3.=" from ingresos i left join gestiones g on (i.cod_gestion=g.cod_gestion) ";
 								$sql3.=" where i.cod_ingreso=".$codigo_doc;
-								$resp3=mysql_query($sql3);
-								while ($dat3=mysql_fetch_array($resp3)){
+								$resp3=mysqli_query($enlaceCon,$sql3);
+								while ($dat3=mysqli_fetch_array($resp3)){
 									$cod_ingreso=$dat3['cod_ingreso'];
 									$nro_ingreso=$dat3['nro_ingreso']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_ingreso'])).")";									
 					 			}
@@ -490,8 +490,8 @@ include("funciones.php");
 								$sql3=" select gg.cod_gasto_gral, gg.nro_gasto_gral ,g.gestion_nombre, gg.fecha_gasto_gral ";
 								$sql3.=" from gastos_gral gg left join gestiones g on (gg.cod_gestion=g.cod_gestion) ";
 								$sql3.=" where i.cod_ingreso=".$codigo_doc;
-								$resp3=mysql_query($sql3);
-								while ($dat3=mysql_fetch_array($resp3)){
+								$resp3=mysqli_query($enlaceCon,$sql3);
+								while ($dat3=mysqli_fetch_array($resp3)){
 									$cod_gasto_gral=$dat3['cod_gasto_gral'];
 									$nro_gasto_gral=$dat3['nro_gasto_gral']." / ".$dat3['gestion_nombre']."( ".strftime("%d/%m/%Y",strtotime($dat3['fecha_gasto_gral'])).")";									
 					 			}
@@ -518,8 +518,8 @@ include("funciones.php");
 				<td align="left">
 				<?php if($cod_estado_cbte<>2){
 					$sqlAux=" select cod_perfil from usuarios where cod_usuario=".$_COOKIE['usuario_global'];
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 						$cod_perfil=$datAux['cod_perfil'];
 					}
 				if($cod_perfil==1){

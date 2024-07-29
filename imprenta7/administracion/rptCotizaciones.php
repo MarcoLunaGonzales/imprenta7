@@ -172,8 +172,8 @@ function anular(f)
 	}	
 	
 	$sql_aux=" select count(*) from cotizaciones ";
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -234,7 +234,7 @@ function anular(f)
 		}
 		$sql.=" ORDER BY COD_COTIZACION desc";
 		$sql.=" limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -253,7 +253,7 @@ function anular(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				$cont++;
 				$codCotizacion=$dat[0];
 				$nroCotizacion=$dat[1];
@@ -274,8 +274,8 @@ function anular(f)
 					$nombreCliente="";				
 					$sql2="select nombre_cliente from clientes";
 					$sql2.=" where cod_cliente='".$codCliente."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreCliente=$dat2[0];
 					}
 				//**************************************************************								
@@ -283,8 +283,8 @@ function anular(f)
 					$nombreTipoCotizacion="";				
 					$sql2="select nombre_tipo_cotizacion from tipos_cotizacion";
 					$sql2.=" where cod_tipo_cotizacion='".$codTipoCotizacion."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreTipoCotizacion=$dat2[0];
 					}
 				//**************************************************************
@@ -292,8 +292,8 @@ function anular(f)
 					$nombreEstadoCotizacion="";				
 					$sql2="select nombre_estado_cotizacion from estados_cotizacion";
 					$sql2.=" where cod_estado_cotizacion='".$codEstadoCotizacion."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreEstadoCotizacion=$dat2[0];
 					}
 				//**************************************************************
@@ -301,8 +301,8 @@ function anular(f)
 					$nombreTipoPago="";				
 					$sql2="select nombre_tipo_pago from tipos_pago";
 					$sql2.=" where cod_tipo_pago='".$codTipoPago."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreTipoPago=$dat2[0];
 					}
 				//**************************************************************
@@ -310,8 +310,8 @@ function anular(f)
 					$nombreUsuarioRegistro="";
 					$sql2="select nombres_usuario,ap_paterno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$codUsuarioRegistro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombreUsuarioRegistro=$dat2[0]." ".$dat2[1];
 					}					
 ?> 

@@ -46,9 +46,9 @@
 	require("conexion.inc");
 	$cod_estado_registro=1;
 	$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$nombre_estado_registro="";
-	$dat2=mysql_fetch_array($resp2);
+	$dat2=mysqli_fetch_array($resp2);
 	$nombre_estado_registro=$dat2[0];
 
 ?>
@@ -80,8 +80,8 @@
 			<select name="cod_grado" class="textoform">
 				<?php
 					$sql_2="select cod_grado,nombre_grado from grados order by nombre_grado asc  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_grado= $dat_2[0];
     					$nombre_grado=$dat_2[1];
 				 ?>
@@ -100,8 +100,8 @@
 			<select name="cod_cargo" class="textoform">
 				<?php
 					$sql_2="select cod_cargo,nombre_cargo from cargos order by nombre_cargo asc  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_cargo= $dat_2[0];
     					$nombre_cargo=$dat_2[1];
 				 ?>

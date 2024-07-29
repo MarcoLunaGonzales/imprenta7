@@ -3,9 +3,9 @@ require("conexion.inc");
 include("funciones.php");
 
 $sql=" delete from bingo_detalle ";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 $sql=" delete from bingo ";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

@@ -18,12 +18,12 @@ $sql.=" cod_cotizacion='".$cod_cotizacion."',";
 $sql.=" fecha_hoja_ruta='".$fecha_hoja_ruta."',";
 $sql.=" cod_estado_hoja_ruta=1, ";
 $sql.=" cod_usuario_hoja_ruta='".$_COOKIE['usuario_global']."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 $sql=" update cotizaciones set  ";
 $sql.=" cod_estado_cotizacion=3";
 $sql.="  where cod_cotizacion='".$cod_cotizacion."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 	$vector_datos=explode(",",$datos);	
@@ -34,7 +34,7 @@ mysql_query($sql);
 		$sql.=" cod_estado_detallecotizacionitem=2 ";
 		$sql.=" where cod_cotizacion='".$cod_cotizacion."'";
 		$sql.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 

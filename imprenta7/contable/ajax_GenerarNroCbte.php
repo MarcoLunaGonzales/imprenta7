@@ -10,9 +10,9 @@ include("funciones.php");
 $cod_gestion=gestionActiva();
 	
 $sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-$resp2= mysql_query($sql2);
+$resp2= mysqli_query($enlaceCon,$sql2);
 $gestion="";
-while($dat2=mysql_fetch_array($resp2)){
+while($dat2=mysqli_fetch_array($resp2)){
 	$gestion=$dat2['gestion'];
 }
 	$sql="select max(nro_cbte) from comprobante where cod_gestion='".$cod_gestion."' and cod_tipo_cbte=".$_GET['cod_tipo_cbte'];

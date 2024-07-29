@@ -40,8 +40,8 @@ include("funciones.php");
 			$sql.=" where (nro_cuenta like'%".$_GET['numero_cuentaB']."%' ";
 			$sql.=" or desc_cuenta like'%".$_GET['numero_cuentaB']."%')";			
 		}
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}		
 
@@ -71,7 +71,7 @@ include("funciones.php");
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 
 		
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -95,7 +95,7 @@ include("funciones.php");
    <tbody>  
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				$cod_cuenta=$dat['cod_cuenta'];
 				///
 				
@@ -103,16 +103,16 @@ include("funciones.php");
 				$sql2.=" from proveedores";
 				$sql2.=" where cod_cuenta=".$cod_cuenta;
 				$nombre_proveedor="";
-				$resp2 = mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){			
+				$resp2 = mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){			
 						$nombre_proveedor=$dat2['nombre_proveedor'];			
 				}
 				$sql2=" select nombre_cliente";
 				$sql2.=" from clientes";
 				$sql2.=" where cod_cuenta=".$cod_cuenta;
 				$nombre_cliente="";
-				$resp2 = mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){			
+				$resp2 = mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){			
 						$nombre_cliente=$dat2['nombre_cliente'];			
 				}				
 
@@ -132,8 +132,8 @@ include("funciones.php");
 					$sql2=" select  nro_cuenta, desc_cuenta ";
 					$sql2.=" from cuentas ";
 					$sql2.=" where cod_cuenta=".$cod_cuenta_padre." ";
-					$resp2 = mysql_query($sql2);	
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);	
+					while($dat2=mysqli_fetch_array($resp2)){
 			
 						$nro_cuenta_padre=$dat2['nro_cuenta'];
 						$desc_cuenta_padre=$dat2['desc_cuenta'];			
@@ -141,26 +141,26 @@ include("funciones.php");
 				}				
 				//Obteniendo la descripcion de la Moneda
 					$sql2="select desc_moneda from monedas where cod_moneda=".$cod_moneda;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$desc_moneda="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_moneda=$dat2['desc_moneda'];
 					}
 				// Fin Obteniendo la descripcion de la Moneda
 				//Obteniendo la descripcion del Estado de Registro
 					$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=".$cod_estado_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_estado_registro="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2['nombre_estado_registro'];
 					}
 				// Fin Obteniendo la descripcion del Estado de Registro				
 				
 				//Obteniendo la descripcion del Estado de Registro
 					$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=".$cod_estado_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_estado_registro="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2['nombre_estado_registro'];
 					}
 				// Fin Obteniendo la descripcion del Estado de Registro	
@@ -169,9 +169,9 @@ include("funciones.php");
 				if($cod_usuario_registro!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 				
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];
@@ -188,9 +188,9 @@ include("funciones.php");
 				if($cod_usuario_modifica!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_modifica;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 				
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];
@@ -220,27 +220,27 @@ include("funciones.php");
 				<td align="left">
 				<?php 
 					$sql3="select count(*) from cuentas where cod_cuenta_padre=".$cod_cuenta;
-					$resp3 = mysql_query($sql3);
+					$resp3 = mysqli_query($enlaceCon,$sql3);
 					$cont1=0;
-					while($dat3=mysql_fetch_array($resp3)){
+					while($dat3=mysqli_fetch_array($resp3)){
 						$cont1=$dat3[0];
 					}
 					$sql3="select count(*) from clientes where cod_cuenta=".$cod_cuenta;
-					$resp3 = mysql_query($sql3);
+					$resp3 = mysqli_query($enlaceCon,$sql3);
 					$cont2=0;
-					while($dat3=mysql_fetch_array($resp3)){
+					while($dat3=mysqli_fetch_array($resp3)){
 						$cont2=$dat3[0];
 					}	
 					$sql3="select count(*) from proveedores where cod_cuenta=".$cod_cuenta;
-					$resp3 = mysql_query($sql3);
+					$resp3 = mysqli_query($enlaceCon,$sql3);
 					$cont3=0;
-					while($dat3=mysql_fetch_array($resp3)){
+					while($dat3=mysqli_fetch_array($resp3)){
 						$cont3=$dat3[0];
 					}
 					$sql3="select count(*) from comprobante_detalle where cod_cuenta=".$cod_cuenta;
-					$resp3 = mysql_query($sql3);
+					$resp3 = mysqli_query($enlaceCon,$sql3);
 					$cont4=0;
-					while($dat3=mysql_fetch_array($resp3)){
+					while($dat3=mysqli_fetch_array($resp3)){
 						$cont4=$dat3[0];
 					}															
 					if($cont1==0 and $cont2==0 and $cont3==0 and $cont4==0){

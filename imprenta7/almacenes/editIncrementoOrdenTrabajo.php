@@ -41,8 +41,8 @@
 		$sql.=" descuento_orden_trabajo, descuento_fecha, descuento_obs ";
 		$sql.=" from ordentrabajo";
 		$sql.=" where cod_orden_trabajo=".$_POST['cod_orden_trabajo'];
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 
 			$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 			$numero_orden_trabajo=$dat['numero_orden_trabajo'];
@@ -61,27 +61,27 @@
 
 			    $sql2="  select gestion from gestiones ";
 				$sql2.=" where cod_gestion=".$cod_gestion;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$gestion="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$gestion=$dat2['gestion'];
 				}
 				
 
 			    $sql2="  select nombre_cliente from clientes ";
 				$sql2.=" where cod_cliente=".$cod_cliente;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombre_cliente="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_cliente=$dat2['nombre_cliente'];
 				}
 				if($cod_contacto<>"" and $cod_contacto<>0){
 				    $sql2="  select nombre_contacto, ap_paterno_contacto, ap_materno_contacto ";
 					$sql2.=" from clientes_contactos ";
 					$sql2.=" where cod_contacto=".$cod_contacto;
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$nombre_completo_contacto="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_completo_contacto=$dat2['nombre_contacto']." ".$dat2['ap_paterno_contacto']." ".$dat2['ap_materno_contacto'];
 
 					}

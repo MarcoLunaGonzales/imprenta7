@@ -9,8 +9,8 @@ $cod_usuario_entregado_por = $_POST['cod_usuario_entregado_por'];
 $recibido_por = $_POST['recibido_por'];
 
 $sql="select cod_cotizacion from hojas_rutas where cod_hoja_ruta='".$cod_hoja_ruta."'";
-$resp= mysql_query($sql);			
-$dat=mysql_fetch_array($resp);
+$resp= mysqli_query($enlaceCon,$sql);			
+$dat=mysqli_fetch_array($resp);
 $cod_cotizacion=$dat[0];
 						
 
@@ -24,7 +24,7 @@ $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y/m/d', time())."'";
 $sql.=" where cod_nota_remision='".$cod_nota_remision."'";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 $vectorCotizacionDetalle = $_POST['vectorCotizacionDetalle'];
@@ -36,7 +36,7 @@ $n=sizeof($vectorCotizacionDetalle_2);
 	
 
 $sql=" delete from notas_remision_detalle where cod_nota_remision='".$cod_nota_remision."'";
-mysql_query($sql);	
+mysqli_query($enlaceCon,$sql);	
 		
 	for($i=0;$i<$n;$i++){	
 
@@ -45,7 +45,7 @@ mysql_query($sql);
 		$sql.=" cod_cotizacion='".$cod_cotizacion."',";
 		$sql.=" cod_cotizaciondetalle='".$vectorCotizacionDetalle_2[$i]."',";
 		$sql.=" cantidad='".$vectorCantidadesAEntregar_2[$i]."'";
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 	}	
 ///Cambiar Estado de Hoja ruta
 	
@@ -55,10 +55,10 @@ mysql_query($sql);
 	$sql3.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 	$sql3.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 	$sql3.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";	
-	$resp3=mysql_query($sql3);
+	$resp3=mysqli_query($enlaceCon,$sql3);
 	$sw=1;	
 	//echo "sql3=".$sql3."<br>";
-	while($sw==1 and ($dat3=mysql_fetch_array($resp3))){
+	while($sw==1 and ($dat3=mysqli_fetch_array($resp3))){
 	// echo "holaaaaaaaaaaa";
 			$bandera=1;
 			$cod_cotizacion=$dat3[0];
@@ -72,9 +72,9 @@ mysql_query($sql);
 			$sql4.=" and cod_cotizacion='".$cod_cotizacion."' ";
 			$sql4.=" and cod_cotizaciondetalle='".$cod_cotizaciondetalle."' ";
 			//echo "sql4=".$sql4."<br>";
-			$resp4=mysql_query($sql4);
+			$resp4=mysqli_query($enlaceCon,$sql4);
 			$cantEntregada=0;			
-			while($dat4=mysql_fetch_array($resp4)){
+			while($dat4=mysqli_fetch_array($resp4)){
 					$cantEntregada=$dat4[0];										
 			}	
 			if($cantEntregada>=$cantidad_unitariacotizacion){
@@ -90,7 +90,7 @@ mysql_query($sql);
 			$sql.=" cod_estado_hoja_ruta=3"; 
 			$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'"; 
 			//echo $sql."<br>";
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 	}
 ///Fin Cambiar Estado de Hoja ruta		

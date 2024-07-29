@@ -7,9 +7,9 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_material=$vector_datos[$i];
 		$sql=" delete from materiales_grupos_caracteristicas where cod_material='".$cod_material."'";
-		mysql_query($sql);	
+		mysqli_query($enlaceCon,$sql);	
 		$sql=" delete from materiales where cod_material='".$cod_material."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

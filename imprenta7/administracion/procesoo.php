@@ -11,8 +11,8 @@ echo "PROCESOOO <br/>";
 $sql=" select cod_gasto_gral, cant_gasto_gral  from gastos_gral ";
 
 	$cont=0;
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_gasto_gral=$dat[0];
 		$cant_gasto_gral=$dat[1];
 		
@@ -36,7 +36,7 @@ $sql=" select cod_gasto_gral, cant_gasto_gral  from gastos_gral ";
 		$sql2.=" cant_gasto_gral='".$numero."'"; 
 		$sql2.=" where 	cod_gasto_gral='".$cod_gasto_gral."'"; 
 		echo $sql2;
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 	
 		echo "ok=".$resp2."<br/>";
 		

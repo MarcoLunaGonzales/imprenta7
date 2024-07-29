@@ -11,7 +11,7 @@ $sql="update coordenadas_impresion set ";
 $sql.=" valor_x='".$valor_x."',";
 $sql.=" valor_y='".$valor_y."'";
 $sql.=" where cod_coordenada='".$cod_coordenada."' ";
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 require("cerrar_conexion.inc");
 ?>
 <script language="JavaScript">

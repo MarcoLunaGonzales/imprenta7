@@ -34,8 +34,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -49,8 +49,8 @@ class PDF extends FPDF
 			$this->Text(84,24,"Del ".$_POST['fecha_inicio']." al ".$_POST['fecha_final']);
 			/*if($_POST['cod_tipo_cbte']<>0){
 					$sql5="select nombre_tipo_cbte from tipo_comprobante where cod_tipo_cbte=".$_POST['cod_tipo_cbte'];
-					$resp5=mysql_query($sql5);
-					while ($dat5=mysql_fetch_array($resp5)){
+					$resp5=mysqli_query($enlaceCon,$sql5);
+					while ($dat5=mysqli_fetch_array($resp5)){
 						$nombre_tipo_cbte=$dat5['nombre_tipo_cbte'];
 					}
 				$this->Text(82,29,"Tipo de Comprobante:".$nombre_tipo_cbte);
@@ -92,8 +92,8 @@ class PDF extends FPDF
 	
 }
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 	}
@@ -114,9 +114,9 @@ class PDF extends FPDF
 	$sql.=" and fecha_factura<='".llevarAFormatoFechaSqlMarco($_POST['fecha_final'])."'";
 	$sql.=" group by nro_factura,fecha_factura ";		
 	$sql.=" order by fecha_factura asc,nro_factura asc ";	
-	$resp=mysql_query($sql);
+	$resp=mysqli_query($enlaceCon,$sql);
 	$montoTotal=0;
-	while ($dat=mysql_fetch_array($resp)){
+	while ($dat=mysqli_fetch_array($resp)){
 	
 			$nro_factura=$dat[0];
 			$fecha_factura=$dat[1];
@@ -126,9 +126,9 @@ class PDF extends FPDF
 		$sqlAux.=" where cod_est_fac<>2 ";
 		$sqlAux.=" and fecha_factura='".$fecha_factura."'";
 		$sqlAux.=" and nro_factura='".$nro_factura."'";
-		$respAux=mysql_query($sqlAux);
+		$respAux=mysqli_query($enlaceCon,$sqlAux);
 		
-		while ($datAux=mysql_fetch_array($respAux)){
+		while ($datAux=mysqli_fetch_array($respAux)){
 			$monto=$datAux[0];
 		}
 		if($monto==NULL or $monto==''){
@@ -155,10 +155,10 @@ class PDF extends FPDF
 		//$sql2.=" where f.nro_factura=".$nro_factura." and f.fecha_factura='".$fecha_factura."' and  cod_est_fac<>2";
 		$sql2.=" where f.nro_factura=".$nro_factura." and f.fecha_factura='".$fecha_factura."' ";
 		
-		$resp2=mysql_query($sql2);
+		$resp2=mysqli_query($enlaceCon,$sql2);
 		
 
-		while ($dat2=mysql_fetch_array($resp2)){
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$cod_factura=$dat2['cod_factura'];
 			$nombre_factura=$dat2['nombre_factura'];
 			$nit_factura=$dat2['nit_factura'];
@@ -177,8 +177,8 @@ class PDF extends FPDF
 
 			
 			/*$sql3="select nombre_estado_cbte from estado_comprobante where cod_estado_cbte=".$cod_estado_cbte;
-			$resp3=mysql_query($sql3);
-			while ($dat3=mysql_fetch_array($resp3)){
+			$resp3=mysqli_query($enlaceCon,$sql3);
+			while ($dat3=mysqli_fetch_array($resp3)){
 				$nombre_estado_cbte=$dat3['nombre_estado_cbte'];
 			}*/
 			$descHR="";
@@ -192,8 +192,8 @@ class PDF extends FPDF
 			$sql7.=" left join clientes cli on (c.cod_cliente=cli.cod_cliente)";
 			$sql7.=" left join gestiones gc on (c.cod_gestion=gc.cod_gestion)";
 			$sql7.=" where hr.cod_hoja_ruta=".$cod_hoja_ruta;
-			$resp7=mysql_query($sql7);
-			while ($dat7=mysql_fetch_array($resp7)){
+			$resp7=mysqli_query($enlaceCon,$sql7);
+			while ($dat7=mysqli_fetch_array($resp7)){
 					$nro_hoja_ruta=$dat7['nro_hoja_ruta'];
 					$gestion_nombre=$dat7['gestion_nombre'];
 					$fecha_hoja_ruta=$dat7['fecha_hoja_ruta'];
@@ -209,14 +209,14 @@ $monto_hojaruta=0;
 							$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 							$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 							$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_hojaruta=$datAux[0];
 							}
 							$descuento_cotizacion=0;
 					$sqlAux="select descuento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$descuento_cotizacion=$datAux[0];
 					}
 					
@@ -228,8 +228,8 @@ $monto_hojaruta=0;
 					}
 					$incremento_cotizacion=0;
 					$sqlAux="select incremento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$incremento_cotizacion=$datAux[0];
 					}
 					
@@ -249,8 +249,8 @@ if($cod_orden_trabajo!=NULL && $cod_orden_trabajo!=''){
 			$sql7.=" left join clientes cli on (ot.cod_cliente=cli.cod_cliente) ";
 			$sql7.=" where ot.cod_orden_trabajo=".$cod_orden_trabajo;
 
-			$resp7=mysql_query($sql7);
-			while ($dat7=mysql_fetch_array($resp7)){
+			$resp7=mysqli_query($enlaceCon,$sql7);
+			while ($dat7=mysqli_fetch_array($resp7)){
 					$nro_orden_trabajo=$dat7['nro_orden_trabajo'];
 					$fecha_orden_trabajo=$dat7['fecha_orden_trabajo'];
 					$nombre_cliente=$dat7['nombre_cliente'];

@@ -16,8 +16,8 @@
 	$cod_salida=$_GET['cod_salida'];
 	$sql=" select count(*) from salidas_detalle  where cod_salida=".$cod_salida;	
 	$num_materiales=0;
-	$resp= mysql_query($sql);				
-	while($dat=mysql_fetch_array($resp)){	
+	$resp= mysqli_query($enlaceCon,$sql);				
+	while($dat=mysqli_fetch_array($resp)){	
 			$num_materiales=$dat[0];
 	}	
 ?>
@@ -456,24 +456,24 @@ function cargar_contacto_ajax(url)
 	$sql.=" cod_cliente_venta, cod_contacto, cod_tipo_pago ,cod_area, cod_usuario";
 	$sql.=" from salidas ";
 	$sql.=" where cod_salida=".$cod_salida;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$codtiposalida=$dat['cod_tipo_salida'];
 		$nro_salida=$dat['nro_salida'];
 		$cod_gestion=$dat['cod_gestion'];
 		//////////Datos de Gestion///////
 			$sqlGestion="select gestion from gestiones where cod_gestion=".$cod_gestion;
-			$resp2= mysql_query($sqlGestion);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sqlGestion);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$gestion=$dat2['gestion'];
 			}
 		////////////////////////////////
 		$cod_almacen=$dat['cod_almacen'];
 		//////////Datos de Almacen///////
 			$sqlAlmacen="select nombre_almacen from almacenes where cod_almacen=".$cod_almacen;
-			$resp2= mysql_query($sqlAlmacen);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sqlAlmacen);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen=$dat2['nombre_almacen'];
 			}
 		////////////////////////////////
@@ -494,8 +494,8 @@ function cargar_contacto_ajax(url)
 		$nombreClienteVenta="";
 		if($codclienteventa<>""){
 			$sqlCliente="select nombre_cliente from clientes where cod_cliente=".$codclienteventa;
-			$resp2= mysql_query($sqlCliente);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sqlCliente);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombreClienteVenta=$dat2['nombre_cliente'];
 			}		
 		}
@@ -535,8 +535,8 @@ function cargar_contacto_ajax(url)
               <?php
 					$sql2=" select cod_tipo_salida, nombre_tipo_salida from tipos_salida where cod_tipo_salida=".$codtiposalida;
 					$sql2.=" order by  nombre_tipo_salida asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_salida=$dat2[0];	
 			  		 		$nombre_tipo_salida=$dat2[1];
@@ -582,8 +582,8 @@ function cargar_contacto_ajax(url)
 					$sql2=" select cod_tipo_pago, nombre_tipo_pago ";
 					$sql2.=" from tipos_pago ";
 					$sql2.=" where cod_tipo_pago=1 or cod_tipo_pago=2";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_pago=$dat2['cod_tipo_pago'];	
 			  		 		$nombre_tipo_pago=$dat2['nombre_tipo_pago'];	
@@ -614,8 +614,8 @@ function cargar_contacto_ajax(url)
 					$sql2.=" from clientes_contactos";
 					$sql2.=" where cod_cliente=".$codclienteventa;
 					$sql2.=" order by  ap_paterno_contacto asc,nombre_contacto asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto=$dat2['cod_contacto'];	
 							$nombre_contacto=$dat2['nombre_contacto'];	
@@ -654,8 +654,8 @@ function cargar_contacto_ajax(url)
 					$sql2.=" and cod_estado_hoja_ruta=1 ";
 					$sql2.=" order by g.gestion desc, hr.nro_hoja_ruta desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_hoja_ruta=$dat2[0];
 							$nro_hoja_ruta=$dat2[1];	
@@ -682,8 +682,8 @@ function cargar_contacto_ajax(url)
 					$sql2.=" and cod_estado_registro=1";
 					$sql2.=" order by  nombre_almacen asc";
 					echo $sql2;
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_almacen=$dat2[0];	
 			  		 		$nombre_almacen=$dat2[1];	
@@ -709,8 +709,8 @@ function cargar_contacto_ajax(url)
 					$sql2.=" and cod_estado_hoja_ruta=3 ";
 					$sql2.=" order by g.gestion desc, hr.nro_hoja_ruta desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_hoja_ruta=$dat2[0];
 							$nro_hoja_ruta=$dat2[1];	
@@ -741,8 +741,8 @@ function cargar_contacto_ajax(url)
 					$sql2.=" where ot.cod_cliente=c.cod_cliente ";
 					$sql2.=" order by ot.fecha_orden_trabajo desc, ot.nro_orden_trabajo desc ";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_orden_trabajo=$dat2['cod_orden_trabajo'];
 							$numero_orden_trabajo=$dat2['numero_orden_trabajo'];	
@@ -756,8 +756,8 @@ function cargar_contacto_ajax(url)
 							$cod_gestion_ot=$dat2['cod_gestion'];
 							$gestion_ot="";
 							$sql3=" select gestion from gestiones where  cod_gestion=".$cod_gestion_ot;
-							$resp3=mysql_query($sql3);
-							while($dat3=mysql_fetch_array($resp3))
+							$resp3=mysqli_query($enlaceCon,$sql3);
+							while($dat3=mysqli_fetch_array($resp3))
 							{
 								$gestion_ot=$dat3['gestion'];	
 			  		 		}							
@@ -777,8 +777,8 @@ function cargar_contacto_ajax(url)
 				<?php
 					$sql2=" select cod_area, nombre_area ";
 					$sql2.=" from areas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_area=$dat2['cod_area'];	
 			  		 		$nombre_area=$dat2['nombre_area'];	
@@ -798,8 +798,8 @@ function cargar_contacto_ajax(url)
 					$sql2=" select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios ";
 					$sql2.=" order by ap_paterno_usuario asc, ap_materno_usuario asc, nombres_usuario asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_usuario=$dat2['cod_usuario'];	
 							$nombres_usuario=$dat2['nombres_usuario'];	
@@ -876,10 +876,10 @@ function cargar_contacto_ajax(url)
 					$sql.=" from salidas_detalle ";
 					$sql.=" where cod_salida=".$cod_salida;
 					
-					$resp= mysql_query($sql);
+					$resp= mysqli_query($enlaceCon,$sql);
 					$cont=0;
 					$sumaTotal=0;
-					while($dat=mysql_fetch_array($resp)){	
+					while($dat=mysqli_fetch_array($resp)){	
 					
 						$cont=$cont+1;
 						$codmaterial=$dat['cod_material'];
@@ -890,8 +890,8 @@ function cargar_contacto_ajax(url)
 						$sql2.=" from materiales m, unidades_medidas um ";
 						$sql2.=" where m.cod_unidad_medida=um.cod_unidad_medida ";
 						$sql2.=" and m.cod_material=".$codmaterial;
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$desc_completa_material=$dat2['desc_completa_material'];
 							$precio_venta=$dat2['precio_venta'];
 							$abrev_unidad_medida=$dat2['abrev_unidad_medida'];
@@ -921,17 +921,17 @@ function cargar_contacto_ajax(url)
 
 		$sql2=" select count(*)  from ingresos_detalle where cod_material=".$codmaterial."";
 		$sql2.=" and cod_ingreso in(select cod_ingreso from ingresos where cod_almacen=".$cod_almacen." and cod_estado_ingreso=1)";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$num_reg_ing_material=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 				$num_reg_ing_material=$dat2[0]; 									
 		}		
 		
 		$sql2=" select count(*) from salidas_detalle where cod_material=".$codmaterial."";
 		$sql2.=" and cod_salida in(select cod_salida from salidas where cod_almacen=".$cod_almacen." and cod_estado_salida=1)";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$num_reg_sal_material=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 				$num_reg_sal_material=$dat2[0]; 									
 		}	
 		
@@ -951,18 +951,18 @@ function cargar_contacto_ajax(url)
 				$sql2="  select sum(cant_actual) from ingresos_detalle where cod_material=".$codmaterial."";
 				$sql2.=" and cod_ingreso in(select cod_ingreso from ingresos ";
 				$sql2.=" where cod_almacen=".$cod_almacen." and cod_estado_ingreso=1)";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$cantActualMaterial_1=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 						$cantActualMaterial_1=$dat2[0]; 									
 				}
 
 				$sql2=" select sum(cantidad) from ingresos_detalle where cod_material=".$codmaterial."";
 				$sql2.=" and cod_ingreso in(select cod_ingreso from ingresos ";
 				$sql2.=" where cod_almacen=".$cod_almacen." and cod_estado_ingreso=1)";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$sum_cant_ing_mat=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 						$sum_cant_ing_mat=$dat2[0]; 									
 				}
 				
@@ -972,9 +972,9 @@ function cargar_contacto_ajax(url)
 						$sql2=" select sum(cant_salida) from salidas_detalle where cod_material=".$codmaterial."";
 						$sql2.=" and cod_salida in(select cod_salida from salidas ";
 						$sql2.=" where cod_almacen=".$cod_almacen." and cod_estado_salida=1)";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$sum_reg_sal_material=0;
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$sum_reg_sal_material=$dat2[0]; 									
 						}
 					///////////////
@@ -1008,9 +1008,9 @@ value="<?php echo $cant_salida;?>" onKeyUp="importe('<?php echo $cont;?>')" size
 <?php 
 
 		$sql2=" select precio_venta  from materiales where cod_material=".$codmaterial."";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$precio_venta=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 				$precio_venta=$dat2[0]; 									
 		}	
 ?>

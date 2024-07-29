@@ -16,7 +16,7 @@ $sql.=" obs_gasto='".$_POST['obs_gasto']."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."',";
 $sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',"; 
 $sql.=" fecha_registro='".date('Y/m/d', time())."'"; 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

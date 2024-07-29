@@ -97,8 +97,8 @@ $cod_factura=$_POST['cod_factura'];
 	$sql.=" obs_factura, cod_est_fac, monto_factura, cod_usuario_registro, fecha_registro, cod_usuario_modifica, fecha_modifica ";
 	$sql.=" from facturas";
 	$sql.=" where cod_factura=".$cod_factura;
-    $resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+    $resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nro_factura=$dat['nro_factura'];
 		$codcliente=$dat['cod_cliente'];
@@ -118,9 +118,9 @@ $cod_factura=$_POST['cod_factura'];
 
 ///Datos Hoja Ruta////
 	$queryFacHojaRuta="select cod_hoja_ruta from factura_hojaruta where cod_factura=".$cod_factura;
-	$resp3 = mysql_query($queryFacHojaRuta);
+	$resp3 = mysqli_query($enlaceCon,$queryFacHojaRuta);
 	$cod_hoja_ruta=0;
-	while($dat3=mysql_fetch_array($resp3)){
+	while($dat3=mysqli_fetch_array($resp3)){
 		$cod_hoja_ruta=$dat3['cod_hoja_ruta'];
 	}
 	
@@ -134,8 +134,8 @@ $cod_factura=$_POST['cod_factura'];
 		$sql3.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 		$sql3.=" and c.cod_cliente=cli.cod_cliente ";
 		$sql3.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-		$resp3 = mysql_query($sql3);
-		while($dat3=mysql_fetch_array($resp3)){
+		$resp3 = mysqli_query($enlaceCon,$sql3);
+		while($dat3=mysqli_fetch_array($resp3)){
 				$cod_gestion=$dat3['cod_gestion'];
 				$nro_hoja_ruta=$dat3['nro_hoja_ruta'];
 				$gestion=$dat3['gestion'];
@@ -151,8 +151,8 @@ $cod_factura=$_POST['cod_factura'];
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp2 = mysql_query($sqlCotizacion);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_cotizacion=$dat2['nro_cotizacion'];
 					$gestion_cotizacion=$dat2['gestion'];
 				}	
@@ -232,8 +232,8 @@ $cod_factura=$_POST['cod_factura'];
 		<?php
         
 			$sql2=" select cod_est_fac, desc_est_fac from estado_factura ";
-		    $resp2 = mysql_query($sql2);	
-			while($dat2=mysql_fetch_array($resp2)){
+		    $resp2 = mysqli_query($enlaceCon,$sql2);	
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_est_fac=$dat2['cod_est_fac'];
 				$desc_est_fac=$dat2['desc_est_fac'];
 		?>

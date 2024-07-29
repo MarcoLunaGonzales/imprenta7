@@ -187,8 +187,8 @@ function guardar(f){
 	$sql.=" descuento_fecha, descuento_obs, cod_usuario_descuento ";
 	$sql.=" from ordentrabajo ";
 	$sql.=" where cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_est_ot=$dat['cod_est_ot']; 
 		$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		$cod_gestion=$dat['cod_gestion'];
@@ -223,16 +223,16 @@ function guardar(f){
 
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 	
 	$sql2="select nombre_cliente from clientes where cod_cliente='".$codcliente."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_cliente="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2['nombre_cliente'];
 	}	
 	
@@ -281,8 +281,8 @@ function guardar(f){
 					$sql2.=" from clientes_contactos";
 					$sql2.=" where cod_cliente=".$codcliente;
 					$sql2.=" order by  ap_paterno_contacto asc, ap_materno_contacto asc , nombre_contacto asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto=$dat2['cod_contacto'];
 							$nombre_contacto=$dat2['nombre_contacto'];
@@ -307,8 +307,8 @@ function guardar(f){
         <td><select name="cod_tipo_pago" id="cod_tipo_pago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago order by cod_tipo_pago asc";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4['cod_tipo_pago'];	
 			  		 		$nombre_tipo_pago=$dat4['nombre_tipo_pago'];	

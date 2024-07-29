@@ -159,8 +159,8 @@ function editar(cliente){
 		$sql.=" or cod_proveedor in(select cod_proveedor from proveedores_contactos ";
 		$sql.=" where CONCAT(nombre_contacto,ap_paterno_contacto,ap_materno_contacto)like '%".$_GET['proveedorContactoB']."%')";
 		}
-		$resp_aux = mysql_query($sql);
-		while($dat_aux=mysql_fetch_array($resp_aux)){
+		$resp_aux = mysqli_query($enlaceCon,$sql);
+		while($dat_aux=mysqli_fetch_array($resp_aux)){
 			$nro_filas_sql=$dat_aux[0];
 		}
 
@@ -191,7 +191,7 @@ function editar(cliente){
 		$sql.=" order by nombre_proveedor asc";
 		$sql.=" limit 50";
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="89%" align="center" cellpadding="1" cellspacing="1" bgColor="#CCCCCC" class="tablaReporte" style="width:100% !important;">
@@ -212,7 +212,7 @@ function editar(cliente){
        <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_proveedor=$dat['cod_proveedor'];
 				$nombre_proveedor=$dat['nombre_proveedor'];
@@ -235,24 +235,24 @@ function editar(cliente){
 				$cod_usuario_modifica=$dat['cod_usuario_modifica'];
 		
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2[0];
 				}					
 
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************
 					$nroContactos=0;							
 					$sql2="select count(*) from proveedores_contactos";
 					$sql2.=" where cod_proveedor='".$cod_proveedor."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nroContactos=$dat2[0];
 					}	
 				
@@ -293,8 +293,8 @@ function editar(cliente){
 				$sqlAux.=" from proveedores_contactos ";
 				$sqlAux.=" where cod_proveedor=".$cod_proveedor;
 				$sqlAux.=" order by ap_paterno_contacto, ap_materno_contacto, nombre_contacto asc ";
-				$respAux= mysql_query($sqlAux);
-				while($datAux=mysql_fetch_array($respAux)){
+				$respAux= mysqli_query($enlaceCon,$sqlAux);
+				while($datAux=mysqli_fetch_array($respAux)){
 					$cod_contacto_proveedor=$datAux['cod_contacto_proveedor'];
 					$nombre_contacto=$datAux['nombre_contacto'];
 					$ap_paterno_contacto=$datAux['ap_paterno_contacto'];

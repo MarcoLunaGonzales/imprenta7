@@ -27,9 +27,9 @@
 	$datos=$_GET["datos"];	
 	$cod_grupo=$_GET["cod_grupo"];	
 	$sql="select nombre_grupo from grupos where cod_grupo=".$cod_grupo;
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$nombre_grupo="";
-	if($dat=mysql_fetch_array($resp)){
+	if($dat=mysqli_fetch_array($resp)){
 		$nombre_grupo=$dat[0];
 	}		
 	
@@ -49,8 +49,8 @@
 				$cod_grupo_carac=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from materiales_grupos_caracteristicas  where cod_grupo_carac='".$cod_grupo_carac."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 
@@ -92,8 +92,8 @@
 				$sql=" select nombre_grupo_carac, orden, cod_estado_registro ";
 				$sql.=" from grupos_caracteristicas";				
 				$sql.=" where cod_grupo_carac='".$cod_grupo_carac."'";
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$nombre_grupo_carac=$dat[0];
 					$orden=$dat[1];
@@ -102,8 +102,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 					//**************************************************************	
@@ -138,8 +138,8 @@
 				$sql=" select nombre_grupo_carac, orden, cod_estado_registro ";
 				$sql.=" from grupos_caracteristicas";				
 				$sql.=" where cod_grupo_carac='".$cod_grupo_carac."'";
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$nombre_grupo_carac=$dat[0];
 					$orden=$dat[1];
@@ -148,8 +148,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 					//**************************************************************	

@@ -98,9 +98,9 @@ include("funciones.php");
 	$sql_aux=" select count(*)";
 	$sql_aux.=" from solicitudes_importacion ";			
 	$sql_aux.=" where cod_estado_sol_imp=2";
-	$resp_aux = mysql_query($sql_aux);
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
 	$nro_filas_sql=0;
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}	
 
@@ -143,7 +143,7 @@ include("funciones.php");
 		$sql.=" where cod_estado_sol_imp=2";
 		$sql.=" order by fecha_registro desc ";
 		$sql.="  limit ".$fila_inicio." , ".$fila_final;
-		$resp=mysql_query($sql);
+		$resp=mysqli_query($enlaceCon,$sql);
 ?>	
 		<div align="center">
 			<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -159,7 +159,7 @@ include("funciones.php");
 				<td>Estado</td>														
 			</tr>
 <?php   
-		while($dat=mysql_fetch_array($resp)){		
+		while($dat=mysqli_fetch_array($resp)){		
 							
 			$cod_sol_imp=$dat[0];
 			$cod_contacto_rep_legal=$dat[1];
@@ -168,8 +168,8 @@ include("funciones.php");
 			$nombre_contacto_rep_legal="";
 			$ap_paterno_contacto_rep_legal="";
 			$ap_materno_contacto_rep_legal="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_contacto_rep_legal=$dat2[0];
 					$ap_paterno_contacto_rep_legal=$dat2[1];
 					$ap_materno_contacto_rep_legal=$dat2[2];
@@ -183,8 +183,8 @@ include("funciones.php");
 			$nombre_contacto_registro="";
 			$ap_paterno_contacto_registro="";
 			$ap_materno_contacto_registro="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_contacto_registro=$dat2[0];
 					$ap_paterno_contacto_registro=$dat2[1];
 					$ap_materno_contacto_registro=$dat2[2];
@@ -203,8 +203,8 @@ include("funciones.php");
 			$nombre_contacto_modifica="";
 			$ap_paterno_contacto_modifica="";
 			$ap_materno_contacto_modifica="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_contacto_modifica=$dat2[0];
 					$ap_paterno_contacto_modifica=$dat2[1];
 					$ap_materno_contacto_modifica=$dat2[2];
@@ -223,8 +223,8 @@ include("funciones.php");
 			$nombre_usuario_asig_inspeccion="";
 			$ap_paterno_usuario_asig_inspeccion="";
 			$ap_materno_usuario_asig_inspeccion="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_usuario_asig_inspeccion=$dat2[0];
 					$ap_paterno_usuario_asig_inspeccion=$dat2[1];
 					$ap_materno_usuario_asig_inspeccion=$dat2[2];
@@ -244,8 +244,8 @@ include("funciones.php");
 			$nombre_usuario_inspeccion="";
 			$ap_paterno_usuario_inspeccion="";
 			$ap_materno_usuario_inspeccion="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_usuario_inspeccion=$dat2[0];
 					$ap_paterno_usuario_inspeccion=$dat2[1];
 					$ap_materno_usuario_inspeccion=$dat2[2];
@@ -255,8 +255,8 @@ include("funciones.php");
 			$cod_estado_sol_imp=$dat[11];
 			$sql2=" select  nombre_estado_sol_imp from estados_solucitudes_importacion  where cod_estado_sol_imp='".$cod_estado_sol_imp."'";
 			$nombre_estado_sol_imp="";
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_estado_sol_imp=$dat2[0];
 			}
 			$cod_contacto_envio=$dat[12];
@@ -264,8 +264,8 @@ include("funciones.php");
 				$nombre_contacto_envio="";
 				$ap_paterno_contacto_envio="";
 				$ap_materno_contacto_envio="";
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_contacto_envio=$dat2[0];
 					$ap_paterno_contacto_envio=$dat2[1];
 					$ap_materno_contacto_envio=$dat2[2];
@@ -288,16 +288,16 @@ include("funciones.php");
 				<ul>
 			<?php
 				$sql2="select cod_doc_sol_imp, nombre_doc_sol_imp from documentos_sol_imp";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){			
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){			
 				 	$cod_doc_sol_imp=$dat2[0];
 					$nombre_doc_sol_imp=$dat2[1];	
 			?>
 				<li><?php echo $nombre_doc_sol_imp;?>
 			<?php					
 					$sql3="select url_archivo from sol_imp_doc where cod_sol_imp='".$cod_sol_imp."' and cod_doc_sol_imp='".$cod_doc_sol_imp."'";
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){		
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){		
 						$url_archivo=$dat3[0];
 					}
 					if($url_archivo<>""){

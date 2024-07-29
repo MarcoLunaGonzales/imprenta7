@@ -21,25 +21,25 @@
 	$sql.=" obs_cotizacion_impresion ";
 	$sql.=" from cotizaciones ";
 	$sql.=" where cod_cotizacion=".$codCotizacion;
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 	
 		$cod_cotizacion=$dat[0];
 		$cod_tipo_cotizacion=$dat[1];
 		/****************TIPO DE COTIZACION*************************/	
 			$sql2="select nombre_tipo_cotizacion  from tipos_cotizacion where cod_tipo_cotizacion='".$cod_tipo_cotizacion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_tipo_cotizacion="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_tipo_cotizacion=$dat2[0];
 			}
 		/************************************/			
 		$cod_estado_cotizacion=$dat[2];
 		/*******************ESTADO DE COTIZACION**********************/	
 		$sql2="select nombre_estado_cotizacion  from estados_cotizacion where cod_estado_cotizacion='".$cod_estado_cotizacion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_estado_cotizacion="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_estado_cotizacion=$dat2[0];
 			}
 		/************************************/			
@@ -48,14 +48,14 @@
 		/********************CLIENTE*********************/	
 		$sql2=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 		$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_cliente="";
 			$direccion_cliente=""; 
 			$telefono_cliente="";
 			$celular_cliente="";
 			$fax_cliente="";
 			
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2[0];
 				$direccion_cliente=$dat2[1];
 				$telefono_cliente=$dat2[2];
@@ -68,18 +68,18 @@
 		$cod_tipo_pago=$dat[7];
 		/********************TIPO DE PAGO *********************/	
 		$sql2="select nombre_tipo_pago  from tipos_pago where cod_tipo_pago='".$cod_tipo_pago."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_tipo_pago="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_tipo_pago=$dat2[0];
 			}
 		/************************************/			
 		$cod_gestion=$dat[8];
 		/************************GESTION*****************/	
 		$sql2="select gestion  from gestiones where cod_gestion='".$cod_gestion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestion="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestion=$dat2[0];
 			}
 		/************************************/	
@@ -100,11 +100,11 @@
 		/************************USUARIO DE REGISTRO*****************/	
 		$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 		$sql2.=" from usuarios where cod_usuario='".$cod_usuario_registro."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombres_usuario_reg="";
 			$ap_paterno_usuario_reg="";
 			$ap_materno_usuario_reg="";			
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombres_usuario_reg=$dat2[0];
 				$ap_paterno_usuario_reg=$dat2[1];
 				$ap_materno_usuario_reg=$dat2[2];
@@ -116,11 +116,11 @@
 		/************************USUARIO MODIFICA*****************/	
 		$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 		$sql2.=" from usuarios where cod_usuario='".$cod_usuario_modifica."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombres_usuario_mod="";
 			$ap_paterno_usuario_mod="";
 			$ap_materno_usuario_mod="";			
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombres_usuario_mod=$dat2[0];
 				$ap_paterno_usuario_mod=$dat2[1];
 				$ap_materno_usuario_mod=$dat2[2];
@@ -200,16 +200,16 @@
 		$sql.=" from cotizaciones_detalle ";
 		$sql.=" where cod_cotizacion=".$codCotizacion;
 		$sql.=" order by orden asc";
-		$resp= mysql_query($sql);
+		$resp= mysqli_query($enlaceCon,$sql);
 		$sumaTotal=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				$cod_cotizaciondetalle=$dat[0];
 				$cod_item=$dat[1];
 				/************************GESTION*****************/	
 					$sql2="select desc_item  from items where cod_item='".$cod_item."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$desc_item="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_item=$dat2[0];
 					}
 				/************************************/					 
@@ -248,23 +248,23 @@
 			$sql3.=" from cotizacion_detalle_caracteristica ";
 			$sql3.=" where cod_cotizacion=".$codCotizacion;
 			$sql3.=" and cod_cotizaciondetalle=".$cod_cotizaciondetalle;
-			$resp3= mysql_query($sql3);
+			$resp3= mysqli_query($enlaceCon,$sql3);
 			$nro_compitem=0;
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 				$nro_compitem=$dat3[0];
 			}
 		  	/////////////////////////////////////////////////////
 			$detalle_item="";
 			$sql4=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp4=mysql_query($sql4);
-			while ($dat4=mysql_fetch_array($resp4)){
+			$resp4=mysqli_query($enlaceCon,$sql4);
+			while ($dat4=mysqli_fetch_array($resp4)){
 		
 				$cod_compitem=$dat4[0];
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				
@@ -288,14 +288,14 @@
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){						
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){						
 						$cod_carac=$dat3[0];						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/

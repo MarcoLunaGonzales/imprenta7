@@ -13,7 +13,7 @@ $sql.=" telf_unidad='".$_POST['telf_unidad']."',";
 $sql.=" cod_usuario_modifica=".$_COOKIE['usuario_global'].",";
 $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_unidad='".$_POST['cod_unidad']."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 require("cerrar_conexion.inc");
 
 ?>

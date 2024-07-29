@@ -65,8 +65,8 @@ function paginar(f)
 		$cod_marca_b=0;
 	}
 	$sql=" select  rotulo_comercial from empresas  where cod_empresa='".$cod_empresa."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$rotulo_comercial=$dat[0];
 	}	
 ?>
@@ -83,8 +83,8 @@ function paginar(f)
 				<option value="0" selected="selected">Todas</option>			
 			<?php
 				$sql="select cod_marca, nombre_marca from marcas order by nombre_marca asc ";
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$cod_marca=$dat[0];
 					$nombre_marca=$dat[1];
 					if($cod_marca==$cod_marca_b){
@@ -123,8 +123,8 @@ function paginar(f)
 		$sql_aux.=" and cod_marca='".$cod_marca_b."' ";
 	}
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -164,7 +164,7 @@ function paginar(f)
 		}		
 			$sql.=" order by nombre_producto  asc";
 			$sql.="  limit ".$fila_inicio." , ".$fila_final;
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -178,15 +178,15 @@ function paginar(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_producto=$dat[0];
 			$nombre_producto=$dat[1];
 			$cod_marca=$dat[2];
 			$sql2="select nombre_marca from marcas where cod_marca='".$cod_marca."'";
-			$resp2 = mysql_query($sql2);
+			$resp2 = mysqli_query($enlaceCon,$sql2);
 			$nombre_marca="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_marca=$dat2[0];
 			}
 			$cia_productora=$dat[3];
@@ -206,8 +206,8 @@ function paginar(f)
 				$sql2.=" where cod_estado_ficha=3 ";
 				$sql2.=" and sku in(select cod_pres from presentaciones where cod_producto='".$cod_producto."') ";
 				$sql2.=" and cod_contacto_registro in (select cod_contacto from contactos where cod_empresa='".$cod_empresa."')";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_ficha=$dat2[0];
 					$sku=$dat2[1];
 					$presentacion=$dat2[2];

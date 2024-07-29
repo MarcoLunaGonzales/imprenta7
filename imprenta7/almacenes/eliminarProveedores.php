@@ -3,7 +3,7 @@ require("conexion.inc");
 		
 
 		$sql=" delete from proveedores where cod_proveedor='".$_POST['cod_proveedor']."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 
 require("cerrar_conexion.inc");
 ?>

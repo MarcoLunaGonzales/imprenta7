@@ -36,15 +36,15 @@ $(" #nav li").hover(function(){
 	
 	$sql=" select  nombre_contacto, ap_paterno_contacto, ap_materno_contacto from contactos ";
 	$sql.=" where cod_contacto='".$_COOKIE['contacto_global']."'";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){	
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){	
 		$nombre_contacto=$dat[0];
 		$ap_paterno_contacto=$dat[1];
 		$ap_materno_contacto=$dat[2];
 	}
 	$sql=" select  rotulo_comercial from empresas  where cod_empresa='".$_COOKIE['empresa_global']."'";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){	
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){	
 		$rotulo_comercial=$dat[0];
 	}
 	require("asociados/cerrar_conexion.inc");

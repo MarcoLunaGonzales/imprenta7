@@ -93,20 +93,20 @@ function eliminar(f)
 	$codItem=$_GET['codItem'];
 	$codComp=$_GET['codComp'];
 	$sql_00="select desc_item from items where cod_item=".$codItem;
-	$resp_00 = mysql_query($sql_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql_00);
 	$nombreItem="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreItem=$dat_00[0];
 	}
 	$sql_00="select nombre_componenteitem from componente_items where cod_item=".$codItem." and cod_compitem=".$codComp;
-	$resp_00 = mysql_query($sql_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql_00);
 	$nombreCompItem="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreCompItem=$dat_00[0];
 	}	
 	$sql_aux=" select count(*) from componente_items where cod_item=".$codItem." and cod_compitem=".$codComp;
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -140,8 +140,8 @@ function eliminar(f)
 <?php   
 		$sql="select cc.cod_carac,c.desc_carac from  componentes_caracteristica cc, caracteristicas c";
 		$sql.=" where cc.cod_carac=c.cod_carac and cc.cod_compitem=".$codComp." order by c.desc_carac asc";
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){	
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$codCarac=$dat[0];
 				$nombreCarac=$dat[1]; 

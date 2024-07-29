@@ -13,8 +13,8 @@
 	$sql.=" and p.cod_cliente=cli.cod_cliente ";
 	$sql.=" and p.cod_estado_pago=ep.cod_estado_pago ";
 	$sql.=" and p.cod_pago=".$cod_pago;
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 				$nro_pago=$dat['nro_pago'];				
 				$cod_gestion=$dat['cod_pago'];
@@ -32,11 +32,11 @@
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_pago;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_pago="";
 					$ap_paterno_usuario_pago="";
 					$ap_materno_usuario_pago="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_pago=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_pago=$datAux['ap_paterno_usuario'];
@@ -154,8 +154,8 @@ function modificar()
 				$sql2.=" and pd.cod_tipo_doc=1 ";
 				$sql2.=" and hr.cod_gestion=g.cod_gestion ";
 				$sql2.=" order by hr.fecha_hoja_ruta asc ,hr.nro_hoja_ruta asc, g.gestion asc";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_pago_detalle=$dat2['cod_pago_detalle'];
 					$cod_hoja_ruta=$dat2['codigo_doc'];
 					$nro_hoja_ruta=$dat2['nro_hoja_ruta'];
@@ -180,8 +180,8 @@ function modificar()
 					$sql3.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 					$sql3.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 					$sql3.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$monto_hojaruta=$dat3[0];
 					}
 					
@@ -191,8 +191,8 @@ function modificar()
 					$sql3.=" from hojas_rutas hr, cotizaciones c ";
 					$sql3.=" where hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql3.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$descuento_cotizacion=$dat3['descuento_cotizacion'];
 					}
 					///////////////////////////
@@ -202,8 +202,8 @@ function modificar()
 					$sql3.=" from hojas_rutas hr, cotizaciones c ";
 					$sql3.=" where hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql3.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$incremento_cotizacion=$dat3['incremento_cotizacion'];
 					}
 					///////////////////////////					
@@ -219,8 +219,8 @@ function modificar()
 			$sql3=" select desc_estado_pago_doc ";
 			$sql3.=" from estado_pago_documento ";
 			$sql3.=" where cod_estado_pago_doc=".$cod_estado_pago_doc;
-			$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+			$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 							$desc_estado_pago_doc=$dat3['desc_estado_pago_doc'];
 				}
 				echo $desc_estado_pago_doc;
@@ -228,8 +228,8 @@ function modificar()
 			 ?></td>              
             <td align="left"><?php 
 				$sql3="select desc_forma_pago from forma_pago where cod_forma_pago=".$cod_forma_pago;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_forma_pago=$dat3['desc_forma_pago'];
 					}
 					echo $desc_forma_pago;
@@ -239,8 +239,8 @@ function modificar()
             <?php
             	if($cod_forma_pago<>1){
 				$sql3="select desc_banco from bancos where cod_banco=".$cod_banco;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_banco=$dat3['desc_banco'];
 					}
 					echo $desc_banco;					
@@ -255,8 +255,8 @@ function modificar()
 			<?php
             	
 				$sql3="select desc_moneda, abrev_moneda from monedas where cod_moneda=".$cod_moneda;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_moneda=$dat3['desc_moneda'];
 						$abrev_moneda=$dat3['abrev_moneda'];
 					}
@@ -268,8 +268,8 @@ function modificar()
             	if($cod_moneda<>1){
 					$sql3="select cambio_bs from tipo_cambio";
 					$sql3.=" where fecha_tipo_cambio='".$fecha_pago."' and cod_moneda='".$cod_moneda."'";
-					$resp3=mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3=mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 					}	
 					echo $cambio_bs;							
@@ -303,8 +303,8 @@ function modificar()
 				$sql2.=" and pd.cod_tipo_doc=2 ";
 				$sql2.=" and ot.cod_gestion=g.cod_gestion ";
 				$sql2.=" order by ot.nro_orden_trabajo asc, g.gestion asc";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_pago_detalle=$dat2['cod_pago_detalle'];
 					$cod_orden_trabajo=$dat2['codigo_doc'];
 					$nro_orden_trabajo=$dat2['nro_orden_trabajo'];
@@ -328,8 +328,8 @@ function modificar()
 			 		$sql3=" select sum(monto_orden_trabajo) ";
 					$sql3.=" from ordentrabajo";
 					$sql3.=" where cod_orden_trabajo=".$cod_orden_trabajo;
-					$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$monto_ordetrabajo=$dat3[0];
 					}
 					///////////////////////////															
@@ -344,8 +344,8 @@ function modificar()
 			$sql3=" select desc_estado_pago_doc ";
 			$sql3.=" from estado_pago_documento ";
 			$sql3.=" where cod_estado_pago_doc=".$cod_estado_pago_doc;
-			$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+			$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 							$desc_estado_pago_doc=$dat3['desc_estado_pago_doc'];
 				}
 				echo $desc_estado_pago_doc;
@@ -353,8 +353,8 @@ function modificar()
 			 ?></td>              
             <td align="left"><?php 
 				$sql3="select desc_forma_pago from forma_pago where cod_forma_pago=".$cod_forma_pago;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_forma_pago=$dat3['desc_forma_pago'];
 					}
 					echo $desc_forma_pago;
@@ -364,8 +364,8 @@ function modificar()
             <?php
             	if($cod_forma_pago<>1){
 				$sql3="select desc_banco from bancos where cod_banco=".$cod_banco;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_banco=$dat3['desc_banco'];
 					}
 					echo $desc_banco;					
@@ -380,8 +380,8 @@ function modificar()
 			<?php
             	
 				$sql3="select desc_moneda, abrev_moneda from monedas where cod_moneda=".$cod_moneda;
-				$resp3 = mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_moneda=$dat3['desc_moneda'];
 						$abrev_moneda=$dat3['abrev_moneda'];
 					}
@@ -393,8 +393,8 @@ function modificar()
             	if($cod_moneda<>1){
 					$sql3="select cambio_bs from tipo_cambio";
 					$sql3.=" where fecha_tipo_cambio='".$fecha_pago."' and cod_moneda='".$cod_moneda."'";
-					$resp3=mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3=mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 					}	
 					echo $cambio_bs;							

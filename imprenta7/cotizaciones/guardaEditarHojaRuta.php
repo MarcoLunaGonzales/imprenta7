@@ -18,8 +18,8 @@ $sql.=" where pd.codigo_doc=".$cod_hoja_ruta;
 $sql.=" and pd.cod_tipo_doc=2";
 $sql.=" and pd.cod_pago=p.cod_pago ";
 $sql.=" and p.cod_estado_pago<>2 ";
-$resp=mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp=mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$nro_pagos=$dat[0];
 }
 
@@ -41,11 +41,11 @@ $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y-m-d H:i:s', time())."'";
 $sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 	$sql=" select   cod_cotizacion from hojas_rutas  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 	$cod_cotizacion=$dat[0]; 
 	
 	
@@ -83,9 +83,9 @@ $n=sizeof($vectorCotizacionDetalle_2);
 
 $sql=" delete from hojas_rutas_detalle_maquinaria where cod_hoja_ruta='".$cod_hoja_ruta."'";
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 $sql=" delete from hojas_rutas_detalle where cod_hoja_ruta='".$cod_hoja_ruta."'";
-mysql_query($sql);		
+mysqli_query($enlaceCon,$sql);		
 		
 	for($i=0;$i<$n;$i++){	
 			
@@ -100,7 +100,7 @@ mysql_query($sql);
 		$sql.=" placas='".$vectorPlacas_2[$i]."',";
 		$sql.=" cantidad_cpt='".$vectorCantidad_2[$i]."'";
 		//echo "sql=".$sql."<br>";
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 
 	
 		$vectorMaquinaria_3=explode("|",$vectorMaquinaria_2[$i]);
@@ -114,7 +114,7 @@ mysql_query($sql);
 			$sql.=" cod_cotizaciondetalle='".$vectorCotizacionDetalle_2[$i]."',";
 			$sql.=" cod_maquina='".$vectorMaquinaria_3[$j]."'";
 			//echo "sql=".$sql."<br>";
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 
 	}	

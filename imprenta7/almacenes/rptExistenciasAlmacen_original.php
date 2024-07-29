@@ -5,8 +5,8 @@
 	
 	$cod_almacen=$_COOKIE['cod_almacen_global'];
 	$sqlAlmacen="select nombre_almacen from almacenes where cod_almacen=".$cod_almacen;
-	$respAlmacen=mysql_query($sqlAlmacen);
-	while($datAlmacen=mysql_fetch_array($respAlmacen)){
+	$respAlmacen=mysqli_query($enlaceCon,$sqlAlmacen);
+	while($datAlmacen=mysqli_fetch_array($respAlmacen)){
 		$nombre_almacen=$datAlmacen['nombre_almacen'];
 	}
 	$codgrupo=$_POST['cod_grupo'];
@@ -50,8 +50,8 @@
 	}
 	$sqlGrupo.=" order by  nombre_grupo asc";
 	//echo $sqlGrupo."<br>";	
-	$respGrupo=mysql_query($sqlGrupo);
-	while($datGrupo=mysql_fetch_array($respGrupo)){
+	$respGrupo=mysqli_query($enlaceCon,$sqlGrupo);
+	while($datGrupo=mysqli_fetch_array($respGrupo)){
 				$cod_grupo=$datGrupo['cod_grupo'];	
 		 		$nombre_grupo=$datGrupo['nombre_grupo'];
 				$abrev_grupo=$datGrupo['abrev_grupo'];
@@ -68,9 +68,9 @@
 		if($codgrupo<>0){
 			////////////////////////////////////////////////////////////////
 			$sqlSubGrupoAux=" select cod_subgrupo from subgrupos ";
-			$resp2=mysql_query($sqlSubGrupoAux);
+			$resp2=mysqli_query($enlaceCon,$sqlSubGrupoAux);
 			$sw=1;
-			while($dat2=mysql_fetch_array($resp2)){								
+			while($dat2=mysqli_fetch_array($resp2)){								
 				$codsubgrupo=$dat2['cod_subgrupo'];
 				if($_POST['cod_subgrupo'.$codsubgrupo]=="on"){
 					///////////////////////////////////////////
@@ -90,8 +90,8 @@
 		}	
 			
 		$sqlSubGrupo.=" order by nombre_subgrupo  ";
-		$respSubGrupo=mysql_query($sqlSubGrupo);
-		while($datSubGrupo=mysql_fetch_array($respSubGrupo)){	
+		$respSubGrupo=mysqli_query($enlaceCon,$sqlSubGrupo);
+		while($datSubGrupo=mysqli_fetch_array($respSubGrupo)){	
 			$cod_subgrupo=$datSubGrupo['cod_subgrupo'];
 			$nombre_subgrupo=$datSubGrupo['nombre_subgrupo'];
 			$abrev_subgrupo=$datSubGrupo['abrev_subgrupo'];
@@ -117,9 +117,9 @@
 				$sqlMateriales.=" from materiales  ";
 				$sqlMateriales.=" where  cod_subgrupo=".$cod_subgrupo;
 				$sqlMateriales.=" order by desc_completa_material asc";
-				$respMateriales=mysql_query($sqlMateriales);
+				$respMateriales=mysqli_query($enlaceCon,$sqlMateriales);
 				$costoTotalSubGrupo=0;
-				while($datMateriales=mysql_fetch_array($respMateriales)){
+				while($datMateriales=mysqli_fetch_array($respMateriales)){
 					$cod_material=$datMateriales['cod_material'];
 					$nombre_material=$datMateriales['nombre_material'];
 					$desc_completa_material=$datMateriales['desc_completa_material'];
@@ -130,8 +130,8 @@
 					////DESCRIPCION UNIDAD MEDIDA
 						$sqlUniMedida="select nombre_unidad_medida, abrev_unidad_medida from unidades_medidas";
 						$sqlUniMedida.=" where cod_unidad_medida=".$cod_unidad_medida;
-						$respUniMedida=mysql_query($sqlUniMedida);
-						while($datUniMedida=mysql_fetch_array($respUniMedida)){
+						$respUniMedida=mysqli_query($enlaceCon,$sqlUniMedida);
+						while($datUniMedida=mysqli_fetch_array($respUniMedida)){
 							$nombre_unidad_medida=$datUniMedida['nombre_unidad_medida'];
 							$abrev_unidad_medida=$datUniMedida['abrev_unidad_medida'];
 						}
@@ -146,8 +146,8 @@
 					$sqlCosto.=" and cant_actual>0" ;
 					$sqlCosto.=" order by cod_ingreso_detalle desc";
 					$nroRows=0;
-					$respCosto=mysql_query($sqlCosto);
-						while($datCosto=mysql_fetch_array($respCosto)){
+					$respCosto=mysqli_query($enlaceCon,$sqlCosto);
+						while($datCosto=mysqli_fetch_array($respCosto)){
 							$nroRows=$datCosto[0];
 						}
 						
@@ -196,9 +196,9 @@
 					$sqlCosto.=" and cant_actual>0" ;
 					$sqlCosto.=" group by precio_compra_uni ";
 					$sqlCosto.=" order by cod_ingreso_detalle desc";
-					$respCosto=mysql_query($sqlCosto);
+					$respCosto=mysqli_query($enlaceCon,$sqlCosto);
 						$costoTotal=0;
-						while($datCosto=mysql_fetch_array($respCosto)){
+						while($datCosto=mysqli_fetch_array($respCosto)){
 							$precio_compra_uni=$datCosto[0];
 							$cant_actual=$datCosto[1];
 			?>

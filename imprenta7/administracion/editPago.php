@@ -13,8 +13,8 @@
 	$sql.=" and p.cod_cliente=cli.cod_cliente ";
 	$sql.=" and p.cod_estado_pago=ep.cod_estado_pago ";
 	$sql.=" and p.cod_pago=".$_GET['cod_pago'];
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 				$nro_pago=$dat['nro_pago'];				
 				$cod_gestion=$dat['cod_pago'];
@@ -33,11 +33,11 @@
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_pago;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_pago="";
 					$ap_paterno_usuario_pago="";
 					$ap_materno_usuario_pago="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_pago=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_pago=$datAux['ap_paterno_usuario'];
@@ -51,9 +51,9 @@
 			$sql3="select cambio_bs from tipo_cambio";
 		$sql3.=" where fecha_tipo_cambio='".$fecha_registro."'";
 		$sql3.=" and cod_moneda=2";
-		$resp3 = mysql_query($sql3);
+		$resp3 = mysqli_query($enlaceCon,$sql3);
 		$cambio_bs=0;
-		while($dat3=mysql_fetch_array($resp3)){
+		while($dat3=mysqli_fetch_array($resp3)){
 			$cambio_bs=$dat3['cambio_bs'];
 		}
 
@@ -569,9 +569,9 @@ function guardar(f){
 	$sql.=" and hr.cod_estado_hoja_ruta<>2";
 	$sql.=" and (hr.cod_estado_pago_doc<>3 or hr.cod_hoja_ruta in(select codigo_doc from pagos_detalle where cod_pago=".$cod_pago." and cod_tipo_doc=1))";
 	$sql.=" order by  hr.fecha_hoja_ruta asc , hr.nro_hoja_ruta asc  ";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_hoja_ruta=$dat['cod_hoja_ruta'];
 		 $nro_hoja_ruta=$dat['nro_hoja_ruta'];
 		 $cod_gestion=$dat['cod_gestion'];
@@ -587,7 +587,7 @@ function guardar(f){
 		 $sql2.=" where cod_pago=".$cod_pago;
 		 $sql2.=" and codigo_doc=".$cod_hoja_ruta;
 		 $sql2.=" and cod_tipo_doc=1";
-		 $resp2= mysql_query($sql2);
+		 $resp2= mysqli_query($enlaceCon,$sql2);
 		 $montopagodetalle="";
 		 $codformapago="";
 		 $codbanco="";
@@ -597,7 +597,7 @@ function guardar(f){
 		 $nrocomprobante="";
 		 $fechacomprobante="";
 				
-		 while($dat2=mysql_fetch_array($resp2)){
+		 while($dat2=mysqli_fetch_array($resp2)){
 	 		    $swHojaRuta=1;
 			 	$montopagodetalle=$dat2['monto_pago_detalle'];
 				$codformapago=$dat2['cod_forma_pago'];
@@ -617,8 +617,8 @@ function guardar(f){
 					$sql2.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 					$sql2.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 					$sql2.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$monto_hojaruta=$dat2[0];
 					}
 					//////////////////////////
@@ -627,8 +627,8 @@ function guardar(f){
 					$sql2.=" from hojas_rutas hr, cotizaciones c ";
 					$sql2.=" where hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql2.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$descuento_cotizacion=$dat2['descuento_cotizacion'];
 					}
 					///////////////////////////
@@ -638,8 +638,8 @@ function guardar(f){
 					$sql2.=" from hojas_rutas hr, cotizaciones c ";
 					$sql2.=" where hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql2.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$incremento_cotizacion=$dat2['incremento_cotizacion'];
 					}
 					///////////////////////////
@@ -663,9 +663,9 @@ function guardar(f){
 			 	$sql2.=" and pd.codigo_doc=".$cod_hoja_ruta;
 				$sql2.=" and pd.cod_tipo_doc=1";
 				$sql2.=" and pd.cod_pago<>".$cod_pago;
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_hojaruta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$acuenta_hojaruta=$acuenta_hojaruta+$monto_pago_detalle;
 				
@@ -694,9 +694,9 @@ function guardar(f){
 	$sql.=" and (ot.cod_estado_pago_doc<>3 or ot.cod_orden_trabajo in(select codigo_doc from pagos_detalle where cod_pago=".$cod_pago." and cod_tipo_doc=2))";
 $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 //echo $sql;
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_orden_trabajo=$dat['cod_orden_trabajo'];
 		 $nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		 $numero_orden_trabajo=$dat['numero_orden_trabajo'];
@@ -713,7 +713,7 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 		 $sql2.=" and codigo_doc=".$cod_orden_trabajo;
 		 $sql2.=" and cod_tipo_doc=2";
 		// echo "<br/>".$sql2;
-		 $resp2= mysql_query($sql2);
+		 $resp2= mysqli_query($enlaceCon,$sql2);
 		 $montopagodetalle="";
 		 $codformapago="";
 		 $codbanco="";
@@ -723,7 +723,7 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 		 $nrocomprobante="";
 		 $fechacomprobante="";
 				
-		 while($dat2=mysql_fetch_array($resp2)){
+		 while($dat2=mysqli_fetch_array($resp2)){
 	 		    $swOrdenTrabajo=1;
 			 	$montopagodetalle=$dat2['monto_pago_detalle'];
 				$codformapago=$dat2['cod_forma_pago'];
@@ -743,8 +743,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 			 		$sql2=" select monto_orden_trabajo, descuento_orden_trabajo, incremento_orden_trabajo ";
 					$sql2.=" from ordentrabajo ";
 					$sql2.=" where cod_orden_trabajo=".$cod_orden_trabajo;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$monto_orden_trabajo=$dat2['monto_orden_trabajo'];
 						$descuento_orden_trabajo=$dat2['descuento_orden_trabajo'];
 						$incremento_orden_trabajo=$dat2['incremento_orden_trabajo'];
@@ -769,9 +769,9 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 			 	$sql2.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sql2.=" and pd.cod_tipo_doc=2";
 				$sql2.=" and pd.cod_pago<>".$cod_pago;
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_ordentrabajo=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 
 						$acuenta_ordentrabajo=$acuenta_ordentrabajo+$monto_pago_detalle;
@@ -802,9 +802,9 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 	$sql.=" order by fecha_salida asc,s.nro_salida asc ";
 
 
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestionVenta="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		
 		  $cod_salida=$dat['cod_salida'];
 		  $nro_salida=$dat['nro_salida'];
@@ -823,7 +823,7 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 		 $sql2.=" where cod_pago=".$cod_pago;
 		 $sql2.=" and codigo_doc=".$cod_salida;
 		 $sql2.=" and cod_tipo_doc=3";
-		 $resp2= mysql_query($sql2);
+		 $resp2= mysqli_query($enlaceCon,$sql2);
 		 $montopagodetalle="";
 		 $codformapago="";
 		 $codbanco="";
@@ -833,7 +833,7 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 		 $nrocomprobante="";
 		 $fechacomprobante="";
 				
-		 while($dat2=mysql_fetch_array($resp2)){
+		 while($dat2=mysqli_fetch_array($resp2)){
 	 		    $swVenta=1;
 			 	$montopagodetalle=$dat2['monto_pago_detalle'];
 				$codformapago=$dat2['cod_forma_pago'];
@@ -851,8 +851,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 			 		$sql2=" select sum(sd.precio_venta*sd.cant_salida) ";
 					$sql2.=" from salidas_detalle sd ";
 					$sql2.=" where sd.cod_salida=".$cod_salida;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$monto_venta=$dat2[0];
 					}
 										
@@ -875,9 +875,9 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 			 	$sql2.=" and pd.codigo_doc=".$cod_salida;
 				$sql2.=" and pd.cod_tipo_doc=3";
 				$sql2.=" and pd.cod_pago<>".$cod_pago;
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_venta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$acuenta_venta=$acuenta_venta+$monto_pago_detalle;
 				}				
@@ -913,8 +913,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 <?php
 					$sql2=" select cod_forma_pago, desc_forma_pago";
 					$sql2.=" from   forma_pago  ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_forma_pago=$dat2['cod_forma_pago'];	
 			  		 		$desc_forma_pago=$dat2['desc_forma_pago'];	
@@ -928,8 +928,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 							$codbanco=0;
 							$nrocheque="";
 							$nrocuenta="";							
-							$resp5=mysql_query($sql5);
-							while($dat5=mysql_fetch_array($resp5)){
+							$resp5=mysqli_query($enlaceCon,$sql5);
+							while($dat5=mysqli_fetch_array($resp5)){
 								$codmoneda=$dat5['cod_moneda'];
 								$montopago=$dat5['monto_pago'];
 								$codbanco=$dat5['cod_banco'];
@@ -949,8 +949,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 					$sql3=" select cod_banco, desc_banco";
 					$sql3.=" from   bancos ";
 					$sql3.=" order by desc_banco asc ";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_banco=$dat3['cod_banco'];	
 			  		 		$desc_banco=$dat3['desc_banco'];	
@@ -985,8 +985,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 						$codbanco=0;
 						$nrocheque="";
 						$nrocuenta="";							
-						$resp5=mysql_query($sql5);
-						while($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while($dat5=mysqli_fetch_array($resp5)){
 							$codmoneda=$dat5['cod_moneda'];
 							$montopago=$dat5['monto_pago'];
 							$codbanco=$dat5['cod_banco'];
@@ -1003,8 +1003,8 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 					$sql3=" select cod_banco, desc_banco";
 					$sql3.=" from   bancos ";
 					$sql3.=" order by desc_banco asc ";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_banco=$dat3['cod_banco'];	
 			  		 		$desc_banco=$dat3['desc_banco'];	
@@ -1035,33 +1035,33 @@ $sql.=" order by  ot.nro_orden_trabajo asc,ot.fecha_orden_trabajo asc ";
 ?>
 <?php
 	$sql7="select count(*)  from pagos_descripcion where cod_pago=".$_GET['cod_pago']." and cod_moneda=1";
-	$resp7=mysql_query($sql7);
+	$resp7=mysqli_query($enlaceCon,$sql7);
 	$nroPagoBs=0;
-	while($dat7=mysql_fetch_array($resp7)){
+	while($dat7=mysqli_fetch_array($resp7)){
 		$nroPagoBs=$dat7[0];
 	}
 	$totalBs=0;
 	if($nroPagoBs>0){
 			$sql7="select sum(monto_pago)  from pagos_descripcion where cod_pago=".$_GET['cod_pago']." and cod_moneda=1";
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$totalBs=0;
-			while($dat7=mysql_fetch_array($resp7)){
+			while($dat7=mysqli_fetch_array($resp7)){
 				$totalBs=$dat7[0];
 			}
 	
 	}
 	$sql7="select count(*)  from pagos_descripcion where cod_pago=".$_GET['cod_pago']." and cod_moneda=2";
-	$resp7=mysql_query($sql7);
+	$resp7=mysqli_query($enlaceCon,$sql7);
 	$nroPagoSus=0;
-	while($dat7=mysql_fetch_array($resp7)){
+	while($dat7=mysqli_fetch_array($resp7)){
 		$nroPagoSus=$dat7[0];
 	}
 	$totalSus=0;
 	if($nroPagoSus>0){
 			$sql7="select sum(monto_pago)  from pagos_descripcion where cod_pago=".$_GET['cod_pago']." and cod_moneda=2";
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$totalSus=0;
-			while($dat7=mysql_fetch_array($resp7)){
+			while($dat7=mysqli_fetch_array($resp7)){
 				$totalSus=$dat7[0];
 			}
 	

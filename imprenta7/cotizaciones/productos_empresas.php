@@ -81,8 +81,8 @@ function paginar(f)
 	$sql_aux=" select count(*) from empresas ";
 
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -121,7 +121,7 @@ function paginar(f)
 		$sql.=" from empresas";
 		$sql.=" order by rotulo_comercial  asc";
 		$sql.="  limit ".$fila_inicio." , ".$fila_final;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="90%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -137,7 +137,7 @@ function paginar(f)
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 			$cod_empresa=$dat[0];
 			$cod_estado_empresa=$dat[1];

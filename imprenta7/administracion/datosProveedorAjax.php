@@ -54,8 +54,8 @@
 		$sql.=" contacto1_proveedor, cel_contacto1_proveedor,contacto2_proveedor, cel_contacto2_proveedor, cod_estado_registro";
 		$sql.=" from proveedores ";
 		$sql.=" where cod_proveedor='".$cod_proveedor."'";
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){	
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$nombre_proveedor=$dat[0];
 				$telefono_proveedor=$dat[1];
@@ -92,8 +92,8 @@
 			<select name="cod_ciudad" class="textoform">				
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades  order by  desc_ciudad asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2[0];	
 			  		 		$desc_ciudad=$dat2[1];	
@@ -139,8 +139,8 @@
 						<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	
@@ -161,8 +161,8 @@
 					$sql="select cod_grupo, nombre_grupo";
 					$sql.=" from grupos  where cod_estado_registro=1";
 					$sql.=" order by nombre_grupo asc ";
-					$resp = mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){						
+					$resp = mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){						
 						$cod_grupo=$dat[0];
 						$nombre_grupo=$dat[1];
 						
@@ -170,8 +170,8 @@
 						$sql2.=" where cod_proveedor='".$cod_proveedor."'";
 						$sql2.=" and cod_grupo='".$cod_grupo."'";
 						
-						$resp2 = mysql_query($sql2);
-						$dat2=mysql_fetch_array($resp2);
+						$resp2 = mysqli_query($enlaceCon,$sql2);
+						$dat2=mysqli_fetch_array($resp2);
 						$sw=$dat2[0];
 			?> 
 				<tr bgcolor="#FFFFFF">	

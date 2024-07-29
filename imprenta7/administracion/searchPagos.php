@@ -84,8 +84,8 @@ include("funciones.php");
 	}
 	$sql.=" order by g.gestion desc, p.nro_pago desc ";	
 	//echo $sql;
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -148,7 +148,7 @@ include("funciones.php");
 		
 		$sql.=" order by  p.cod_pago desc ";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -169,7 +169,7 @@ include("funciones.php");
     <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				$cod_pago=$dat['cod_pago'];
 				$nro_pago=$dat['nro_pago'];				
 				$cod_gestion=$dat['cod_pago'];
@@ -187,11 +187,11 @@ include("funciones.php");
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_pago;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_pago="";
 					$ap_paterno_usuario_pago="";
 					$ap_materno_usuario_pago="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_pago=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_pago=$datAux['ap_paterno_usuario'];
@@ -212,9 +212,9 @@ include("funciones.php");
 			 	$sql2.=" where pd.cod_pago=p.cod_pago";
 			 	$sql2.=" and pd.cod_pago=".$cod_pago;
 
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$monto_pago_total=0;
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$monto_pago_total=$monto_pago_total+$monto_pago_detalle;
 
@@ -233,8 +233,8 @@ include("funciones.php");
 				$sql3.=" and pd.cod_tipo_doc=1 ";
 				$sql3.=" and pd.codigo_doc=hr.cod_hoja_ruta ";
 				$sql3.=" and hr.cod_gestion=g.cod_gestion ";
-				$resp3 = mysql_query($sql3);				
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);				
+				while($dat3=mysqli_fetch_array($resp3)){
 					$cod_pago_detalle=$dat3['cod_pago_detalle'];
 					$cod_hoja_ruta=$dat3['codigo_doc'];
 					$nro_hoja_ruta=$dat3['nro_hoja_ruta'];
@@ -257,8 +257,8 @@ include("funciones.php");
 					$sql3.=" and pd.cod_tipo_doc=2 ";
 					$sql3.=" and pd.codigo_doc=ot.cod_orden_trabajo ";
 					$sql3.=" and ot.cod_gestion=g.cod_gestion ";
-					$resp3 = mysql_query($sql3);				
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3 = mysqli_query($enlaceCon,$sql3);				
+					while($dat3=mysqli_fetch_array($resp3)){
 						$cod_pago_detalle=$dat3['cod_pago_detalle'];
 						$cod_orden_trabajo=$dat3['codigo_doc'];
 						$nro_orden_trabajo=$dat3['nro_orden_trabajo'];
@@ -284,8 +284,8 @@ include("funciones.php");
 				$sql3.=" and pd.cod_tipo_doc=3 ";
 				$sql3.=" and pd.codigo_doc=s.cod_salida ";
 				$sql3.=" and s.cod_gestion=g.cod_gestion ";
-				$resp3 = mysql_query($sql3);				
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);				
+				while($dat3=mysqli_fetch_array($resp3)){
 					$cod_pago_detalle=$dat3['cod_pago_detalle'];
 					$cod_salida=$dat3['codigo_doc'];
 					$nro_salida=$dat3['nro_salida'];

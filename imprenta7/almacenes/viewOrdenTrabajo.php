@@ -46,8 +46,8 @@
 	$sql.=" and ot.cod_est_ot=eo.cod_est_ot ";
 	$sql.=" and ot.cod_cliente=cli.cod_cliente ";
 	$sql.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
-    $resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+    $resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		$cod_gestion=$dat['cod_gestion'];
@@ -73,15 +73,15 @@
 		
 		$nombre_tipo_pago="";
 		$sql2="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-		$resp2= mysql_query($sql2);	
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);	
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago=$dat2['nombre_tipo_pago'];
 		}
 		
 		$desc_estado_pago_doc="";
 		$sql2="select desc_estado_pago_doc from estado_pago_documento where cod_estado_pago_doc=".$cod_estado_pago_doc;
-		$resp2= mysql_query($sql2);	
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2= mysqli_query($enlaceCon,$sql2);	
+		while($dat2=mysqli_fetch_array($resp2)){
 			$desc_estado_pago_doc=$dat2['desc_estado_pago_doc'];
 		}
 		if($cod_usuario_anulacion<>""){
@@ -90,8 +90,8 @@
 			$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario";
 			$sql2.=" from usuarios ";
 			$sql2.=" where cod_usuario=".$cod_usuario_anulacion;
-			$resp2= mysql_query($sql2);	
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);	
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombres_usuario_anulacion=$dat2['nombres_usuario'];
 				$ap_paterno_usuario_anulacion=$dat2['ap_paterno_usuario'];
 				$ap_materno_usuario_anulacion=$dat2['ap_materno_usuario'];
@@ -180,9 +180,9 @@
 		$sql3.=" and p.cod_estado_pago<>2";
 		$sql3.=" and pd.codigo_doc=".$cod_orden_trabajo;
 		$sql3.=" and pd.cod_tipo_doc=2";
-		$resp3= mysql_query($sql3);	
+		$resp3= mysqli_query($enlaceCon,$sql3);	
 		$nroPagosOT=0;
-		while($dat3=mysql_fetch_array($resp3)){
+		while($dat3=mysqli_fetch_array($resp3)){
 				$nroPagosOT=$dat3[0];
 		}	
 	if($cod_est_ot<>2 and $nroPagosOT==0){?>

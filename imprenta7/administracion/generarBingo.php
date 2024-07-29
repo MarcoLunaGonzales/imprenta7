@@ -18,9 +18,9 @@
 	require("conexion.inc");
 	$cod_estado_registro=1;
 	$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$nombre_estado_registro="";
-	$dat2=mysql_fetch_array($resp2);
+	$dat2=mysqli_fetch_array($resp2);
 	$nombre_estado_registro=$dat2[0];
 
 ?>

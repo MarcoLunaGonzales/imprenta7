@@ -39,8 +39,8 @@ $cod_monedaB=$_GET['cod_monedaB'];
 	$sql.=" and tc.cod_moneda=".$cod_monedaB;
 	}
 	$sql.=" order by tc.fecha_tipo_cambio ";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat[0];
 	}
 ?>
@@ -82,7 +82,7 @@ $cod_monedaB=$_GET['cod_monedaB'];
 		}		
 		$sql.=" order by tc.fecha_tipo_cambio desc ";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -111,7 +111,7 @@ $cod_monedaB=$_GET['cod_monedaB'];
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_gasto=$dat['cod_gasto'];
 				$fecha_tipo_cambio=$dat['fecha_tipo_cambio'];

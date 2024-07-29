@@ -17,7 +17,7 @@ $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y/m/d', time())."',"; 
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
 $sql.=" where cod_unidad_medida='".$cod_unidad_medida."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

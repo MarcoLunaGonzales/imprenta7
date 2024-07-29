@@ -128,22 +128,22 @@
 
 	$cod_empresa=$_POST['cod_empresa'];		
 	$sql=" select  rotulo_comercial from empresas  where cod_empresa='".$cod_empresa."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$rotulo_comercial=$dat[0];
 	}		
 	$usuario_global=$_COOKIE['usuario_global'];
 	$sql=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios  where cod_usuario='".$cod_empresa."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_usuario_registro=$dat[0];
 		$ap_paterno_usuario_registro=$dat[1];
 		$ap_materno_usuario_registro=$dat[2];				
 	}		
 	
 	$sql=" select  nombre_estado_certificado from estados_certificados  where cod_estado_certificado=1";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_estado_certificado=$dat[0];
 	}		
 ?>
@@ -176,8 +176,8 @@
 					$sql=" select cod_producto, nombre_producto from productos ";
 					$sql.=" where cod_producto in(select cod_producto from presentaciones where cod_pres in(select sku from fichas_producto where cod_estado_ficha=3 and cod_contacto_registro in(select cod_contacto from contactos where cod_empresa='".$cod_empresa."')))";
 					$sql.=" order by nombre_producto asc ";
-					$resp=mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){
+					$resp=mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){
 						$cod_producto=$dat[0];
 						$nombre_producto=$dat[1];						
 				?>
@@ -216,8 +216,8 @@
 			<select name="cod_ciudad" class="textoform">
 				<?php
 					$sql=" select cod_ciudad, nombre_ciudad from ciudades o ";
-					$resp=mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){
+					$resp=mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){
 						$cod_ciudad=$dat[0];
 						$nombre_ciudad=$dat[1];						
 				?>
@@ -242,8 +242,8 @@
 				<select name="cod_usuario_firma" class="textoform">
 				<?php
 					$sql=" select cod_usuario, nombre_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
-					$resp=mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){
+					$resp=mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){
 						$cod_usuario=$dat[0];
 						$nombre_usuario=$dat[1];
 						$ap_paterno_usuario=$dat[2];											

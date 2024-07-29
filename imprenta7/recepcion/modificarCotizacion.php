@@ -9,8 +9,8 @@
 	include("funciones.php");
 	$codCotizacion=$_GET['codCotizacion'];
 	$sql=" select count(*) as num from cotizaciones_detalle where cod_cotizacion=".$codCotizacion;
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 	$num=$dat[0];
 	
 ?>
@@ -404,8 +404,8 @@ function calcularTotalEditar(){
 	$sql.=" fecha_modifica, cod_gestion, cod_usuario_modifica, cod_sumar, considerar_precio_unitario, cod_usuario_firma ";
 	$sql.=" from cotizaciones";
 	$sql.=" where cod_cotizacion=".$codCotizacion;
-	$resp_00 = mysql_query($sql);
-	$dat_00=mysql_fetch_array($resp_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql);
+	$dat_00=mysqli_fetch_array($resp_00);
 		$codtipocotizacion=$dat_00[0];
 		$codestadocotizacion=$dat_00[1];
 		$nro_cotizacion=$dat_00[2];
@@ -419,9 +419,9 @@ function calcularTotalEditar(){
 		$fecha_modifica=$dat_00[8];
 		$cod_gestion=$dat_00[9];
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestion="";
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$gestion=$dat2[0];
 		}		
 		
@@ -445,8 +445,8 @@ function calcularTotalEditar(){
 				<option value="0">Seleccione un Opci&oacute;n</option>
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -472,8 +472,8 @@ function calcularTotalEditar(){
 			<select name="codTipoCotizacion" id="codTipoCotizacion" class="textoform" >
 				<?php
 					$sql3="select cod_tipo_cotizacion,nombre_tipo_cotizacion from tipos_cotizacion";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_tipo_cotizacion=$dat3[0];	
 			  		 		$nombre_tipo_cotizacion=$dat3[1];	
@@ -497,8 +497,8 @@ function calcularTotalEditar(){
 			<select name="codTipoPago" id="codTipoPago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	
@@ -548,8 +548,8 @@ function calcularTotalEditar(){
 				<?php
 					$sql4="select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 					$sql4.=" where cod_usuario in(select cod_usuario from autorizados_firma_cotizacion) ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_usuario=$dat4[0];
 							$nombres_usuario=$dat4[1];
@@ -606,8 +606,8 @@ function calcularTotalEditar(){
 			$sql_01.=" from cotizaciones_detalle ";
 			$sql_01.=" where cod_cotizacion='".$codCotizacion."'";
 			$sql_01.=" order by cod_cotizaciondetalle asc";
-			$resp_01= mysql_query($sql_01);
-			while($dat_01=mysql_fetch_array($resp_01)){			
+			$resp_01= mysqli_query($enlaceCon,$sql_01);
+			while($dat_01=mysqli_fetch_array($resp_01)){			
 				$cont++;
 				$codItemF=$dat_01[0];
 				$cantidadUnitariaCotizacionF=$dat_01[1];
@@ -620,8 +620,8 @@ function calcularTotalEditar(){
 				$cod_cotizaciondetalle=$dat_01[6];
 				$nombreItem="";
 				$sql3="select desc_item from items  where cod_item='".$codItemF."'";	
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nombreItem=$dat3[0];
 				}	
 			?>
@@ -634,8 +634,8 @@ function calcularTotalEditar(){
 					<option value="<?php echo $codItemF;?>"><?php echo $nombreItem;?></option>
 					<?php
 					$sql="select cod_item,desc_item from items";
-					$resp= mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){
+					$resp= mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){
 						$cod_item=$dat[0];
 						$desc_item=$dat[1];
 					?>
@@ -650,18 +650,18 @@ function calcularTotalEditar(){
 					<table border="0" width="100%" id="dataCarac<?php echo $cont?>">
 					<?php
 					$sql2="select count(*) from componente_items where cod_item='".$codItemF."' order by cod_compitem asc";
-					$resp2= mysql_query($sql2);	
+					$resp2= mysqli_query($enlaceCon,$sql2);	
 					$countF=0;
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$countF=$dat2[0];
 					}					
 					$sql2="select cod_compitem,nombre_componenteitem from componente_items ";
 					$sql2.=" where cod_item='".$codItemF."' order by cod_compitem asc";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$filaComp=0;
 					?>
 					<?php
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$codCompItem=$dat2[0];
 						$nombreComponente=$dat2[1];
 						$filaComp++;
@@ -676,12 +676,12 @@ function calcularTotalEditar(){
 					<?php
 						$sql3=" select cod_carac from componentes_caracteristica " ;
 						$sql3.=" where cod_compitem='".$codCompItem."' order  by orden ";
-						$resp3= mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3= mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$codCarac=$dat3[0];
 							$sql4="select desc_carac from caracteristicas where  cod_carac='".$codCarac."'";
-								$resp4= mysql_query($sql4);
-								while($dat4=mysql_fetch_array($resp4)){
+								$resp4= mysqli_query($enlaceCon,$sql4);
+								while($dat4=mysqli_fetch_array($resp4)){
 									$descCarac=$dat4[0];
 								}
 									
@@ -690,10 +690,10 @@ function calcularTotalEditar(){
 						$sql5.=" and cod_cotizacion='".$codCotizacion."'";
 						$sql5.=" and cod_compitem='".$codCompItem."'";
 						$sql5.=" and cod_carac='".$codCarac."' order by orden asc";
-						$resp5= mysql_query($sql5);
+						$resp5= mysqli_query($enlaceCon,$sql5);
 						$descripcion_carac="";
 						$cod_estado_registro=0;
-						while($dat5=mysql_fetch_array($resp5)){
+						while($dat5=mysqli_fetch_array($resp5)){
 								$descripcion_carac=$dat5[0];
 								$descripcion_carac=str_replace("|",",",$descripcion_carac);
 								$cod_estado_registro=$dat5[1];

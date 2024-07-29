@@ -40,8 +40,8 @@
 	$sql.=" obs_factura, cod_est_fac, monto_factura, cod_usuario_registro, fecha_registro, cod_usuario_modifica, fecha_modifica ";
 	$sql.=" from facturas";
 	$sql.=" where cod_factura=".$cod_factura;
-    $resp= mysql_query($sql);	
-	while($dat=mysql_fetch_array($resp)){
+    $resp= mysqli_query($enlaceCon,$sql);	
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nro_factura=$dat['nro_factura'];
 		$nombre_factura=$dat['nombre_factura'];
@@ -58,17 +58,17 @@
 		
 	}
 		$sql2=" select desc_est_fac from estado_factura where cod_est_fac='".$cod_est_fac."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_fac=$dat2[0];
 	}
 	
 ///Datos Hoja Ruta////
 	$queryFacHojaRuta="select cod_hoja_ruta from factura_hojaruta where cod_factura=".$cod_factura;
-	$resp3 = mysql_query($queryFacHojaRuta);
+	$resp3 = mysqli_query($enlaceCon,$queryFacHojaRuta);
 	$cod_hoja_ruta=0;
-	while($dat3=mysql_fetch_array($resp3)){
+	while($dat3=mysqli_fetch_array($resp3)){
 		$cod_hoja_ruta=$dat3['cod_hoja_ruta'];
 	}
 	
@@ -82,8 +82,8 @@
 		$sql3.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 		$sql3.=" and c.cod_cliente=cli.cod_cliente ";
 		$sql3.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-		$resp3 = mysql_query($sql3);
-		while($dat3=mysql_fetch_array($resp3)){
+		$resp3 = mysqli_query($enlaceCon,$sql3);
+		while($dat3=mysqli_fetch_array($resp3)){
 				$cod_gestion=$dat3['cod_gestion'];
 				$nro_hoja_ruta=$dat3['nro_hoja_ruta'];
 				$gestion=$dat3['gestion'];

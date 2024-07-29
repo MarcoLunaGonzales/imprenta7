@@ -45,8 +45,8 @@ class PDF extends FPDF
 	$sql.="  left join  estados_salidas_almacen esa on(s.cod_estado_salida=esa.cod_estado_salida)";
 	$sql.="  left join usuarios u on(s.cod_usuario_salida=u.cod_usuario)";
 	$sql.="  where s.cod_salida=".$_GET['cod_salida'];
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 			$cod_tipo_salida=$dat['cod_tipo_salida'];
 			$nombre_tipo_salida=$dat['nombre_tipo_salida'];
@@ -85,8 +85,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -114,15 +114,15 @@ class PDF extends FPDF
 				$nombre_contacto="";
 						if($cod_cliente_venta<>""){
 							$sqlAux="select nombre_cliente from clientes where cod_cliente=".$cod_cliente_venta;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_cliente_venta=$datAux['nombre_cliente'];
 							}	
 							if($cod_contacto<>""){
 								$sqlAux=" select nombre_contacto, ap_paterno_contacto from clientes_contactos ";
 								$sqlAux.=" where cod_contacto=".$cod_contacto;
-								$respAux = mysql_query($sqlAux);
-								while($datAux=mysql_fetch_array($respAux)){	
+								$respAux = mysqli_query($enlaceCon,$sqlAux);
+								while($datAux=mysqli_fetch_array($respAux)){	
 									$nombre_contacto=$datAux['nombre_contacto'];
 									$ap_paterno_contacto=$datAux['ap_paterno_contacto'];
 								}
@@ -131,8 +131,8 @@ class PDF extends FPDF
 		
 						if($cod_tipo_pago<>""){
 							$sqlAux="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_tipo_pago=$datAux['nombre_tipo_pago'];
 							}
 						}
@@ -165,14 +165,14 @@ class PDF extends FPDF
 					$sql2.=" and hr.cod_gestion=g.cod_gestion ";
 					$sql2.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql2.=" and c.cod_cliente=cli.cod_cliente ";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$nro_hoja_ruta_salida="";
 					$cod_gestion_salida="";
 					$gestion_salida="";
 					$cod_cotizacion_salida="";
 					$cod_cliente_salida="";
 					$nombre_cliente_salida="";
-					while($dat2=mysql_fetch_array($resp2)){					
+					while($dat2=mysqli_fetch_array($resp2)){					
 						$nro_hoja_ruta_salida=$dat2['nro_hoja_ruta'];
 						$cod_gestion_salida=$dat2['cod_gestion'];
 						$gestion_hoja_ruta_salida=$dat2['gestion'];
@@ -203,9 +203,9 @@ class PDF extends FPDF
 		 }	
 		if($cod_tipo_salida==3){
 				$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen_traspaso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombre_almacen_traspaso="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen_traspaso=$dat2[0];
 				}	
 				$pdf->SetFont('Arial','B',10);
@@ -222,8 +222,8 @@ class PDF extends FPDF
 						$sql2.=" cod_cliente, obs_orden_trabajo, monto_orden_trabajo,nro_orden_trabajo, cod_gestion ";
 						$sql2.=" from ordentrabajo ";
 						$sql2.=" where cod_orden_trabajo=".$cod_orden_trabajo;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 						//////////////////////////////////
 
 							$numero_orden_trabajo=$dat2['numero_orden_trabajo']; 
@@ -237,8 +237,8 @@ class PDF extends FPDF
 						
 						$nombre_cliente_orden_trabajo="";
 						$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_cliente_orden_trabajo=$dat2['nombre_cliente'];
 						}	
 				$pdf->SetFont('Arial','B',10);
@@ -256,8 +256,8 @@ class PDF extends FPDF
 						$sql2="select  nombre_area";
 						$sql2.=" from areas ";
 						$sql2.=" where cod_area=".$cod_area;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_area=$dat2['nombre_area']; 
 						}
 					}
@@ -265,8 +265,8 @@ class PDF extends FPDF
 						$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 						$sql2.=" from usuarios ";
 						$sql2.=" where cod_usuario=".$cod_usuario;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$usuario_uso_interno=$dat2['ap_paterno_usuario']." ".$dat2['ap_materno_usuario']." ".$dat2['nombres_usuario']; 
 
 						}
@@ -308,9 +308,9 @@ class PDF extends FPDF
 			$sql.=" where sd.cod_salida=".$_GET['cod_salida'];
 			$sql.=" and sd.cod_material=m.cod_material ";
 			$sql.=" and m.cod_unidad_medida=um.cod_unidad_medida ";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 			$correlativo=0;
-			while($dat=mysql_fetch_array($resp)){
+			while($dat=mysqli_fetch_array($resp)){
 			$sw=0;
 			$correlativo=$correlativo+1;
 				$cod_material=$dat[0];
@@ -325,8 +325,8 @@ class PDF extends FPDF
 					$costoTotal=0;
 					$sql2=" select cant_salida_ingreso, cod_ingreso_detalle from salidas_detalle_ingresos ";
 					$sql2.=" WHERE cod_salida=".$cod_salida." and cod_material=".$cod_material;
-					$resp2 = mysql_query($sql2);					
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);					
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cant_salida_ingreso=$dat2[0];
 						$cod_ingreso_detalle=$dat2[1];						
 						
@@ -334,8 +334,8 @@ class PDF extends FPDF
 						$sql3.=" from ingresos_detalle ig, ingresos i, gestiones g ";
 						$sql3.=" where ig.cod_ingreso=i.cod_ingreso  and  g.cod_gestion=i.cod_gestion ";
 						$sql3.=" and ig.cod_ingreso_detalle=".$cod_ingreso_detalle." and ig.cod_material=".$cod_material;
-						$resp3 = mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3 = mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$cod_ingreso=$dat3[0];
 							$nro_ingreso=$dat3[1];
 							$cod_gestion_ingreso=$dat3[2];													
@@ -427,15 +427,15 @@ $pdf->SetY(190);
 				$nombre_contacto="";
 						if($cod_cliente_venta<>""){
 							$sqlAux="select nombre_cliente from clientes where cod_cliente=".$cod_cliente_venta;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_cliente_venta=$datAux['nombre_cliente'];
 							}	
 							if($cod_contacto<>""){
 								$sqlAux=" select nombre_contacto, ap_paterno_contacto from clientes_contactos ";
 								$sqlAux.=" where cod_contacto=".$cod_contacto;
-								$respAux = mysql_query($sqlAux);
-								while($datAux=mysql_fetch_array($respAux)){	
+								$respAux = mysqli_query($enlaceCon,$sqlAux);
+								while($datAux=mysqli_fetch_array($respAux)){	
 									$nombre_contacto=$datAux['nombre_contacto'];
 									$ap_paterno_contacto=$datAux['ap_paterno_contacto'];
 								}
@@ -444,8 +444,8 @@ $pdf->SetY(190);
 		
 						if($cod_tipo_pago<>""){
 							$sqlAux="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_tipo_pago=$datAux['nombre_tipo_pago'];
 							}
 						}
@@ -478,14 +478,14 @@ $pdf->SetY(190);
 					$sql2.=" and hr.cod_gestion=g.cod_gestion ";
 					$sql2.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 					$sql2.=" and c.cod_cliente=cli.cod_cliente ";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$nro_hoja_ruta_salida="";
 					$cod_gestion_salida="";
 					$gestion_salida="";
 					$cod_cotizacion_salida="";
 					$cod_cliente_salida="";
 					$nombre_cliente_salida="";
-					while($dat2=mysql_fetch_array($resp2)){					
+					while($dat2=mysqli_fetch_array($resp2)){					
 						$nro_hoja_ruta_salida=$dat2['nro_hoja_ruta'];
 						$cod_gestion_salida=$dat2['cod_gestion'];
 						$gestion_hoja_ruta_salida=$dat2['gestion'];
@@ -516,9 +516,9 @@ $pdf->SetY(190);
 		 }	
 		if($cod_tipo_salida==3){
 				$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen_traspaso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombre_almacen_traspaso="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen_traspaso=$dat2[0];
 				}	
 				$pdf->SetFont('Arial','B',10);
@@ -535,8 +535,8 @@ $pdf->SetY(190);
 						$sql2.=" cod_cliente, obs_orden_trabajo, monto_orden_trabajo,nro_orden_trabajo, cod_gestion ";
 						$sql2.=" from ordentrabajo ";
 						$sql2.=" where cod_orden_trabajo=".$cod_orden_trabajo;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 						//////////////////////////////////
 
 							$numero_orden_trabajo=$dat2['numero_orden_trabajo']; 
@@ -550,8 +550,8 @@ $pdf->SetY(190);
 						
 						$nombre_cliente_orden_trabajo="";
 						$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_cliente_orden_trabajo=$dat2['nombre_cliente'];
 						}	
 				$pdf->SetFont('Arial','B',10);
@@ -569,8 +569,8 @@ $pdf->SetY(190);
 						$sql2="select  nombre_area";
 						$sql2.=" from areas ";
 						$sql2.=" where cod_area=".$cod_area;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_area=$dat2['nombre_area']; 
 						}
 					}
@@ -578,8 +578,8 @@ $pdf->SetY(190);
 						$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 						$sql2.=" from usuarios ";
 						$sql2.=" where cod_usuario=".$cod_usuario;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$usuario_uso_interno=$dat2['ap_paterno_usuario']." ".$dat2['ap_materno_usuario']." ".$dat2['nombres_usuario']; 
 
 						}
@@ -621,9 +621,9 @@ $pdf->SetY(190);
 			$sql.=" where sd.cod_salida=".$_GET['cod_salida'];
 			$sql.=" and sd.cod_material=m.cod_material ";
 			$sql.=" and m.cod_unidad_medida=um.cod_unidad_medida ";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 			$correlativo=0;
-			while($dat=mysql_fetch_array($resp)){
+			while($dat=mysqli_fetch_array($resp)){
 			$sw=0;
 			$correlativo=$correlativo+1;
 				$cod_material=$dat[0];
@@ -638,8 +638,8 @@ $pdf->SetY(190);
 					$costoTotal=0;
 					$sql2=" select cant_salida_ingreso, cod_ingreso_detalle from salidas_detalle_ingresos ";
 					$sql2.=" WHERE cod_salida=".$cod_salida." and cod_material=".$cod_material;
-					$resp2 = mysql_query($sql2);					
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);					
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cant_salida_ingreso=$dat2[0];
 						$cod_ingreso_detalle=$dat2[1];						
 						
@@ -647,8 +647,8 @@ $pdf->SetY(190);
 						$sql3.=" from ingresos_detalle ig, ingresos i, gestiones g ";
 						$sql3.=" where ig.cod_ingreso=i.cod_ingreso  and  g.cod_gestion=i.cod_gestion ";
 						$sql3.=" and ig.cod_ingreso_detalle=".$cod_ingreso_detalle." and ig.cod_material=".$cod_material;
-						$resp3 = mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3 = mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$cod_ingreso=$dat3[0];
 							$nro_ingreso=$dat3[1];
 							$cod_gestion_ingreso=$dat3[2];													

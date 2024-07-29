@@ -7,7 +7,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_tipo_cotizacion=$vector_datos[$i];
 		$sql=" delete from tipos_cotizacion where cod_tipo_cotizacion='".$cod_tipo_cotizacion."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

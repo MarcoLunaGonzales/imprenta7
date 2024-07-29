@@ -11,7 +11,7 @@ $sql.=" cod_usuario_anulacion='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_anulacion='".date('Y-m-d', time())."'";
 $sql.=" where cod_orden_trabajo='".$_POST['cod_orden_trabajo']."'"; 
 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

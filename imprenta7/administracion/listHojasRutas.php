@@ -148,8 +148,8 @@ if(document.form1.codActivoFecha.checked){
 	}
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 		
@@ -205,7 +205,7 @@ if(document.form1.codActivoFecha.checked){
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 	$sql.=" limit 50";
 		//	echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" class="tablaReporte" bgColor="#cccccc" style="width:100% !important;">  
@@ -225,7 +225,7 @@ if(document.form1.codActivoFecha.checked){
 	 </thead>
 	 <tbody>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_hoja_ruta=$dat['cod_hoja_ruta'];
 			 $cod_gestion=$dat['cod_gestion'];
@@ -258,8 +258,8 @@ if(document.form1.codActivoFecha.checked){
 					  $sql5.=" email_contacto, cargo_contacto ";
 					  $sql5.="  from clientes_contactos ";
 					  $sql5.=" where cod_contacto=".$cod_contacto;
-					  $resp5= mysql_query($sql5);
-					  while($dat5=mysql_fetch_array($resp5)){
+					  $resp5= mysqli_query($enlaceCon,$sql5);
+					  while($dat5=mysqli_fetch_array($resp5)){
 							$contacto=$dat5['nombre_contacto']." ".$dat5['ap_paterno_contacto']." ".$dat5['ap_materno_contacto'];
 							$telefono_contacto=$dat5['telefono_contacto'];
 							$celular_contacto=$dat5['celular_contacto'];
@@ -271,8 +271,8 @@ if(document.form1.codActivoFecha.checked){
 					if($cod_unidad<>"" and $cod_unidad<>0 and $cod_unidad<>NULL){
 					  $sql2="  select nombre_unidad,direccion_unidad, telf_unidad  from clientes_unidades ";
 					  $sql2.=" where cod_unidad=".$cod_unidad;
-					  $resp2= mysql_query($sql2);
-					  while($dat2=mysql_fetch_array($resp2)){
+					  $resp2= mysqli_query($enlaceCon,$sql2);
+					  while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_unidad=$dat2['nombre_unidad'];
 							$direccion_unidad=$dat2['direccion_unidad'];
 							$telf_unidad=$dat2['telf_unidad'];
@@ -282,8 +282,8 @@ if(document.form1.codActivoFecha.checked){
 							$nombre_usuario_comision="";				
 					$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_comision."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_usuario_comision=$dat2['nombres_usuario']." ".$dat2['ap_paterno_usuario']." ".$dat2['ap_materno_usuario'];
 					}
 								
@@ -308,8 +308,8 @@ if(document.form1.codActivoFecha.checked){
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp2 = mysql_query($sqlCotizacion);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_cotizacion=$dat2['nro_cotizacion'];
 					$gestion_cotizacion=$dat2['gestion'];
 				}
@@ -346,8 +346,8 @@ if(document.form1.codActivoFecha.checked){
 			<?php 
 				$numNotasRemision=0;
 				$sql3=" select count(*) from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numNotasRemision=$dat3[0];
 				}
 				
@@ -357,8 +357,8 @@ if(document.form1.codActivoFecha.checked){
 					$sql3.=" fecha_nota_remision, cod_usuario_nota_remision,";
 					$sql3.=" obs_nota_remision, cod_estado_nota_remision ";
 					$sql3.=" from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_nota_remision=$dat3[0];
 						$nro_nota_remision=$dat3[1];
@@ -371,14 +371,14 @@ if(document.form1.codActivoFecha.checked){
 						$sql4=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario  ";
 						$sql4.=" from usuarios where cod_usuario='".$cod_usuario_nota_remision."'";
 						$UsuarioNotaRemision="";
-						$resp4= mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4)){
+						$resp4= mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4)){
 							$UsuarioNotaRemision=$dat4[0]." ".$dat4[1];
 						}
 						$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$gestionNotaRemision="";
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$gestionNotaRemision=$dat2[0];
 						}
 
@@ -402,8 +402,8 @@ if(document.form1.codActivoFecha.checked){
 				$numFacturas=0;
 				$sql3=" select count(*) from factura_hojaruta  where cod_hoja_ruta='".$cod_hoja_ruta."'";
 				//echo $sql3;
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numFacturas=$dat3[0];
 				}
 				
@@ -419,8 +419,8 @@ if(document.form1.codActivoFecha.checked){
 				$sqlFactura.=" where f.cod_est_fac=ef.cod_est_fac ";
 				$sqlFactura.=" and f.cod_factura in(select cod_factura from factura_hojaruta where cod_hoja_ruta=".$cod_hoja_ruta.")";
 				
-					$resp3= mysql_query($sqlFactura);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sqlFactura);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_factura=$dat3['cod_factura'];
 						$nro_factura=$dat3['nro_factura'];

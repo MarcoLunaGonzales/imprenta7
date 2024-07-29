@@ -11,9 +11,9 @@ include("funciones.php");
 
 		
 		$sql=" select precio_venta  from materiales where cod_material=".$cod_material."";
-		$resp= mysql_query($sql);
+		$resp= mysqli_query($enlaceCon,$sql);
 		$precio_venta=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				$precio_venta=$dat[0]; 									
 		}		
 		

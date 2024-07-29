@@ -48,8 +48,8 @@
 	$sql.=" telf_sucursal, cod_estado_registro ";
 	$sql.=" from sucursales ";
 	$sql.=" where cod_sucursal=".$cod_sucursal;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_sucursal =$dat[0];
 		$codciudad=$dat[1];
 		$direccion_sucursal=$dat[2];
@@ -79,8 +79,8 @@
 			<select name="cod_ciudad" class="textoform">				
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades where cod_pais=1 order by  desc_ciudad asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2[0];	
 			  		 		$desc_ciudad=$dat2[1];	
@@ -109,8 +109,8 @@
 			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

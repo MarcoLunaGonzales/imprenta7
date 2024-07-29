@@ -13,8 +13,8 @@ set_time_limit(1200);
 	$sql.=" from pagos p ";
 	$sql.=" left join gestiones g on( p.cod_gestion=g.cod_gestion) ";
 	$sql.=" left join clientes c on( p.cod_cliente=c.cod_cliente) ";
-	$resp= mysql_query($sql);;
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);;
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_pago=$dat['cod_pago'];
 		$nro_pago=$dat['nro_pago'];
 		$cod_gestion=$dat['cod_gestion'];
@@ -22,24 +22,24 @@ set_time_limit(1200);
 		$cod_cliente=$dat['cod_cliente'];
 		$nombre_cliente=$dat['nombre_cliente'];
 		$sql2=" select count(*) from pagos_detalle where cod_pago=".$cod_pago."";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$nrodetalle=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nrodetalle=$dat2[0];
 		}
 		
 
 		
 		$sql2=" select count(*) from pagos_detalle where cod_pago=".$cod_pago." and  cod_moneda=1";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$nroMonedaBs=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nroMonedaBs=$dat2[0];
 		}
 		$sql2=" select count(*) from pagos_detalle where cod_pago=".$cod_pago." and  cod_moneda=2";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$nroMonedaExtranjera=0;
-		while($dat2=mysql_fetch_array($resp2)){
+		while($dat2=mysqli_fetch_array($resp2)){
 			$nroMonedaExtranjera=$dat2[0];
 		}
 
@@ -48,23 +48,23 @@ set_time_limit(1200);
 		
 			$sql3="select cod_forma_pago from forma_pago";
 			echo $sql3;
-			$resp3= mysql_query($sql3);
-			while($dat3=mysql_fetch_array($resp3)){
+			$resp3= mysqli_query($enlaceCon,$sql3);
+			while($dat3=mysqli_fetch_array($resp3)){
 				$cod_forma_pago=$dat3['cod_forma_pago'];
 				
 				$sql4="select count(*) from pagos_detalle  where cod_pago=".$cod_pago." and  cod_forma_pago=".$cod_forma_pago;
-				$resp4= mysql_query($sql4);
+				$resp4= mysqli_query($enlaceCon,$sql4);
 				$nroAux=0;
-				while($dat4=mysql_fetch_array($resp4)){
+				while($dat4=mysqli_fetch_array($resp4)){
 					$nroAux=$dat4[0];
 				}
 				
 				
 				if($nroAux>0){
 					$sql5="select sum(monto_pago_detalle) from pagos_detalle  where cod_pago=".$cod_pago." and  cod_forma_pago=".$cod_forma_pago;
-					$resp5= mysql_query($sql5);
+					$resp5= mysqli_query($enlaceCon,$sql5);
 					$montoPagoFPAux=0;
-					while($dat5=mysql_fetch_array($resp5)){
+					while($dat5=mysqli_fetch_array($resp5)){
 						$montoPagoFPAux=$dat5[0];
 					}
 					$cod_banco=0;
@@ -72,9 +72,9 @@ set_time_limit(1200);
 					$nro_cuenta='';
 					if($cod_forma_pago==2 or $cod_forma_pago==3){	
 						$sql5="select cod_banco,nro_cheque,nro_cuenta from pagos_detalle  where cod_pago=".$cod_pago." and  cod_forma_pago=".$cod_forma_pago;
-						$resp5= mysql_query($sql5);
+						$resp5= mysqli_query($enlaceCon,$sql5);
 						$montoPagoFPAux=0;
-						while($dat5=mysql_fetch_array($resp5)){
+						while($dat5=mysqli_fetch_array($resp5)){
 							$cod_banco=$dat5['cod_banco'];
 							$nro_cheque=$dat5['nro_cheque'];
 							$nro_cuenta=$dat5['nro_cuenta'];
@@ -90,15 +90,15 @@ set_time_limit(1200);
 					$sql6.=" nro_cheque='".$nro_cheque."',";
 					$sql6.=" nro_cuenta='".$nro_cuenta."'";	
 					echo $sql6."<br/>";
-					mysql_query($sql6);			
+					mysqli_query($enlaceCon,$sql6);			
 				
 				}
 			}
 						$sql9="select sum(monto_pago) from pagos_descripcion where cod_pago=".$cod_pago;
 						echo $sql9;
-			$resp9= mysql_query($sql9);
+			$resp9= mysqli_query($enlaceCon,$sql9);
 			$montoPagoDescripcion=0;
-			while($dat9=mysql_fetch_array($resp9)){
+			while($dat9=mysqli_fetch_array($resp9)){
 				$montoPagoDescripcion=$dat9[0];
 			}
 			 $sql8=" update pagos set";
@@ -107,19 +107,19 @@ set_time_limit(1200);
 			 $sql8.=" fecha_modifica='2013-03-23'";
 			 $sql8.=" where cod_pago=".$cod_pago;
 			 echo $sql8."<br/>";
-			  mysql_query($sql8);
+			  mysqli_query($enlaceCon,$sql8);
 			$sql9="select total_bs from pagos where cod_pago=".$cod_pago;
-			$resp9= mysql_query($sql9);
+			$resp9= mysqli_query($enlaceCon,$sql9);
 			$total_bsFinal=0;
-			while($dat9=mysql_fetch_array($resp9)){
+			while($dat9=mysqli_fetch_array($resp9)){
 				$total_bsFinal=$dat9[0];
 			}
 
 			  
 			$sql9="select sum(monto_pago_detalle) from pagos_detalle where cod_pago=".$cod_pago;
-			$resp9= mysql_query($sql9);
+			$resp9= mysqli_query($enlaceCon,$sql9);
 			$montoPagoDetalle=0;
-			while($dat9=mysql_fetch_array($resp9)){
+			while($dat9=mysqli_fetch_array($resp9)){
 				$montoPagoDetalle=$dat9[0];
 			}
 

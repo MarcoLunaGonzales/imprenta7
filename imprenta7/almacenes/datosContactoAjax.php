@@ -48,9 +48,9 @@
 	$sql.=" cod_estado_registro, cod_usuario_registro, fecha_registro ";
 	$sql.=" from clientes_contactos ";
 	$sql.=" where  cod_contacto=".$_GET['cod_contacto'];
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	
-	while($dat=mysql_fetch_array($resp)){	
+	while($dat=mysqli_fetch_array($resp)){	
 		
 		$cod_cliente=$dat['cod_cliente'];
 		$nombre_contacto=$dat['nombre_contacto'];
@@ -67,8 +67,8 @@
 	}
 	
 	$sql2="select nombre_cliente from clientes where cod_cliente=".$cod_cliente;
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2[0];
 	}	
 
@@ -117,8 +117,8 @@
       		<td><select name="cod_estado_registro" class="textoform">
 				<?php
 					$sql2="select cod_estado_registro,nombre_estado_registro from estados_referenciales order by cod_estado_registro desc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

@@ -25,8 +25,8 @@ class PDF extends FPDF
 	$sql.=" from ordentrabajo";
 	$sql.=" where  cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 		
 		$cod_est_ot=$dat['cod_est_ot']; 
 		$nro_orden_trabajo=$dat['nro_orden_trabajo']; 
@@ -61,9 +61,9 @@ class PDF extends FPDF
 			/************CLIENTE********************/
 			$sql2=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente ";
 			$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_cliente="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2['nombre_cliente'];
 				$direccion_cliente=$dat2['direccion_cliente'];
 				$telefono_cliente=$dat2['telefono_cliente'];
@@ -75,9 +75,9 @@ class PDF extends FPDF
 				$sql2.=" telefono_contacto,celular_contacto, email_contacto, cargo_contacto ";
 				$sql2.=" from clientes_contactos ";
 				$sql2.=" where cod_contacto=".$cod_contacto;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombre_contacto_cliente="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 				
 					$nombre_contacto_cliente=$dat2['nombre_contacto']." ".$dat2['ap_paterno_contacto']." ".$dat2['ap_materno_contacto'];
 					$telefono_contacto=$dat2['telefono_contacto'];
@@ -91,9 +91,9 @@ class PDF extends FPDF
 		
 			/************GESTION********************/
 			$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestionHojaRuta="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestionOrdenTrabajo=$dat2[0];
 			}		
 			/************FIN GESTION********************/		
@@ -103,8 +103,8 @@ class PDF extends FPDF
 		$nombre_tipo_pago_ordentrabajo="";
 		$sql2=" select nombre_tipo_pago  from tipos_pago ";
 		$sql2.=" where cod_tipo_pago='".$cod_tipo_pago."'";
-		$resp2=mysql_query($sql2);
-		while ($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago_ordentrabajo=$dat2['nombre_tipo_pago'];
 		}		
 		///////////////////Fin Tipo pago/////////////////////
@@ -116,8 +116,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -134,8 +134,8 @@ class PDF extends FPDF
 	$sqlAux.=" from factura_ordentrabajo fot, facturas f ";
 	$sqlAux.=" where fot.cod_factura=f.cod_factura  and f.cod_est_fac<>2 ";
 	$sqlAux.=" and fot.cod_orden_trabajo=".$cod_orden_trabajo;
-	$respAux=mysql_query($sqlAux);
-	while ($datAux=mysql_fetch_array($respAux)){
+	$respAux=mysqli_query($enlaceCon,$sqlAux);
+	while ($datAux=mysqli_fetch_array($respAux)){
 		$cod_factura=$datAux['cod_factura'];
 		$nro_factura=$datAux['nro_factura'];
 		$fecha_factura=$datAux['fecha_factura'];
@@ -149,8 +149,8 @@ class PDF extends FPDF
 		$sqlAux.=" from factura_ordentrabajo fot, facturas f ";
 		$sqlAux.=" where fot.cod_factura=f.cod_factura  and f.cod_est_fac<>2 ";
 		$sqlAux.=" and fot.cod_orden_trabajo=".$cod_orden_trabajo;
-		$respAux=mysql_query($sqlAux);
-		while ($datAux=mysql_fetch_array($respAux)){
+		$respAux=mysqli_query($enlaceCon,$sqlAux);
+		while ($datAux=mysqli_fetch_array($respAux)){
 			$totalFacturas=$datAux[0];
 		}
 		
@@ -273,8 +273,8 @@ $this->SetFont('Arial','B',10);
 }
 
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 	}
@@ -300,8 +300,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 	$sql.=" from ordentrabajo";
 	$sql.=" where  cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 		
 		$cod_est_ot=$dat['cod_est_ot']; 
 		$nro_orden_trabajo=$dat['nro_orden_trabajo']; 
@@ -335,9 +335,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 				/************CLIENTE********************/
 			$sql2=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 			$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_cliente="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2['nombre_cliente'];
 				$direccion_cliente=$dat2['direccion_cliente'];
 				$telefono_cliente=$dat2['telefono_cliente'];
@@ -348,9 +348,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 		
 			/************GESTION********************/
 			$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestionHojaRuta="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestionOrdenTrabajo=$dat2[0];
 			}		
 			/************FIN GESTION********************/		
@@ -360,8 +360,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 		$nombre_tipo_pago_ordentrabajo="";
 		$sql2=" select nombre_tipo_pago  from tipos_pago ";
 		$sql2.=" where cod_tipo_pago='".$cod_tipo_pago."'";
-		$resp2=mysql_query($sql2);
-		while ($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago_ordentrabajo=$dat2['nombre_tipo_pago'];
 		}		
 		///////////////////Fin Tipo pago/////////////////////
@@ -444,9 +444,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 			 	$sql2.=" and p.cod_estado_pago<>2";
 			 	$sql2.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sql2.=" and pd.cod_tipo_doc=2";
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_ordentrabajo=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					//$cod_moneda=$dat2['cod_moneda'];
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$fecha_pago=$dat2['fecha_pago'];
@@ -456,9 +456,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 							$sql3="select cambio_bs from tipo_cambio";
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
-							$resp3 = mysql_query($sql3);
+							$resp3 = mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=0;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							if($cambio_bs<>0){
@@ -527,8 +527,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 	$sqlAux.=" and pd.codigo_doc=".$_GET['cod_orden_trabajo'];
 	$sqlAux.=" and pd.cod_tipo_doc=2";
 	$sqlAux.=" order by  pd.fecha_comprobante desc, pd.nro_comprobante desc  ";
-	$respAux = mysql_query($sqlAux);
-	while($datAux=mysql_fetch_array($respAux)){
+	$respAux = mysqli_query($enlaceCon,$sqlAux);
+	while($datAux=mysqli_fetch_array($respAux)){
 		$nro_pago=$datAux['nro_pago'];
 		$cod_gestion=$datAux['cod_gestion'];
 		$gestion=$datAux['gestion'];
@@ -549,9 +549,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 							$sql3="select cambio_bs from tipo_cambio";
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
-							$resp3 = mysql_query($sql3);
+							$resp3 = mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=1;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							$acuenta_ordentrabajo=$acuenta_ordentrabajo+($monto_pago_detalle*$cambio_bs);
@@ -626,10 +626,10 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 	$sqlAux.=" and s.cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	$sqlAux.=" and s.cod_estado_salida<>2";
 	$sqlAux.=" order by s.nro_salida asc, g.gestion asc	";
-	$respAux = mysql_query($sqlAux);
+	$respAux = mysqli_query($enlaceCon,$sqlAux);
 	$cambio_bs=1;
 	$costoTotalSalidas=0;
-	while($datAux=mysql_fetch_array($respAux)){
+	while($datAux=mysqli_fetch_array($respAux)){
 		$cod_salida=$datAux['cod_salida'];
 		$nro_salida=$datAux['nro_salida'];
 		$cod_gestion=$datAux['cod_gestion'];
@@ -638,9 +638,9 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 		$cod_almacen=$datAux['cod_almacen'];
 		///Nombre Almacen/////
 			$sql3="select nombre_almacen from almacenes where cod_almacen=".$cod_almacen;
-			$resp3 = mysql_query($sql3);
+			$resp3 = mysqli_query($enlaceCon,$sql3);
 			$nombre_almacen="";
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 					$nombre_almacen=$dat3['nombre_almacen'];
 			}
 		/// Fin Nombre Almacen/// 
@@ -662,8 +662,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 					$sql2.=" WHERE cod_salida=".$cod_salida;
 					$sql2.=" and cod_material=".$cod_material;
 					$sql2.=" order by cod_ingreso_detalle asc";
-					$resp2 = mysql_query($sql2);					
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2 = mysqli_query($enlaceCon,$sql2);					
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cant_salida_ingreso=$dat2[0];
 						$cod_ingreso_detalle=$dat2[1];	
 						
@@ -676,8 +676,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 						$sql3.=" and ig.cod_ingreso_detalle=".$cod_ingreso_detalle;
 						$sql3.=" and ig.cod_material=".$cod_material;
 						
-						$resp3 = mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3 = mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$cod_ingreso=$dat3['cod_ingreso'];
 							$nro_ingreso=$dat3['nro_ingreso'];
 							$cod_gestion_ingreso=$dat3['cod_gestion'];													
@@ -764,8 +764,8 @@ $sql=" select cod_est_ot, nro_orden_trabajo,cod_gestion,numero_orden_trabajo, ";
 		$sqlAux.=" and got.cod_gasto=g.cod_gasto";
 		$sqlAux.=" and got.cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 		$sqlAux.=" order by got.fecha_gasto desc ";
-		$respAux = mysql_query($sqlAux);
-		while($datAux=mysql_fetch_array($respAux)){
+		$respAux = mysqli_query($enlaceCon,$sqlAux);
+		while($datAux=mysqli_fetch_array($respAux)){
 		
 				$cod_gasto_hojaruta=$datAux['cod_gasto_hojaruta'];
 				$cod_gasto=$datAux['cod_gasto']; 
@@ -850,8 +850,8 @@ $pdf->SetFont('Arial','B',10);
 	$sqlAux.=" where  gg.cod_gasto_gral<>0 and gg.cod_estado<>2 ";
 	$sqlAux.=" and  gg.cod_tipo_doc=2 ";
 	$sqlAux.=" and  gg.codigo_doc=".$_GET['cod_orden_trabajo'];
-	$respAux = mysql_query($sqlAux);
-	while($datAux=mysql_fetch_array($respAux)){		
+	$respAux = mysqli_query($enlaceCon,$sqlAux);
+	while($datAux=mysqli_fetch_array($respAux)){		
 			$cod_gasto_gral=$datAux['cod_gasto_gral']; 
 			$cod_gestion=$datAux['cod_gestion']; 
 			$gestion=$datAux['gestion']; 

@@ -509,9 +509,9 @@ function validaEntero(Control){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion, gestion_nombre from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2['gestion'];
 		$gestion_nombre=$dat2['gestion_nombre'];
 	}
@@ -560,8 +560,8 @@ function validaEntero(Control){
 			<select name="codTipoCotizacion" id="codTipoCotizacion" class="textoform" >
 				<?php
 					$sql3="select cod_tipo_cotizacion,nombre_tipo_cotizacion from tipos_cotizacion";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_tipo_cotizacion=$dat3[0];	
 			  		 		$nombre_tipo_cotizacion=$dat3[1];	
@@ -576,8 +576,8 @@ function validaEntero(Control){
 			<select name="codTipoPago" id="codTipoPago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$codTipoPago=$dat4[0];	
 			  		 		$nombreTipoPago=$dat4[1];	
@@ -592,8 +592,8 @@ function validaEntero(Control){
 			<td ><div id="div_comision"><select name="cod_usuario_comision" id="cod_usuario_comision" class="textoform" >
 				<?php
 					$sql3="select cod_usuario, nombres_usuario, ap_paterno_usuario from usuarios where cod_usuario<>0";
-					$resp3=mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3))
+					$resp3=mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3))
 						{
 							$cod_usuario=$dat3[0];
 							$nombres_usuario=$dat3[1];	
@@ -612,8 +612,8 @@ function validaEntero(Control){
 				<?php
 					$sql4="select cod_usuario, nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 					$sql4.=" where cod_usuario in(select cod_usuario from autorizados_firma_cotizacion) ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_usuario=$dat4[0];
 							$nombres_usuario=$dat4[1];
@@ -646,8 +646,8 @@ function validaEntero(Control){
 		<table border=0 cellSpacing="1" cellPadding="1" >
 				<?php
 					$sql4="select cod_ppc,desc_ppc, valor_ppc,orden_ppc from parametros_pie_cotizacion order by orden_ppc ";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_ppc=$dat4['cod_ppc'];
 							$desc_ppc=$dat4['desc_ppc'];

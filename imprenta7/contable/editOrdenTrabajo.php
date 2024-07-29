@@ -93,9 +93,9 @@ $sql.=" fecha_orden_trabajo, cod_cliente, detalle_orden_trabajo, obs_orden_traba
 $sql.=" cod_usuario_registro,fecha_registro, cod_usuario_modifica, fecha_modifica ";
 $sql.=" from ordentrabajo ";
 $sql.=" where cod_orden_trabajo=".$cod_orden_trabajo;
-$resp = mysql_query($sql);	
+$resp = mysqli_query($enlaceCon,$sql);	
 
-while($dat=mysql_fetch_array($resp)){
+while($dat=mysqli_fetch_array($resp)){
 		$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 		$cod_gestion=$dat['cod_gestion'];		
 		$codestot=$dat['cod_est_ot'];
@@ -111,9 +111,9 @@ while($dat=mysql_fetch_array($resp)){
 		$fecha_modifica=$dat['fecha_modifica'];
 }
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 
@@ -153,8 +153,8 @@ while($dat=mysql_fetch_array($resp)){
 				<option value="0">Seleccione un Opci&oacute;n</option>
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -195,9 +195,9 @@ while($dat=mysql_fetch_array($resp)){
       		  <select name="cod_est_ot" id="cod_est_ot" class="textoform">
 		<?php
     		$sql2=" select cod_est_ot, desc_est_ot from estado_ordentrabajo ";
-		    $resp2 = mysql_query($sql2);	
+		    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_est_ot=$dat2['cod_est_ot'];
 				$desc_est_ot=$dat2['desc_est_ot'];
 		?>

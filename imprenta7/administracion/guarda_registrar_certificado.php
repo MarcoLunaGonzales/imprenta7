@@ -40,7 +40,7 @@ include("funciones.php");
 	$sql.=" cod_estado_certificado='".$cod_estado_certificado."',";
 	$sql.=" cod_ciudad='".$cod_ciudad."'";
 	//echo "sql=".$sql;
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 	$vector2=explode(",",$fichasTecnicas);
 	$n=sizeof($vector2);
@@ -49,7 +49,7 @@ include("funciones.php");
 		$sql3=" insert into fichas_certificados_producto set ";
 		$sql3.=" cod_cert_prod='".$cod_cert_prod."',";
 		$sql3.=" cod_ficha='".$cod_ficha."'";
-		$resp3=mysql_query($sql3);
+		$resp3=mysqli_query($enlaceCon,$sql3);
 	}	
 
 

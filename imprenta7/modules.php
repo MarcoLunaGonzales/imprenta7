@@ -1,27 +1,36 @@
 <?php
 	require("conexion_inicio.inc");
+
+  
+  $cod_modulo=0;
+
+  if(isset($_GET['cod_modulo'])){
+    $cod_modulo=$_GET['cod_modulo'];
+  }
+
+
 	$sql=" select  nombres_usuario, ap_paterno_usuario, ap_materno_usuario,cod_perfil  from usuarios ";
 	$sql.=" where cod_usuario='".$_COOKIE['usuario_global']."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$nombres_usuario=$dat[0]; 
 		$ap_paterno_usuario=$dat[1];
 		$ap_materno_usuario=$dat[2];
 		$cod_perfil=$dat[3];
-
-		
 	}
 		
-	$sql=" select  nombre_modulo, ubicacion_fisica  from modulos ";
-			$sql.=" where cod_modulo=".$_GET['cod_modulo']."";
-			$resp = mysql_query($sql);
+	$sql="SELECT nombre_modulo, ubicacion_fisica from modulos ";
+  $sql.=" where cod_modulo=".$cod_modulo." ";
 
-			while($dat=mysql_fetch_array($resp)){																 		
-				$nombre_modulo=$dat['nombre_modulo'];
+  //echo $sql;
+
+  $resp = mysqli_query($enlaceCon,$sql);
+
+  while($dat=mysqli_fetch_array($resp)){																 		
+    $nombre_modulo=$dat['nombre_modulo'];
+  }
 	
-			}
-		
 	
 ?>
 <!DOCTYPE html>
@@ -121,9 +130,9 @@
 			
 			$sql=" select cod_modulo, nombre_modulo, ubicacion_fisica  from modulos ";
 			$sql.=" where cod_modulo in(select cod_modulo from usuarios_modulos where cod_usuario=".$_COOKIE['usuario_global'].")";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
-			while($dat=mysql_fetch_array($resp)){	
+			while($dat=mysqli_fetch_array($resp)){	
 															 		
 				$cod_modulo=$dat[0];	
 				$nombre_modulo=$dat[1];

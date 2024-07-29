@@ -28,8 +28,8 @@
 	$sql.=" where i.cod_ingreso='".$cod_ingreso."'";
 	//echo $sql;
 		
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 				
 				$cod_gestion=$dat['cod_gestion']; 
 				$cod_almacen=$dat['cod_almacen']; 
@@ -54,29 +54,29 @@
 				//**************************************************************
 				$gestionIngreso="";
 				$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$gestionIngreso=$dat2[0];
 				}
 				$nombre_almacen_ingreso="";
 				$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_almacen_ingreso=$dat2[0];
 				}
 				
 				$nombre_tipo_ingreso="";
 				$sql2="select nombre_tipo_ingreso from tipos_ingreso where cod_tipo_ingreso='".$cod_tipo_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_ingreso=$dat2[0];
 				}
 				
 				if($cod_tipo_ingreso==1){
 						$nombre_proveedor="";
 						$sql2="select nombre_proveedor from proveedores where cod_proveedor='".$cod_proveedor."'";
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_proveedor=$dat2[0];
 						}	
 				}
@@ -87,13 +87,13 @@
 					$sql2.="  where s.cod_gestion=g.cod_gestion ";
 					$sql2.="  and s.cod_almacen=a.cod_almacen ";
 					$sql2.="  and s.cod_salida=".$cod_salida;
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 						$nro_salida="";
 						$cod_gestion_salida="";
 						$gestion_salida="";
 						$cod_almacen_salida="";
 						$nombre_almacen_salida="";		
-						while($dat2=mysql_fetch_array($resp2)){	
+						while($dat2=mysqli_fetch_array($resp2)){	
 							$nro_salida=$dat2[0];
 							$cod_gestion_salida=$dat2[1];
 							$gestion_salida=$dat2[2];		
@@ -104,19 +104,19 @@
 								
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 				$sql2.=" where cod_usuario='".$cod_usuario_ingreso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombres_usuario="";
 				$ap_paterno_usuario="";
 				$ap_materno_usuario="";		
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$nombres_usuario=$dat2[0];
 					$ap_paterno_usuario=$dat2[1];
 					$ap_materno_usuario=$dat2[2];		
 				}
 				
 			$sql2="select desc_estado_ingreso from estados_ingresos_almacen where cod_estado_ingreso='".$cod_estado_ingreso."'";
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_ingreso=$dat2[0];
 			}	
 			
@@ -159,8 +159,8 @@
 			<td  colSpan="6"><?php echo $nombre_proveedor;
 							if($cod_contacto_proveedor<>"" and $cod_contacto_proveedor<>0  ){				
 					$sql2="select nombre_contacto, ap_paterno_contacto from proveedores_contactos where cod_contacto_proveedor=".$cod_contacto_proveedor;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombre_contacto=$dat2['nombre_contacto'];
 						$ap_paterno_contacto=$dat2['ap_paterno_contacto'];
 					}	
@@ -217,8 +217,8 @@
 		 
 		 	$sql="select count(*) from ingresos_detalle where cod_ingreso=".$cod_ingreso;
 			$cant_registros=0;
-			$resp = mysql_query($sql);
-			while($dat=mysql_fetch_array($resp)){
+			$resp = mysqli_query($enlaceCon,$sql);
+			while($dat=mysqli_fetch_array($resp)){
 				$cant_registros=$dat[0];
 			}
 		?>
@@ -234,8 +234,8 @@
 			$sql.=" and id.cod_ingreso=".$cod_ingreso;
 			$sql.=" order by id.cod_ingreso_detalle asc ";
 			
-			$resp = mysql_query($sql);
-			while($dat=mysql_fetch_array($resp)){
+			$resp = mysqli_query($enlaceCon,$sql);
+			while($dat=mysqli_fetch_array($resp)){
 			
 				$cod_ingreso_detalle=$dat[0];
 				$cod_material=$dat[1];
@@ -248,8 +248,8 @@
 				$sumaTotal=$sumaTotal+($precio_compra_uni*$cantidad);
 				
 				$sql2="select precio_venta from materiales where cod_material='".$cod_material."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$precio_venta=$dat2[0];
 				}
 				

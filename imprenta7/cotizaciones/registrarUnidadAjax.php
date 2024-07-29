@@ -42,8 +42,8 @@
 <?php 	require("conexion.inc");
 
 	$sql2="select nombre_cliente,direccion_cliente from clientes where cod_cliente=".$_GET['cod_cliente'];
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2['nombre_cliente'];
 		$direccion_cliente=$dat2['direccion_cliente'];
 	}	

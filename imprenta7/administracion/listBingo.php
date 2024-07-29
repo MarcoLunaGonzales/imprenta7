@@ -112,8 +112,8 @@ function openPopup(url){
 	$sql=" select count(*) ";
 	$sql.=" from bingo ";
 
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -138,8 +138,8 @@ function openPopup(url){
 	$sql=" select distinct(numero_bingo), cod_bingo, desc_bingo ";
 	$sql.=" from bingo ";
 	$sql.=" order by  cod_bingo ";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$cod_bingo=$dat['cod_bingo'];
 		$desc_bingo=$dat['desc_bingo'];
@@ -161,9 +161,9 @@ function openPopup(url){
 							
 
 				$sql2="select cod_bingo_detalle from bingo_detalle where cod_bingo=".$cod_bingo;
-				$resp2= mysql_query($sql2);	
+				$resp2= mysqli_query($enlaceCon,$sql2);	
 				$cont=0;
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 				
 						$cod_bingo_detalle=$dat2['cod_bingo_detalle'];
 						$cont=$cont+1;

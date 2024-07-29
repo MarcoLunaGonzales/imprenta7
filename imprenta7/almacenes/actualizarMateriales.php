@@ -6,8 +6,8 @@ include("funciones.php");
 <table>
 <?php
 $sql=" select cod_grupo, nombre_grupo from grupos order by cod_grupo ";
-$resp=mysql_query($sql);
-while($dat=mysql_fetch_array($resp))
+$resp=mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp))
 {
 	$cod_grupo=$dat['cod_grupo'];
 	$nombre_grupo=$dat['nombre_grupo'];
@@ -15,8 +15,8 @@ while($dat=mysql_fetch_array($resp))
 	<tr><td align="right" colspan="5"><h1><?php echo "GRUPO".$nombre_grupo; ?></h1></td></tr>
 <?php	
 	$sql2=" select cod_subgrupo,nombre_subgrupo from subgrupos where cod_grupo=".$cod_grupo." order by cod_subgrupo";
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2))
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2))
 	{
 		$cod_subgrupo=$dat2['cod_subgrupo'];
 		$nombre_subgrupo=$dat2['nombre_subgrupo'];
@@ -26,8 +26,8 @@ while($dat=mysql_fetch_array($resp))
 	
 		$sql3=" select cod_material, nombre_material, desc_completa_material,idMaterial,idMaterialDesc ";
 		$sql3.=" from materiales where cod_subgrupo=".$cod_subgrupo." order by cod_subgrupo";
-		$resp3=mysql_query($sql3);
-		while($dat3=mysql_fetch_array($resp3))
+		$resp3=mysqli_query($enlaceCon,$sql3);
+		while($dat3=mysqli_fetch_array($resp3))
 		{
 			$cod_material=$dat3['cod_material'];
 			$nombre_material=$dat3['nombre_material'];
@@ -53,22 +53,22 @@ while($dat=mysql_fetch_array($resp))
 <?php
 /*$sql2=" select cod_material, nombre_material,cod_subgrupo from materiales order by  cod_subgrupo, desc_completa_material asc ";
 echo $sql2;
-$resp2=mysql_query($sql2);
-while($dat2=mysql_fetch_array($resp2))
+$resp2=mysqli_query($enlaceCon,$sql2);
+while($dat2=mysqli_fetch_array($resp2))
 {	
 	$cod_material=$dat2[0];
 	$nombre_material=$dat2[1];
 	$cod_subgrupo=$dat2[2];
 	
 	$sql3=" select  nombre_subgrupo,cod_grupo from subgrupos where  cod_subgrupo=".$cod_subgrupo;
-	$resp3=mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){
 		$nombre_subgrupo=$dat3[0];
 		$cod_grupo=$dat3[1];
 	}
 	$sql3=" select  nombre_grupo from grupos where  cod_grupo=".$cod_grupo;
-	$resp3=mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){
 		$nombre_grupo=$dat3[0];
 	}
 	$sql3=" select max(idMaterial) from materiales where cod_subgrupo=".$cod_subgrupo;
@@ -94,7 +94,7 @@ while($dat2=mysql_fetch_array($resp2))
 	$sql3.=" idMaterialDesc='".$nombre_grupo[0].$nombre_grupo[1].$nombre_grupo[2]."-".$nombre_subgrupo[0].$nombre_subgrupo[1].$nombre_subgrupo[2]."-".$idMaterialDesc."'"; 
 	$sql3.=" where cod_material='".$cod_material."'"; 
 	echo $sql3."<br>";
-	mysql_query($sql3);
+	mysqli_query($enlaceCon,$sql3);
 
 }*/
 

@@ -38,28 +38,28 @@ if($cod_tipo_pago==3){
 }else{
 	$sql.=" cod_estado_pago_doc=1";
 }
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 ///CREACION DE CUENTA////
 
 	$sql3="select  nombre_cliente from clientes where cod_cliente=".$_POST['cod_cliente'];
 
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$nombre_cliente=$dat3['nombre_cliente'];		
 	}	
 	$sql3=" select  cod_cuenta_conf,parametro1,parametro2 ";
 	$sql3.=" from configuracion_cuentas where cod_conf_cuenta=1";
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta_conf=$dat3['cod_cuenta_conf'];
 		$parametro1=$dat3['parametro1'];
 		$parametro2=$dat3['parametro2'];
 	}	
 	$sql3=" select  cod_cuenta_padre from cuentas where cod_cuenta=".$cod_cuenta_conf;
 	//echo $sql3;
-	$resp3 = mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){	
+	$resp3 = mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta_padre_conf=$dat3['cod_cuenta_padre'];
 	}		
 	$fechaFinal=date('Y-m-d', time());
@@ -90,7 +90,7 @@ $resp=mysql_query($sql);
 	$sql3.=" GROUP BY cod_cliente) as clientesVal  INNER join clientes cli ON(clientesVal.cod_cliente=cli.cod_cliente) ";
 	$sql3.=" LEFT JOIN cuentas  on (cli.cod_cuenta=cuentas.cod_cuenta) ";
 	$sql3.=" where cli.cod_cliente=".$cod_cliente;
-	$resp3 = mysql_query($sql3);
+	$resp3 = mysqli_query($enlaceCon,$sql3);
 	$cod_cuenta=NULL;
 	$nro_cuenta="";
 	$desc_cuenta="";
@@ -98,7 +98,7 @@ $resp=mysql_query($sql);
 	$nroHR=0;
 	$nroOT=0;
 	$nroDoc=0;
-	while($dat3=mysql_fetch_array($resp3)){	
+	while($dat3=mysqli_fetch_array($resp3)){	
 		$cod_cuenta=$dat3['cod_cuenta'];
 		$nro_cuenta=$dat3['nro_cuenta'];
 		$desc_cuenta=$dat3['desc_cuenta'];
@@ -122,18 +122,18 @@ $resp=mysql_query($sql);
 				$sql.=" cod_estado_registro=1,"; 
 				$sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',";
 				$sql.=" fecha_registro='".date('Y-m-d H:i:s', time())."'";
-				mysql_query($sql);
+				mysqli_query($enlaceCon,$sql);
 				$sql=" update clientes set ";
 				$sql.=" cod_cuenta=".$cod_cuenta_nueva;
 				$sql.=" where cod_cliente=".$cod_cliente;
-				mysql_query($sql);		
+				mysqli_query($enlaceCon,$sql);		
 			}
 	}else{
 		if($cod_cuenta==NULL or $cod_cuenta=="" ){
 			$sql=" update clientes set ";
 			$sql.=" cod_cuenta=".$cod_cuenta_conf;
 			$sql.=" where cod_cliente=".$cod_cliente;
-			mysql_query($sql);
+			mysqli_query($enlaceCon,$sql);
 		}
 	
 	}

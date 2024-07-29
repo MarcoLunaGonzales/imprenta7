@@ -124,8 +124,8 @@ function eliminar(f)
 	if($desccaracB<>""){
 		$sql_aux.=" where desc_carac like '%".$desccaracB."%'";
 	}
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -153,7 +153,7 @@ function eliminar(f)
 		}		
 		$sql.=" order by desc_carac asc ";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -169,7 +169,7 @@ function eliminar(f)
         <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 
 				$cod_carac=$dat[0];
 				$desc_carac=$dat[1];
@@ -197,8 +197,8 @@ function eliminar(f)
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -206,8 +206,8 @@ function eliminar(f)
 					$usuarioRegistro="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioRegistro=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO REGISTRO*******************************									
 				
@@ -215,8 +215,8 @@ function eliminar(f)
 					$usuarioModifica="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioModifica=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO MODIFICA*******************************					
 							

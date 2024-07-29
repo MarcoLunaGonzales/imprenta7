@@ -175,8 +175,8 @@ function openPopup(url){
 	$sql.=" order by ot.cod_orden_trabajo desc";
 	
 
-	$resp = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 		//Calculo de Nro de Paginas
@@ -231,7 +231,7 @@ function openPopup(url){
 	}
 	$sql.=" order by  ot.fecha_orden_trabajo desc,g.gestion desc,ot.nro_orden_trabajo desc ";
 	$sql.=" limit 50";
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -260,7 +260,7 @@ function openPopup(url){
    <tbody>
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_orden_trabajo=$dat['cod_orden_trabajo'];
 				$nro_orden_trabajo=$dat['nro_orden_trabajo'];
@@ -293,15 +293,15 @@ function openPopup(url){
 							
 				$nombre_tipo_pago="";
 				$sql2="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-				$resp2= mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_pago=$dat2['nombre_tipo_pago'];
 				}
 		
 				$desc_estado_pago_doc="";
 				$sql2="select desc_estado_pago_doc from estado_pago_documento where cod_estado_pago_doc=".$cod_estado_pago_doc;
-				$resp2= mysql_query($sql2);	
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);	
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_pago_doc=$dat2['desc_estado_pago_doc'];
 				}
 				$acuenta_ordentrabajo=0;
@@ -311,8 +311,8 @@ function openPopup(url){
 				$sql3.=" and p.cod_estado_pago<>2";
 				$sql3.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sql3.=" and pd.cod_tipo_doc=2";
-				$resp3= mysql_query($sql3);					
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);					
+				while($dat3=mysqli_fetch_array($resp3)){
 					$acuenta_ordentrabajo=$dat3[0];
 				}	
 				if($acuenta_ordentrabajo==""){
@@ -349,16 +349,16 @@ function openPopup(url){
               		$monto_gasto=0;
 					$sqlAux=" select count(*) ";
 					$sqlAux.=" from gastos_ordentrabajo where cod_orden_trabajo=".$cod_orden_trabajo;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$swGasto=0;
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 								$swGasto=$datAux[0];
 					}
 					if($swGasto>0){
 							$sqlAux="select sum(monto_gasto) ";
 							$sqlAux.=" from gastos_ordentrabajo where cod_orden_trabajo=".$cod_orden_trabajo;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_gasto=$datAux[0];
 							}										
 					}
@@ -377,11 +377,11 @@ function openPopup(url){
 				$sql3.=" and p.cod_estado_pago<>2 ";
 				$sql3.=" and pd.codigo_doc=".$cod_orden_trabajo;
 				$sql3.=" and pd.cod_tipo_doc=2 ";
-				$resp3= mysql_query($sql3);	
+				$resp3= mysqli_query($enlaceCon,$sql3);	
 				$nro_pago="";
 				$gestion_pago="";
 				$fecha_pago=""; 
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nro_pago=$dat3['nro_pago'];
 					$gestion_pago=$dat3['gestion'];
 					$fecha_pago=$dat3['fecha_pago']; 
@@ -404,11 +404,11 @@ function openPopup(url){
 				$sql3.=" where fot.cod_factura=f.cod_factura ";
 				$sql3.=" and f.cod_est_fac<>2 ";
 				$sql3.=" and fot.cod_orden_trabajo=".$cod_orden_trabajo;
-				$resp3= mysql_query($sql3);	
+				$resp3= mysqli_query($enlaceCon,$sql3);	
 				$cod_factura="";
 				$nro_factura="";
 				$fecha_factura=""; 
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$cod_factura=$dat3['cod_factura'];
 					$nro_factura=$dat3['nro_factura'];
 					$fecha_factura=$dat3['fecha_factura']; 
@@ -460,8 +460,8 @@ function openPopup(url){
           <?php 
 		  	$queryEstado=" select cod_est_ot, desc_est_ot  from estado_ordentrabajo ";
 			$queryEstado.=" order by  cod_est_ot ";
-			$resp= mysql_query($queryEstado);
-			while($dat=mysql_fetch_array($resp)){
+			$resp= mysqli_query($enlaceCon,$queryEstado);
+			while($dat=mysqli_fetch_array($resp)){
 				$cod_est_ot=$dat['cod_est_ot'];
 				$desc_est_ot=$dat['desc_est_ot'];
 		 ?>
@@ -510,8 +510,8 @@ function openPopup(url){
 					$sql2=" select cod_estado_pago_doc, desc_estado_pago_doc";
 					$sql2.=" from   estado_pago_documento ";
 					$sql2.=" order by cod_estado_pago_doc asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_pago_doc=$dat2['cod_estado_pago_doc'];	
 			  		 		$desc_estado_pago_doc=$dat2['desc_estado_pago_doc'];	

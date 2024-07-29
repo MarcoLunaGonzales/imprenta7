@@ -35,35 +35,35 @@ $sql.=" email_usuario='".$_POST['email_usuario']."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."',";
 $sql.=" usuario_interno='".$_POST['usuario_interno']."',";
 $sql.=" cod_perfil='".$_POST['cod_perfil']."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 if($_POST['autorizado_firma_cotizacion']==1){
 $sql="insert into autorizados_firma_cotizacion set ";
 $sql.=" cod_usuario=".$cod_usuario.""; 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 }
 
 $sql="select count(*) from usuarios where cod_usuario=".$cod_usuario;
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$nroReg=0;
-	while($dat=mysql_fetch_array($resp)){	
+	while($dat=mysqli_fetch_array($resp)){	
 		$nroReg=$dat[0];
 	}
 
 if($nroReg>0){
 	$sql="delete from usuarios_modulos where cod_usuario='".$cod_usuario."'"; 
-	mysql_query($sql);	
+	mysqli_query($enlaceCon,$sql);	
 	
 	
 	$sql="select cod_modulo from modulos";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){	
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){	
 		$cod_modulo=$dat['cod_modulo'];
 		if($_POST["cod_modulo".$cod_modulo]){
 			$sql2="insert into usuarios_modulos set ";
 			$sql2.=" cod_modulo='".$cod_modulo."',"; 
 			$sql2.=" cod_usuario='".$cod_usuario."'"; 
-			mysql_query($sql2);	
+			mysqli_query($enlaceCon,$sql2);	
 
 		}
 	

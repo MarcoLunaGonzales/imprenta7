@@ -42,8 +42,8 @@
 				$cod_tipo_cigarrillo=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from fichas_producto  where cod_tipo_cigarrillo='".$cod_tipo_cigarrillo."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -84,17 +84,17 @@
 				$cod_tipo_cigarrillo=$vectordatosNoEliminar[$j];
 				$sql=" select nombre_tipo_cigarrillo,obs_tipo_cigarrillo,cod_estado_registro";
 				$sql.=" from tipos_cigarrillo where cod_tipo_cigarrillo='".$cod_tipo_cigarrillo."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_tipo_cigarrillo=$dat[0];
 					$obs_tipo_cigarrillo=$dat[1];
 					$cod_estado_registro=$dat[2];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];														
 				}
 	
@@ -126,17 +126,17 @@
 				$cod_tipo_cigarrillo=$vectordatosEliminar[$j];
 				$sql=" select nombre_tipo_cigarrillo,obs_tipo_cigarrillo,cod_estado_registro";
 				$sql.=" from tipos_cigarrillo where cod_tipo_cigarrillo='".$cod_tipo_cigarrillo."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_tipo_cigarrillo=$dat[0];
 					$obs_tipo_cigarrillo=$dat[1];
 					$cod_estado_registro=$dat[2];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];														
 				}
 		?>		

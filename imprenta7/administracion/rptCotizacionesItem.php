@@ -42,8 +42,8 @@ function imprimirPagina() {
 <?php if($codEstadoCotizacionB<>0){ 
 	$$nombre_estado_cotizacion="";
 	$sql="select nombre_estado_cotizacion from estados_cotizacion where cod_estado_cotizacion=".$codEstadoCotizacionB;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_estado_cotizacion=$dat['nombre_estado_cotizacion'];
 	}
 ?>
@@ -51,8 +51,8 @@ function imprimirPagina() {
 <?php } ?>
 <?php if($codTipoCotizacionB<>0){ 
 	$sql="select nombre_tipo_cotizacion from tipos_cotizacion where cod_tipo_cotizacion=".$codTipoCotizacionB;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nombre_tipo_cotizacion=$dat['nombre_tipo_cotizacion'];
 	}
 ?>
@@ -110,8 +110,8 @@ function imprimirPagina() {
 
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -182,7 +182,7 @@ function imprimirPagina() {
 	//Fin Busqueda/////////////////	
 			$sql.=" order by g.gestion desc, c.nro_cotizacion desc ";
 		//	echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 <div align="center"><a href="javascript:imprimirPagina()">Imprimir</a></div>
@@ -202,7 +202,7 @@ function imprimirPagina() {
 
 		</tr>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_cotizacion=$dat['cod_cotizacion'];
 			 $cod_tipo_cotizacion=$dat['cod_tipo_cotizacion'];
@@ -231,9 +231,9 @@ function imprimirPagina() {
 
             	$sql2="  select count(*) swHojasRuta from hojas_rutas ";
 				$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and (cod_estado_hoja_ruta=1 or cod_estado_hoja_ruta=3)";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$swHojasRuta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$swHojasRuta=$dat2[0];
 				}
 	 
@@ -261,10 +261,10 @@ function imprimirPagina() {
 		$sqlAux.=" where  cod_cotizacion='".$cod_cotizacion."'";
 	$sqlAux.=" and (cod_item in(select cod_item from items where CONCAT(desc_item,' ',descripcion_item) like '%".$descItemB."%'))";
 		$sqlAux.=" order by cod_cotizaciondetalle asc";
-		$respAux=mysql_query($sqlAux);
+		$respAux=mysqli_query($enlaceCon,$sqlAux);
 		$suma=0;
 	
-		while ($datAux=mysql_fetch_array($respAux)){
+		while ($datAux=mysqli_fetch_array($respAux)){
 
 			
 			$cod_cotizaciondetalle=$datAux[0];
@@ -272,8 +272,8 @@ function imprimirPagina() {
 			
 			$sql4= " select desc_item  from items  where cod_item='".$cod_item."'";
 			$desc_item="";
-			$resp4=mysql_query($sql4);
-			while ($dat4=mysql_fetch_array($resp4)){
+			$resp4=mysqli_query($enlaceCon,$sql4);
+			while ($dat4=mysqli_fetch_array($resp4)){
 		
 				$desc_item=$dat4[0];
 			}
@@ -303,9 +303,9 @@ function imprimirPagina() {
 			$sql7=" select count(DISTINCT(cod_compitem))as cant_comp ";
 			$sql7.=" from cotizacion_detalle_caracteristica";
 			$sql7.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-			$resp7=mysql_query($sql7);
+			$resp7=mysqli_query($enlaceCon,$sql7);
 			$cant_comp=0;
-			while ($dat7=mysql_fetch_array($resp7)){
+			while ($dat7=mysqli_fetch_array($resp7)){
 				$cant_comp=$dat7[0];	
 			}
 			
@@ -313,15 +313,15 @@ function imprimirPagina() {
 			$sql2=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 			$sql2.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 			
-			$resp2=mysql_query($sql2);
-			while ($dat2=mysql_fetch_array($resp2)){		
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while ($dat2=mysqli_fetch_array($resp2)){		
 				$cod_compitem=$dat2[0];
 				$sql4=" select  count(*) from cotizacion_detalle_caracteristica ";
 				$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 				$sql4.=" and cod_compitem='".$cod_compitem."' and cod_estado_registro=1";
-				$resp4=mysql_query($sql4);
+				$resp4=mysqli_query($enlaceCon,$sql4);
 				$nro_carac=0;
-				while($dat4=mysql_fetch_array($resp4)){
+				while($dat4=mysqli_fetch_array($resp4)){
 					$nro_carac=$dat4[0];
 				}
 				
@@ -330,8 +330,8 @@ function imprimirPagina() {
 								
 				$nombre_componenteitem="";
 				$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_componenteitem=$dat5[0];	
 				}
 				if($cant_comp>1){
@@ -346,16 +346,16 @@ function imprimirPagina() {
 				$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 				$sql3.=" and cod_compitem='".$cod_compitem."'";
 				$sql3.=" and cod_estado_registro=1 order by orden asc";
-				$resp3=mysql_query($sql3);
-				while ($dat3=mysql_fetch_array($resp3)){
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while ($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_carac=$dat3[0];
 						
 						/*************************/
 						$desc_caracT="";
 						$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-						$resp5=mysql_query($sql5);
-						while ($dat5=mysql_fetch_array($resp5)){
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						while ($dat5=mysqli_fetch_array($resp5)){
 							$desc_caracT=$dat5[0];	
 						}
 						/*************************/

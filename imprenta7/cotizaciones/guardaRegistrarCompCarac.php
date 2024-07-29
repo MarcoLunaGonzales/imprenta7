@@ -4,7 +4,7 @@ include("funciones.php");
 $codItemF=$_POST['codItemF'];
 $codCompItemF=$_POST['codCompItemF'];
 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 	$datos=$_POST['datos'];
 	$vector_datos=explode(",",$datos);	
 	$n=sizeof($vector_datos);
@@ -13,7 +13,7 @@ $resp=mysql_query($sql);
 		$sql=" insert into componentes_caracteristica set";
 		$sql.="  cod_compitem='".$codCompItemF."',";
 		$sql.="  cod_carac='".$cod_carac."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 require("cerrar_conexion.inc");
 ?>

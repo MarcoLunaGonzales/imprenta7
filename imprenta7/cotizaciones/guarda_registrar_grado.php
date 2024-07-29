@@ -14,7 +14,7 @@ $sql.=" nombre_grado='".$nombre_grado."',";
 $sql.=" abrev_grado='".$abrev_grado."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

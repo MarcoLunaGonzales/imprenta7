@@ -21,8 +21,8 @@ include("funciones.php");
 
 				<?php
 					$sql4="select cod_forma_pago,desc_forma_pago from forma_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_forma_pago=$dat4['cod_forma_pago'];	
 			  		 		$desc_forma_pago=$dat4['desc_forma_pago'];	
@@ -37,8 +37,8 @@ include("funciones.php");
 <select name="cod_moneda<?php echo $num;?>" id="cod_moneda<?php echo $num;?>" class="textoform"  onChange="calcularTotalPago()">
 				<?php
 					$sql4="select cod_moneda,desc_moneda from monedas";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_moneda=$dat4['cod_moneda'];	
 			  		 		$desc_moneda=$dat4['desc_moneda'];	

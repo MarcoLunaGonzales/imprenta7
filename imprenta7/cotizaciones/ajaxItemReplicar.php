@@ -11,17 +11,17 @@ include("funciones.php");
 &nbsp;&nbsp;<select class="textoform" id="cod_item<?php echo $num?>" onChange="javascript:items_caracteristicas(this.form,'<?php echo $num?>');">				
 <?php
 	$sql_00="select desc_item from items where cod_item=".$codItemAnterio;
-	$resp_00= mysql_query($sql_00);
+	$resp_00= mysqli_query($enlaceCon,$sql_00);
 	$nombreItemAnterior="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreItemAnterior=$dat_00[0];
 	}
 	?>
 	<option value="<?php echo $codItemAnterio;?>"><?php echo $nombreItemAnterior;?></option>
 	<?php
 	$sql="select cod_item,desc_item from items where cod_item<>".$codItemAnterio." order by desc_item asc";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 			$cod_item=$dat[0];
 			$desc_item=$dat[1];
 ?>
@@ -37,18 +37,18 @@ include("funciones.php");
 	$cod_item=$codItemAnterio;
 	$fila=$num;
 	$sql2="select count(*) from componente_items where cod_item='".$cod_item."' order by cod_compitem asc";
-	$resp2= mysql_query($sql2);	
+	$resp2= mysqli_query($enlaceCon,$sql2);	
 	$countF=0;
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$countF=$dat2[0];
 	}
 	$sql2="select cod_compitem,nombre_componenteitem from componente_items where cod_item='".$cod_item."' order by cod_compitem asc";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$filaComp=0;
 	?>
 <table border="0" width="100%" id="dataCarac<?php echo $fila?>">
 	<?php
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 			$codCompItem=$dat2[0];
 			$nombreComponente=$dat2[1];
 			$filaComp++;
@@ -62,9 +62,9 @@ include("funciones.php");
 			</tr>
 			<?php
 			$sql3="SELECT cc.COD_CARAC,c.desc_carac FROM componentes_caracteristica cc, caracteristicas c WHERE  cc.COD_CARAC=c.COD_CARAC and COD_COMPITEM='".$codCompItem."' ORDER BY cc.orden ASC";
-			$resp3= mysql_query($sql3);
+			$resp3= mysqli_query($enlaceCon,$sql3);
 			$filaCarac=0;
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 					$codCarac=$dat3[0];
 					$descCarac=$dat3[1];
 					$filaCarac++;

@@ -26,8 +26,8 @@ $cod_cliente=$_GET['cod_cliente'];
 					$sql2.=" from clientes_unidades";
 					$sql2.=" where cod_cliente=".$_GET['cod_cliente'];
 					$sql2.=" order by  nombre_unidad asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_unidad=$dat2['cod_unidad'];	
 							$nombre_unidad=$dat2['nombre_unidad'];	

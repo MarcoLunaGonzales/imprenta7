@@ -9,7 +9,7 @@ include("funciones.php");
 	$sql.=" cambio_bs='".$_POST['cambio_bs']."'"; 
 	$sql.=" where fecha_tipo_cambio='".strftime("%Y-%m-%d",strtotime($fecha_tipo_cambio))."'"; 	
 	$sql.=" and cod_moneda='".$cod_moneda."'"; 	
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	
 	
 

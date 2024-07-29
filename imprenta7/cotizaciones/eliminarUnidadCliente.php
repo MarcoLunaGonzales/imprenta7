@@ -4,7 +4,7 @@ require("conexion.inc");
 		
 
 	$sql=" delete from clientes_unidades where cod_unidad='".$_POST['cod_unidad']."'";
-	mysql_query($sql);				
+	mysqli_query($enlaceCon,$sql);				
 
 	
 require("cerrar_conexion.inc");

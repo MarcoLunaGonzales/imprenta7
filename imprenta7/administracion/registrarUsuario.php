@@ -44,8 +44,8 @@
 <?php 	require("conexion.inc");
 
 	$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=1";
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_estado_registro=$dat2[0];
 	}	
 ?>
@@ -90,8 +90,8 @@
 			<select name="cod_ciudad" id="cod_ciudad"  class="textoform">				
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades  where cod_pais=1 order by desc_ciudad";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2['cod_ciudad'];	
 			  		 		$desc_ciudad=$dat2['desc_ciudad'];	
@@ -113,8 +113,8 @@
 			<select name="cod_area" id="cod_area" class="textoform">				
 				<?php
 					$sql2="select cod_area, nombre_area from areas  order by nombre_area";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_area=$dat2['cod_area'];	
 			  		 		$nombre_area=$dat2['nombre_area'];	
@@ -131,8 +131,8 @@
 			<select name="cod_cargo" id="cod_cargo" class="textoform">				
 				<?php
 					$sql2="select cod_cargo, desc_cargo from cargos order by desc_cargo ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cargo=$dat2[0];	
 			  		 		$desc_cargo=$dat2[1];	
@@ -149,8 +149,8 @@
 			<select name="cod_grado" id="cod_grado" class="textoform">				
 				<?php
 					$sql2="select cod_grado, desc_grado from grado_academico ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_grado=$dat2[0];	
 			  		 		$desc_grado=$dat2[1];	
@@ -169,8 +169,8 @@
 				<option value="">Seleccione una Opci&oacute;n</option>					
 				<?php
 					$sql2="select cod_perfil, nombre_perfil from perfiles ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_perfil=$dat2[0];	
 			  		 		$nombre_perfil=$dat2[1];	
@@ -211,8 +211,8 @@
 					$sql="select cod_modulo, nombre_modulo";
 					$sql.=" from modulos  ";
 					$sql.=" order by nombre_modulo asc ";
-					$resp = mysql_query($sql);
-					while($dat=mysql_fetch_array($resp)){						
+					$resp = mysqli_query($enlaceCon,$sql);
+					while($dat=mysqli_fetch_array($resp)){						
 						$cod_modulo=$dat['cod_modulo'];
 						$nombre_modulo=$dat['nombre_modulo'];
 			?> 

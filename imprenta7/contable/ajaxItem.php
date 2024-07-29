@@ -19,8 +19,8 @@ include("funciones.php");
 				<option value="0">SELECCIONE UNA OPCION</option>
 <?php
 	$sql="select cod_item,desc_item from items order by desc_item asc";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 			$cod_item=$dat[0];
 			$desc_item=$dat[1];
 ?>

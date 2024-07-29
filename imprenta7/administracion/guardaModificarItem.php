@@ -11,7 +11,7 @@ $sql="update items set ";
 $sql.=" desc_item='".$desc_item."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
 $sql.=" where cod_item='".$cod_item."' ";
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 require("cerrar_conexion.inc");
 ?>
 <script language="JavaScript">

@@ -35,8 +35,8 @@ function cancelar(f)
 	
 
 		$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$_COOKIE['usuario_global']."'";	
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$usuarioAnulacion=$dat2[0]." ".$dat2[1]." ".$dat2[2];	
 		
 
@@ -45,14 +45,14 @@ function cancelar(f)
 	$sql.=" from hojas_rutas ";
 	$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
 
-	$resp= mysql_query($sql);
-	$dat=mysql_fetch_array($resp);
+	$resp= mysqli_query($enlaceCon,$sql);
+	$dat=mysqli_fetch_array($resp);
 	
 	$fecha_hoja_ruta=$dat[0];
 	$cod_usuario_hoja_ruta=$dat[1];
 		$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$cod_usuario_hoja_ruta."'";	
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$usuarioHojaRuta=$dat2[0]." ".$dat2[1]." ".$dat2[2];	
 	$obs_hoja_ruta=$dat[2]; 
 	$cod_cotizacion=$dat[3]; 
@@ -62,14 +62,14 @@ function cancelar(f)
 	$nro_hoja_ruta=$dat[7];
 	$cod_gestion_hr=$dat['cod_gestion'];
 	$sql6="select gestion, gestion_nombre  from gestiones where cod_gestion='".$cod_gestion_hr."'";
-	$resp6= mysql_query($sql6);
-	$dat6=mysql_fetch_array($resp6);
+	$resp6= mysqli_query($enlaceCon,$sql6);
+	$dat6=mysqli_fetch_array($resp6);
 	$gestionHR=$dat6['gestion'];
 	$gestionNombreHR=$dat6['gestion_nombre'];
 	
 		$sql2="select nombres_usuario,ap_paterno_usuario from usuarios  where cod_usuario='".$cod_usuario_comision."'";	
-		$resp2= mysql_query($sql2);
-		$dat2=mysql_fetch_array($resp2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
+		$dat2=mysqli_fetch_array($resp2);
 		$usuarioComision=$dat2[0]." ".$dat2[1]." ".$dat2[2];			
 	
 
@@ -78,24 +78,24 @@ function cancelar(f)
 			$sql2=" select nro_cotizacion, cod_gestion, cod_cliente, fecha_cotizacion ";
 			$sql2.=" from cotizaciones ";
 			$sql2.=" where cod_cotizacion=".$cod_cotizacion;
-			$resp2= mysql_query($sql2);
-			$dat2=mysql_fetch_array($resp2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			$dat2=mysqli_fetch_array($resp2);
 				$nro_cotizacion=$dat2[0];
 				$cod_gestion=$dat2[1];
 				$cod_cliente=$dat2[2];		
 				$fecha_cotizacion=$dat2[3];	
 				/***********GESTION********/
 					$sql3="select gestion, gestion_nombre  from gestiones where cod_gestion='".$cod_gestion."'";
-					$resp3= mysql_query($sql3);
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					$dat3=mysqli_fetch_array($resp3);
 						$gestion=$dat3['gestion'];
 						$gestion_nombre=$dat3['gestion_nombre'];
 				/************************************/	
 				/*******************CLIENTE*********************/	
 					$sql3=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 					$sql3.=" from clientes where cod_cliente='".$cod_cliente."'";
-					$resp3= mysql_query($sql3);			
-					$dat3=mysql_fetch_array($resp3);
+					$resp3= mysqli_query($enlaceCon,$sql3);			
+					$dat3=mysqli_fetch_array($resp3);
 						$nombre_cliente=$dat3[0];
 						$direccion_cliente=$dat3[1];
 						$telefono_cliente=$dat3[2];

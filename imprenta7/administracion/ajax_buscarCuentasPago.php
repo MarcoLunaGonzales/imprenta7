@@ -26,9 +26,9 @@ require("conexion.inc");
 			$sql.=" or desc_cuenta like'%".$_GET['numero_cuentaB']."%')";			
 		}
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$numRows=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 			$numRows=$dat[0];			
 		}
 		if($numRows==0){
@@ -63,7 +63,7 @@ require("conexion.inc");
 		}
 		$sql.=" order by nro_cuenta asc";
 	//	echo $sql."<br/>";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="98%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -78,7 +78,7 @@ require("conexion.inc");
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 
 			$cod_cuenta=$dat['cod_cuenta'];
 				$nro_cuenta=$dat['nro_cuenta'];
@@ -93,26 +93,26 @@ require("conexion.inc");
 				$fecha_modifica=$dat['fecha_modifica'];
 				//Obteniendo la descripcion de la Moneda
 					$sql2="select desc_moneda from monedas where cod_moneda=".$cod_moneda;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$desc_moneda="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_moneda=$dat2['desc_moneda'];
 					}
 				// Fin Obteniendo la descripcion de la Moneda
 				//Obteniendo la descripcion del Estado de Registro
 					$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=".$cod_estado_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_estado_registro="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2['nombre_estado_registro'];
 					}
 				// Fin Obteniendo la descripcion del Estado de Registro				
 				
 				//Obteniendo la descripcion del Estado de Registro
 					$sql2="select nombre_estado_registro from estados_referenciales where cod_estado_registro=".$cod_estado_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_estado_registro="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2['nombre_estado_registro'];
 					}
 				// Fin Obteniendo la descripcion del Estado de Registro	
@@ -121,9 +121,9 @@ require("conexion.inc");
 				if($cod_usuario_registro!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];
@@ -140,9 +140,9 @@ require("conexion.inc");
 				if($cod_usuario_modifica!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_modifica;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 			//	
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];

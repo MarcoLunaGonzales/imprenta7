@@ -574,9 +574,9 @@ function guardar(){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 	$sql="select max(nro_pago) from pagos where cod_gestion='".$cod_gestion."'";
@@ -618,8 +618,8 @@ function guardar(){
 				$sql2.=" and cod_estado_salida=1 and cod_estado_pago_doc<>3))";				
 				$sql2.=" order by nombre_cliente";				
 
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2['cod_cliente'];	
 			  		 		$nombre_cliente=$dat2['nombre_cliente'];	

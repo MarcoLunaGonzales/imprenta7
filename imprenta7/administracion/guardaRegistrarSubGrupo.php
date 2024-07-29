@@ -18,7 +18,7 @@ $sql.=" abrev_subgrupo='".$abrev_subgrupo."',";
 $sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."',"; 
 $sql.=" fecha_registro='".date('Y/m/d', time())."',"; 
 $sql.=" cod_estado_registro='".$cod_estado_registro."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 require("cerrar_conexion.inc");

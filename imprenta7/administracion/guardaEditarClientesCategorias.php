@@ -23,7 +23,7 @@ $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_categoria=".$cod_categoria.""; 
 //$sql.=" cod_usuario_modifica='".$obs_cargo."',";
 //$sql.=" fecha_modifica='".$obs_cargo."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

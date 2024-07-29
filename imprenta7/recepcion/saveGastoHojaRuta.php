@@ -30,7 +30,7 @@ include("funciones.php");
 		$sql2.=" fecha_registro='".date('Y-m-d', time())."'";
 
 	
-		mysql_query($sql2);
+		mysqli_query($enlaceCon,$sql2);
 		//echo $sql2;
 
 

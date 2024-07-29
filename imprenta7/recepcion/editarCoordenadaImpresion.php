@@ -39,8 +39,8 @@
 	
 	$sql=" select desc_coordenada, valor_x, valor_y ";
 	$sql.=" from coordenadas_impresion where cod_coordenada='".$cod_coordenada."'";
-    $resp= mysql_query($sql);	
-	$dat=mysql_fetch_array($resp);
+    $resp= mysqli_query($enlaceCon,$sql);	
+	$dat=mysqli_fetch_array($resp);
 	$desc_coordenada=$dat[0];
 	$valor_x=$dat[1];	
 	$valor_y=$dat[2];		

@@ -111,8 +111,8 @@ function eliminar(f)
 
 	$sql_aux=" select count(*) from clientes ";
 
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -150,7 +150,7 @@ function eliminar(f)
 		$sql.=" from clientes ";
 		$sql.=" order by nombre_cliente asc  ";
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -167,7 +167,7 @@ function eliminar(f)
 
 <?php   
 	$cont=1;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 
 				$cod_cliente=$dat[0];
 				$nombre_cliente=$dat[1]; 
@@ -176,8 +176,8 @@ function eliminar(f)
 				//**************************************************************
 					$desc_categoria="";				
 					$sql2="select desc_categoria from clientes_categorias where cod_categoria='".$cod_categoria."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_categoria=$dat2[0];
 					}	
 				//**************************************************************					
@@ -185,8 +185,8 @@ function eliminar(f)
 				//**************************************************************
 				$desc_ciudad="";
 				$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_ciudad=$dat2[0];
 				}					
 				//**************************************************************
@@ -205,8 +205,8 @@ function eliminar(f)
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************							

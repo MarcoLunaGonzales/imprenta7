@@ -26,7 +26,7 @@ include("funciones.php");
 	$sql.=" fecha_registro='".date('Y-m-d H:i:s', time())."',"; 
 	$sql.=" cod_usuario_registro='".$_COOKIE['usuario_global']."'"; 
 //	echo $sql."<br/>";
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 ////////////////////////////////DETALLE DE INGRESOS///////////////////////////////////
 	$sql=" select i.cod_ingreso, i.nro_ingreso, i.cod_gestion, g.gestion,  i.fecha_ingreso, i.total_bs ";
@@ -36,9 +36,9 @@ include("funciones.php");
 	$sql.=" and i.cod_estado_ingreso<>2";
 	$sql.=" and i.cod_estado_pago_doc<>3";
 	$sql.=" order by  i.fecha_ingreso asc , i.nro_ingreso asc  ";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_ingreso=$dat['cod_ingreso'];
 		 $nro_ingreso=$dat['nro_ingreso'];
 		 $cod_gestion=$dat['cod_gestion'];
@@ -62,7 +62,7 @@ include("funciones.php");
 			 $sql2.=" codigo_doc='".$cod_ingreso."',";
 			 $sql2.=" cod_tipo_doc=4,";			 
 			 $sql2.=" monto_pago_prov_detalle='".$monto_pago_prov_detalle."'";	 
-			 mysql_query($sql2);
+			 mysqli_query($enlaceCon,$sql2);
 			 
 		//ACTUALIZACION DE ESTADO PAGO DE INGRESO//
 		$sql2=" select  count(*),sum(ppd.monto_pago_prov_detalle) ";
@@ -70,9 +70,9 @@ include("funciones.php");
 		$sql2.=" inner join  pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov and pp.cod_estado_pago_prov<>2) ";
 		$sql2.=" and ppd.codigo_doc=".$cod_ingreso;
 		$sql2.=" and ppd.cod_tipo_doc=4 ";
-		$resp2 = mysql_query($sql2);
+		$resp2 = mysqli_query($enlaceCon,$sql2);
 		$acuenta_pago_prov=0;
-		while($dat2=mysql_fetch_array($resp2)){					
+		while($dat2=mysqli_fetch_array($resp2)){					
 			$num_pago_prov=$dat2[0];
 			if($num_pago_prov>0){
 				$acuenta_pago_prov=$dat2[1];									
@@ -86,20 +86,20 @@ include("funciones.php");
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_ingreso='".$cod_ingreso."'"; 
 
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_pago_prov==0){
 						$sql4=" update ingresos set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_ingreso='".$cod_ingreso."'";  	
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 								
 				}else{
 
 						$sql4=" update ingresos set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_ingreso='".$cod_ingreso."'";  		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 								
 				}		
 			}
@@ -117,9 +117,9 @@ include("funciones.php");
 	$sql.=" and cod_estado<>2";
 	$sql.=" and cod_estado_pago_doc<>3";
 	$sql.=" order by  fecha_gasto_gral asc , nro_gasto_gral asc  ";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$gestion="";
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		 $cod_gasto_gral=$dat['cod_gasto_gral'];
 		 $fecha_gasto_gral=$dat['fecha_gasto_gral'];
 		 $monto_gasto_gral=$dat['monto_gasto_gral'];
@@ -140,7 +140,7 @@ include("funciones.php");
 			 $sql2.=" codigo_doc='".$cod_gasto_gral."',";
 			 $sql2.=" cod_tipo_doc=5,";			 
 			 $sql2.=" monto_pago_prov_detalle='".$monto_pago_prov_detalle."'";	 
-			 mysql_query($sql2);
+			 mysqli_query($enlaceCon,$sql2);
 			 
 		//ACTUALIZACION DE ESTADO PAGO DE INGRESO//
 		$sql2=" select  count(*),sum(ppd.monto_pago_prov_detalle) ";
@@ -148,9 +148,9 @@ include("funciones.php");
 		$sql2.=" inner join  pago_proveedor pp on(ppd.cod_pago_prov=pp.cod_pago_prov and pp.cod_estado_pago_prov<>2) ";
 		$sql2.=" and ppd.codigo_doc=".$cod_gasto_gral;
 		$sql2.=" and ppd.cod_tipo_doc=5";
-		$resp2 = mysql_query($sql2);
+		$resp2 = mysqli_query($enlaceCon,$sql2);
 		$acuenta_pago_prov=0;
-		while($dat2=mysql_fetch_array($resp2)){					
+		while($dat2=mysqli_fetch_array($resp2)){					
 			$num_pago_prov=$dat2[0];
 			if($num_pago_prov>0){
 				$acuenta_pago_prov=$dat2[1];									
@@ -164,20 +164,20 @@ include("funciones.php");
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_gasto_gral='".$cod_gasto_gral."'"; 
 
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_pago_prov==0){
 						$sql4=" update gastos_gral set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_gasto_gral='".$cod_gasto_gral."'";  	
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 								
 				}else{
 
 						$sql4=" update gastos_gral set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_gasto_gral='".$cod_gasto_gral."'";  		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 								
 				}		
 			}
@@ -191,15 +191,15 @@ include("funciones.php");
 $sql3="select cambio_bs from tipo_cambio";
 $sql3.=" where fecha_tipo_cambio='".date('Y-m-d', time())."'";
 $sql3.=" and cod_moneda=2";
-$resp3 = mysql_query($sql3);
+$resp3 = mysqli_query($enlaceCon,$sql3);
 $cambio_bs=0;
-while($dat3=mysql_fetch_array($resp3)){
+while($dat3=mysqli_fetch_array($resp3)){
 	$cambio_bs=$dat3['cambio_bs'];
 }
 							
 $sql=" select cod_forma_pago from forma_pago";
-$resp= mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp= mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$cod_forma_pago=$dat['cod_forma_pago'];	
 	$montoPagoBs=0;	
 	if($_POST['montoPagoBs'.$cod_forma_pago]){
@@ -229,7 +229,7 @@ while($dat=mysql_fetch_array($resp)){
 		$sql2.=" nro_cheque='".$nro_chequeBs."',";
 		$sql2.=" nro_cuenta='".$nro_cuentaBs."'";
 		//echo $sql2;
-		 mysql_query($sql2);
+		 mysqli_query($enlaceCon,$sql2);
 	
 	}	
 	
@@ -261,7 +261,7 @@ while($dat=mysql_fetch_array($resp)){
 		$sql2.=" nro_cheque='".$nro_chequeSus."',";
 		$sql2.=" nro_cuenta='".$nro_cuentaSus."'";
 		//echo $sql2;
-		mysql_query($sql2);	
+		mysqli_query($enlaceCon,$sql2);	
 	}		
 	
 }

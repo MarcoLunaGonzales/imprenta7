@@ -30,8 +30,8 @@
 		$sql.=" cod_usuario_modifica, fecha_modifica";
 		$sql.=" from comprobante";
 		$sql.=" where cod_cbte=".$_GET['cod_cbte'];
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){	
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){	
 				$cod_cbte=$dat['cod_cbte'];
 				$cod_empresa=$dat['cod_empresa'];
 				$cod_gestion=$dat['cod_gestion'];
@@ -53,8 +53,8 @@
 				$desc_moneda="";
 				if($cod_gestion!= NULL){
 					$sql2=" select  gestion from gestiones  where cod_gestion=".$cod_gestion." ";
-					$resp2 = mysql_query($sql2);	
-					while($dat2=mysql_fetch_array($resp2)){			
+					$resp2 = mysqli_query($enlaceCon,$sql2);	
+					while($dat2=mysqli_fetch_array($resp2)){			
 						$gestion=$dat2['gestion'];		
 					}
 				}				
@@ -63,9 +63,9 @@
 				//echo "holaaaaa".$cod_tipo_cbte;			
 					$sql2=" select nombre_tipo_cbte from tipo_comprobante where cod_tipo_cbte=".$cod_tipo_cbte;
 					//echo $sql2;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_tipo_cbte="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_tipo_cbte=$dat2['nombre_tipo_cbte'];
 					}
 				//}
@@ -73,9 +73,9 @@
 				//Obteniendo la descripcion del Estado de Cbte
 				if($cod_estado_cbte!= NULL){	
 					$sql2="select nombre_estado_cbte from estado_comprobante where cod_estado_cbte=".$cod_estado_cbte;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$nombre_estado_cbte="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_cbte=$dat2['nombre_estado_cbte'];
 					}
 				}
@@ -83,9 +83,9 @@
 				//Obteniendo la descripcion del Estado de Cbte
 				if($cod_moneda!= NULL){	
 					$sql2="select desc_moneda from monedas where cod_moneda=".$cod_moneda;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 					$desc_moneda="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_moneda=$dat2['desc_moneda'];
 					}
 				}
@@ -98,9 +98,9 @@
 				if($cod_usuario_registro!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_registro;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 				
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];
@@ -117,9 +117,9 @@
 				if($cod_usuario_modifica!=NULL){
 					$sql2=" select nombres_usuario, nombres_usuario2, nombres_pila, ap_paterno_usuario, ap_materno_usuario ";
 					$sql2.=" from usuarios where cod_usuario=".$cod_usuario_modifica;
-					$resp2 = mysql_query($sql2);
+					$resp2 = mysqli_query($enlaceCon,$sql2);
 				
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$nombres_usuario2=$dat2['nombres_usuario2'];
 						$nombres_pila=$dat2['nombres_pila'];

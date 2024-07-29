@@ -33,7 +33,7 @@ include("funciones.php");
 		$sql2.=" cod_usuario_registro=".$_COOKIE['usuario_global'].",";
 		$sql2.=" fecha_registro='".date('Y-m-d', time())."'";
 
-		mysql_query($sql2);
+		mysqli_query($enlaceCon,$sql2);
 
 
 

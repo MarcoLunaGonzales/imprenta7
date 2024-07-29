@@ -106,8 +106,8 @@ include("funciones.php");
 	}
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -186,7 +186,7 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 	}
 		$sql.=" order by  s.cod_salida desc ";
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -209,7 +209,7 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 		</thead>
 		<tbody>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				$cod_salida=$dat['cod_salida']; 
 				$cod_tipo_salida=$dat['cod_tipo_salida']; 
 				$nombre_tipo_salida=$dat['nombre_tipo_salida']; 
@@ -248,8 +248,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 						$swValIngreso=0;
 						
 						$sql8="select cod_estado_ingreso from ingresos where cod_salida=".$cod_salida;
-						$resp8= mysql_query($sql8);			
-						while($dat8=mysql_fetch_array($resp8)){
+						$resp8= mysqli_query($enlaceCon,$sql8);			
+						while($dat8=mysqli_fetch_array($resp8)){
 							$cod_estado_ingreso=$dat8[0];
 						}						
 						if($cod_estado_ingreso==2){
@@ -267,8 +267,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 						$sql2="select  nombre_area";
 						$sql2.=" from areas ";
 						$sql2.=" where cod_area=".$cod_area;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_area=$dat2['nombre_area']; 
 						}
 					}
@@ -276,8 +276,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 						$sql2="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 						$sql2.=" from usuarios ";
 						$sql2.=" where cod_usuario=".$cod_usuario;		
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$usuario_uso_interno=$dat2['ap_paterno_usuario']." ".$dat2['nombres_usuario']; 
 
 						}
@@ -298,8 +298,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
             		$sql2="select u.nombres_usuario, u.ap_paterno_usuario, u.ap_materno_usuario ";
 					$sql2.=" from usuarios u ";
 					$sql2.=" where u.cod_usuario=".$cod_usuario_salida;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){				
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){				
 						$nombres_usuario=$dat2['nombres_usuario'];
 						$ap_paterno_usuario=$dat2['ap_paterno_usuario'];
 						$ap_materno_usuario=$dat2['ap_materno_usuario'];
@@ -311,8 +311,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 			<?php
             if($cod_almacen_traspaso<>""){
 				$sqlAux="select nombre_almacen from almacenes where cod_almacen=".$cod_almacen_traspaso;
-				$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){	
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){	
 						echo $datAux['nombre_almacen'];
 					}				
 			}
@@ -323,8 +323,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 				$sqlAux.=" and hr.cod_cotizacion=c.cod_cotizacion ";
 				$sqlAux.=" and c.cod_cliente=cli.cod_cliente";
 				$sqlAux.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
-				$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){	
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){	
 			?>
             	<a href="../reportes/impresionHojaRuta.php?cod_hoja_ruta=<?php echo $cod_hoja_ruta;?>" target="_blank"><?php echo $datAux['nro_hoja_ruta']."/".$datAux['gestion'];?></a><br/><?php echo $datAux['nombre_cliente'];?>
             <?php
@@ -337,8 +337,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 				if($cod_tipo_salida==1){
 						if($cod_tipo_pago<>""){
 							$sqlAux="select nombre_tipo_pago from tipos_pago where cod_tipo_pago=".$cod_tipo_pago;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_tipo_pago=$datAux['nombre_tipo_pago'];
 							}
 						}		
@@ -351,15 +351,15 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 						
 						if($cod_cliente_venta<>""){
 							$sqlAux="select nombre_cliente from clientes where cod_cliente=".$cod_cliente_venta;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){	
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){	
 								$nombre_cliente_venta=$datAux['nombre_cliente'];
 							}	
 							if($cod_contacto<>""){
 								$sqlAux=" select nombre_contacto, ap_paterno_contacto from clientes_contactos ";
 								$sqlAux.=" where cod_contacto=".$cod_contacto;
-								$respAux = mysql_query($sqlAux);
-								while($datAux=mysql_fetch_array($respAux)){	
+								$respAux = mysqli_query($enlaceCon,$sqlAux);
+								while($datAux=mysqli_fetch_array($respAux)){	
 									$nombre_contacto=$datAux['nombre_contacto'];
 									$ap_paterno_contacto=$datAux['ap_paterno_contacto'];
 								}
@@ -389,8 +389,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 				$sqlAux.=" where ot.cod_gestion=g.cod_gestion ";
 				$sqlAux.=" and ot.cod_cliente=cli.cod_cliente ";
 				$sqlAux.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
-				$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){	
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){	
 			?>
 				<a href="../reportes/impresionOrdenTrabajo.php?cod_orden_trabajo=<?php echo $cod_orden_trabajo;?>" target="_blank"><?php echo $datAux['nro_orden_trabajo']."/".$datAux['gestion']." (".$datAux['numero_orden_trabajo'].")";?></a><br/><?php echo $datAux['nombre_cliente']?>
 			<?php
@@ -410,8 +410,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 			 		$sqlAux=" select sum(sd.precio_venta*sd.cant_salida) ";
 					$sqlAux.=" from salidas_detalle sd ";
 					$sqlAux.=" where sd.cod_salida=".$cod_salida;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 						$monto_venta=$datAux[0];
 					}	
 					echo $monto_venta;		
@@ -427,9 +427,9 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 			 	$sqlAux.=" and p.cod_estado_pago<>2";
 			 	$sqlAux.=" and pd.codigo_doc=".$cod_salida;
 				$sqlAux.=" and pd.cod_tipo_doc=3";
-				$respAux = mysql_query($sqlAux);
+				$respAux = mysqli_query($enlaceCon,$sqlAux);
 				$acuenta_venta=0;
-				while($datAux=mysql_fetch_array($respAux)){
+				while($datAux=mysqli_fetch_array($respAux)){
 
 					$monto_pago_detalle=$datAux['monto_pago_detalle'];
 					$fecha_pago=$datAux['fecha_pago'];
@@ -456,8 +456,8 @@ $sql.=" and s.cod_almacen=".$_COOKIE['cod_almacen_global'];
 		 			$sqlAux=" select desc_estado_pago_doc ";
 					$sqlAux.=" from estado_pago_documento ";
 					$sqlAux.=" where cod_estado_pago_doc=".$cod_estado_pago_doc;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$desc_estado_pago_doc=$datAux['desc_estado_pago_doc'];
 					}
 					echo $desc_estado_pago_doc;

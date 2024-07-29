@@ -21,8 +21,8 @@ $codgrupoB=$_GET['codgrupoB'];
 					$sql2.=" where cod_estado_registro=1  and cod_grupo=".$codgrupoB;
 					$sql2.= "  order by  nombre_subgrupo asc";
 
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_subgrupo=$dat2[0];	
 			  		 		$nombre_subgrupo=$dat2[1];	

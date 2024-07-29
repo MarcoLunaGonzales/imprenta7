@@ -47,31 +47,31 @@ $sql.=" presen_hard_soft_pack, cod_contacto";
 $sql.=" from fichas_producto ";
 $sql.=" where cod_ficha='".$cod_ficha."'";
 
-$resp=mysql_query($sql);
-while ($dat=mysql_fetch_array($resp)){		
+$resp=mysqli_query($enlaceCon,$sql);
+while ($dat=mysqli_fetch_array($resp)){		
 	$cod_ficha=$dat[0];
 	
 	$cod_tipo_cigarrillo=$dat[1];
 	$nombre_tipo_cigarrillo="";	
 	$sql3=" select  nombre_tipo_cigarrillo from tipos_cigarrillo where cod_tipo_cigarrillo='".$cod_tipo_cigarrillo."'";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 		$nombre_tipo_cigarrillo=$dat3[0];
 	}	
 		
 	$cod_emp_prim_cant=$dat[2];
 	$sql3=" select cant_emp_prim_cant from empaque_primario_cantidades where cod_emp_prim_cant='".$cod_emp_prim_cant."'";
 	$cant_emp_prim_cant="";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 		$cant_emp_prim_cant=$dat3[0];
 	}	
 	
 	$cod_emp_secc_cant=$dat[3];
 	$sql3=" select cant_emp_secc_cant from empaque_secundario_cantidades where cod_emp_secc_cant='".$cod_emp_secc_cant."'";
 	$cant_emp_secc_cant="";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){
 		$cant_emp_secc_cant=$dat3[0];
 	}	
 	
@@ -79,8 +79,8 @@ while ($dat=mysql_fetch_array($resp)){
 	$sql3=" select cant_embalaje_cant from embalaje_cantidades where cod_embalaje_cant='".$cod_embalaje_cant."'";
 
 	$cant_embalaje_cant="";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){
 		$cant_embalaje_cant=$dat3[0];
 	}	
 	
@@ -94,8 +94,8 @@ while ($dat=mysql_fetch_array($resp)){
 	$cod_pais=$dat[11];
 	$sql3=" select  nombre_pais  from paises where cod_pais='".$cod_pais."'";
 	$empresa="";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 		$nombre_pais=$dat3[0];
 	}	
 	$cia_productora=$dat[12];
@@ -105,8 +105,8 @@ while ($dat=mysql_fetch_array($resp)){
 	$cod_contacto=$dat[16];
 	$sql3=" select  rotulo_comercial  from empresas where cod_empresa in (select cod_empresa from contactos where cod_contacto='".$cod_contacto."')";
 	$empresa="";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){		
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){		
 		$empresa=$dat3[0];
 	}
 	
@@ -179,16 +179,16 @@ while ($dat=mysql_fetch_array($resp)){
 	$pdf->Cell(85,6,'14. Información en la Cajetilla',0,1);
 	
 	$sql3=" select cod_emp_prim_inf, nombre_emp_prim_inf from empaque_primario_informacion ";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 	
 		$cod_emp_prim_inf=$dat3[0];
 		$nombre_emp_prim_inf=$dat3[1];
 		$sql4=" select count(*) as existe from  ficha_inf_emp_primario ";
 		$sql4.=" where cod_emp_prim_inf='".$cod_emp_prim_inf."'";
 		$sql4.=" and cod_ficha='".$cod_ficha."'";
-		$resp4=mysql_query($sql4);
-		while ($dat4=mysql_fetch_array($resp4)){	
+		$resp4=mysqli_query($enlaceCon,$sql4);
+		while ($dat4=mysqli_fetch_array($resp4)){	
 			$existe=$dat4[0];	
 		}
 		$pdf->Cell(85,6,'',0,0);
@@ -204,16 +204,16 @@ while ($dat=mysql_fetch_array($resp)){
 	
 	$pdf->Cell(85,6,'15. Información de Cartones/Paquetes',0,1);	
 	$sql3=" select cod_emp_secc_inf, nombre_emp_secc_inf from empaque_secundario_informacion ";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 	
 		$cod_emp_secc_inf=$dat3[0];
 		$nombre_emp_secc_inf=$dat3[1];
 		$sql4=" select count(*) as existe from  ficha_inf_emp_secundario ";
 		$sql4.=" where cod_emp_secc_inf='".$cod_emp_secc_inf."'";
 		$sql4.=" and cod_ficha='".$cod_ficha."'";
-		$resp4=mysql_query($sql4);
-		while ($dat4=mysql_fetch_array($resp4)){	
+		$resp4=mysqli_query($enlaceCon,$sql4);
+		while ($dat4=mysqli_fetch_array($resp4)){	
 			$existe=$dat4[0];	
 		}
 		$pdf->Cell(85,6,'',0,0);
@@ -227,16 +227,16 @@ while ($dat=mysql_fetch_array($resp)){
 	
 	$pdf->Cell(85,6,'16.  Información de Master Cases / Jaba',0,1);	
 	$sql3=" select cod_embalaje_inf, nombre_embalaje_inf from embalaje_informacion ";
-	$resp3=mysql_query($sql3);
-	while ($dat3=mysql_fetch_array($resp3)){	
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while ($dat3=mysqli_fetch_array($resp3)){	
 	
 		$cod_embalaje_inf=$dat3[0];	
 		$nombre_embalaje_inf=$dat3[1];
 		$sql4=" select count(*) as existe from  ficha_inf_embalaje ";
 		$sql4.=" where cod_embalaje_inf='".$cod_embalaje_inf."'";
 		$sql4.=" and cod_ficha='".$cod_ficha."'";
-		$resp4=mysql_query($sql4);
-		while ($dat4=mysql_fetch_array($resp4)){	
+		$resp4=mysqli_query($enlaceCon,$sql4);
+		while ($dat4=mysqli_fetch_array($resp4)){	
 			$existe=$dat4[0];
 		}
 		$pdf->Cell(85,6,'',0,0);

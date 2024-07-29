@@ -16,8 +16,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 	$sql2=" select nombre_cliente";
 	$sql2.=" from clientes ";
 	$sql2.=" where cod_cliente=".$codcliente;
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2['nombre_cliente'];
 	}
 	
@@ -25,8 +25,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 	$sql2.=" from clientes_contactos";
 	$sql2.=" where cod_cliente=".$codcliente;
 	$sql2.=" order by ap_paterno_contacto,ap_materno_contacto,nombre_contacto";
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nro_filas=$dat2[0];
 	}
 		
@@ -71,8 +71,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 	$sql2.=" from clientes_contactos";
 	$sql2.=" where cod_cliente=".$codcliente;
 	$sql2.=" order by ap_paterno_contacto,ap_materno_contacto,nombre_contacto";
-	$resp2=mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2=mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$cod_contacto=$dat2['cod_contacto'];
 		$nombre_contacto=$dat2['nombre_contacto'];
 		$ap_paterno_contacto=$dat2['ap_paterno_contacto'];

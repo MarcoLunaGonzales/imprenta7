@@ -4,7 +4,7 @@ require("conexion.inc");
 		
 
 	$sql=" delete from cuentas where cod_cuenta='".$_POST['cod_cuenta']."'";
-	mysql_query($sql);				
+	mysqli_query($enlaceCon,$sql);				
 
 	
 require("cerrar_conexion.inc");

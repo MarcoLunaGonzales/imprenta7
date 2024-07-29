@@ -41,8 +41,8 @@
 		$sql="select nombre_almacen, cod_sucursal, cod_estado_registro ";
 		$sql.=" from almacenes ";
 		$sql.=" where cod_almacen=".$cod_almacen;
-		$resp= mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp= mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nombre_almacen =$dat[0];
 			$codsucursal=$dat[1];
 			$codestadoregistro=$dat[2];
@@ -70,8 +70,8 @@
 			<select name="cod_sucursal" class="textoform">				
 				<?php
 					$sql2="select cod_sucursal, nombre_sucursal from sucursales order by  nombre_sucursal asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_sucursal=$dat2[0];	
 			  		 		$nombre_sucursal=$dat2[1];	
@@ -89,8 +89,8 @@
 			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

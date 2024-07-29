@@ -19,8 +19,8 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 	$sql.="  fecha_cotizacion, obs_cotizacion, cod_tipo_pago, cod_sumar, considerar_precio_unitario, cod_usuario_firma ";
 	$sql.=" from cotizaciones ";
 	$sql.=" where cod_cotizacion='".$cod_cotizacion."'";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_tipo_cotizacion=$dat[0];
 		$cod_estado_cotizacion=$dat[1];
 		$nro_cotizacion=$dat[2];
@@ -35,17 +35,17 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 		/////////////////CLIENTE////////////////////////////
 		$nombre_cliente="";
 		$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$nombre_cliente="";
-		$dat2=mysql_fetch_array($resp2);
+		$dat2=mysqli_fetch_array($resp2);
 		$nombre_cliente=$dat2[0];
 		/////////////////FIN CLIENTE////////////////////////////
 				
 		/////////////////GESTION COTIZACION////////////////////////////
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_cot."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestionCotizacion="";
-		$dat2=mysql_fetch_array($resp2);
+		$dat2=mysqli_fetch_array($resp2);
 		$gestionCotizacion=$dat2[0];
 		/////////////////FIN GESTION COTIZACION////////////////////////////
 	}	
@@ -56,8 +56,8 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 	$sql.=" obs_hoja_ruta, cod_cotizacion,factura_si_no, cod_usuario_comision ";
 	$sql.=" from hojas_rutas ";
 	$sql.=" where cod_cotizacion='".$cod_cotizacion."' and cod_estado_hoja_ruta=1";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_hoja_ruta=$dat[0];
 		$cod_gestion_hoja_ruta=$dat[1];	
 		$nro_hoja_ruta=$dat[2];
@@ -69,9 +69,9 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 		$cod_usuario_comision=$dat[8];
 		/////////////////GESTION HOJA RUTA////////////////////////////
 		$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_hoja_ruta."'";
-		$resp2= mysql_query($sql2);
+		$resp2= mysqli_query($enlaceCon,$sql2);
 		$gestionHojaRuta="";
-		$dat2=mysql_fetch_array($resp2);
+		$dat2=mysqli_fetch_array($resp2);
 		$gestionHojaRuta=$dat2[0];
 		/////////////////FIN GESTION HOJA RUTA////////////////////////////			
 	}		
@@ -109,17 +109,17 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 			$sql=" select cod_nota_remision, cod_gestion,nro_nota_remision, fecha_nota_remision ";
 			$sql.=" from notas_remision ";
 			$sql.=" where cod_hoja_ruta='".$cod_hoja_ruta."'";
-			$resp= mysql_query($sql);
-			while($dat=mysql_fetch_array($resp)){
+			$resp= mysqli_query($enlaceCon,$sql);
+			while($dat=mysqli_fetch_array($resp)){
 				$cod_nota_remision=$dat[0];
 				$cod_gestion_nota_remision=$dat[1];	
 				$nro_nota_remision=$dat[2];
 				$fecha_nota_remision=$dat[3];
 				/////////////////GESTION HOJA RUTA////////////////////////////
 				$sql2="select gestion from gestiones where cod_gestion=".$cod_gestion_nota_remision."";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$gestionNotaRemision="";
-				$dat2=mysql_fetch_array($resp2);
+				$dat2=mysqli_fetch_array($resp2);
 				$gestionNotaRemision=$dat2[0];
 				/////////////////FIN GESTION HOJA RUTA////////////////////////////	
 				
@@ -146,10 +146,10 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 		$sql.=" from hojas_rutas_detalle ";
 		$sql.=" where cod_hoja_ruta=".$cod_hoja_ruta." order by  cod_cotizaciondetalle asc";
 		//echo $sql;
-		$resp= mysql_query($sql);
+		$resp= mysqli_query($enlaceCon,$sql);
 		$sumaTotal=0;
 		$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		$cont++;
 			$cod_cotizacion=$dat[0];
 			$cod_cotizaciondetalle=$dat[1];			
@@ -158,8 +158,8 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 			$sql2.=" precio_venta, descuento, importe_total, orden, cod_estado_detallecotizacionitem ";
 			$sql2.=" from cotizaciones_detalle ";
 			$sql2.=" where cod_cotizacion=".$cod_cotizacion." and cod_cotizaciondetalle=".$cod_cotizaciondetalle;	
-			$resp2= mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){	
+			$resp2= mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){	
 							
 				$cod_item=$dat2[0];
 				$descripcion_item=$dat2[1]; 
@@ -179,9 +179,9 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 				
 				$desc_item="";
 				$sql3="select desc_item  from items where cod_item=".$cod_item."";
-				$resp3=mysql_query($sql3);
+				$resp3=mysqli_query($enlaceCon,$sql3);
 				$desc_item="";
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$desc_item=$dat3[0];
 				}		
 				
@@ -201,33 +201,33 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 				$sql3.=" from cotizacion_detalle_caracteristica ";
 				$sql3.=" where cod_cotizacion=".$cod_cotizacion;
 				$sql3.=" and cod_cotizaciondetalle=".$cod_cotizaciondetalle;
-				$resp3= mysql_query($sql3);
+				$resp3= mysqli_query($enlaceCon,$sql3);
 				$nro_compitem=0;
-				while($dat3=mysql_fetch_array($resp3)){
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nro_compitem=$dat3[0];
 				}
 				$detalle_item="";
 				
 				$sql4=" select  distinct(cod_compitem) as cod_compitem  from cotizacion_detalle_caracteristica ";
 				$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
-				$resp4=mysql_query($sql4);
-				while ($dat4=mysql_fetch_array($resp4)){
+				$resp4=mysqli_query($enlaceCon,$sql4);
+				while ($dat4=mysqli_fetch_array($resp4)){
 		
 					$cod_compitem=$dat4[0];
 					$sql4=" select  count(*) from cotizacion_detalle_caracteristica ";
 					$sql4.=" where cod_cotizaciondetalle='".$cod_cotizaciondetalle."' and cod_cotizacion='".$cod_cotizacion."'";
 					$sql4.=" and cod_compitem='".$cod_compitem."' and cod_estado_registro=1";
-					$resp4=mysql_query($sql4);
+					$resp4=mysqli_query($enlaceCon,$sql4);
 					$nro_carac=0;
-					while($dat4=mysql_fetch_array($resp4)){
+					while($dat4=mysqli_fetch_array($resp4)){
 						$nro_carac=$dat4[0];
 					}
 				
 					if($nro_carac>0){														
 						$nombre_componenteitem="";
 						$sql5=" select nombre_componenteitem from componente_items where cod_compitem='".$cod_compitem."'";
-						$resp5=mysql_query($sql5);
-						$dat5=mysql_fetch_array($resp5);
+						$resp5=mysqli_query($enlaceCon,$sql5);
+						$dat5=mysqli_fetch_array($resp5);
 							$nombre_componenteitem=$dat5[0];					
 						if($nro_compitem>1){
 							echo $nombre_componenteitem."<br>";
@@ -240,8 +240,8 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 						$sql3.=" and cod_cotizacion='".$cod_cotizacion."'";
 						$sql3.=" and cod_compitem='".$cod_compitem."'";
 						$sql3.=" and cod_estado_registro=1";
-						$resp3=mysql_query($sql3);
-						while ($dat3=mysql_fetch_array($resp3)){						
+						$resp3=mysqli_query($enlaceCon,$sql3);
+						while ($dat3=mysqli_fetch_array($resp3)){						
 							$cod_carac=$dat3[0];	
 							$desc_carac=$dat3[1];
 							$desc_carac=str_replace("|",",",$desc_carac);
@@ -249,8 +249,8 @@ header("Content-Disposition: attachment; filename=archivo.xls");
 							/*************************/
 							$desc_caracT="";
 							$sql5=" select desc_carac from caracteristicas where cod_carac='".$cod_carac."'";
-							$resp5=mysql_query($sql5);
-							$dat5=mysql_fetch_array($resp5);
+							$resp5=mysqli_query($enlaceCon,$sql5);
+							$dat5=mysqli_fetch_array($resp5);
 								$desc_caracT=$dat5[0];	
 							/*************************/		
 							echo $desc_caracT.":".$desc_carac."<br>";

@@ -50,8 +50,8 @@ require("conexion.inc");
 	$sql.=" from proveedores ";
 	$sql.=" where cod_proveedor=".$_GET['cod_proveedor'];
 	//echo $sql;
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nombre_proveedor=$dat['nombre_proveedor'];
 		$nit_proveedor=$dat['nit_proveedor'];
@@ -93,8 +93,8 @@ require("conexion.inc");
 			<select name="cod_ciudad" class="textoform">				
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades where cod_pais=1 order by  desc_ciudad asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2[0];	
 			  		 		$desc_ciudad=$dat2[1];	
@@ -129,8 +129,8 @@ require("conexion.inc");
       		<td><select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

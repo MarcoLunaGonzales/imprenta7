@@ -4,7 +4,7 @@ require("conexion.inc");
 		
 
 	$sql=" delete from clientes_contactos where cod_contacto='".$_POST['cod_contacto']."'";
-	mysql_query($sql);				
+	mysqli_query($enlaceCon,$sql);				
 
 	
 require("cerrar_conexion.inc");

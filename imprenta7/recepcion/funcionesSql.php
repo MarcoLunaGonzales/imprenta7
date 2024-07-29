@@ -21,8 +21,8 @@ function estadoEmpresaSql($codigo)
 {	require("conexion1.inc");
 		$nombre="";
 		$sql="select nombre_estado_empresa from estados_empresa where cod_estado_empresa='".$codigo."'";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nombre=$dat[0];
 		}
 	return($nombre);
@@ -33,16 +33,16 @@ function verificarEliminacionEmpresa($codigo)
 		$sw=1;
 		$nro=0;
 		$sql="select count(*)as nro from contactos where cod_empresa='".$codigo."'";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nro=$dat[0];
 		}	
 		if($nro>0){
 			$sw=2;
 		}
 		$sql="select count(*)as nro from productos_por_empresa where cod_empresa='".$codigo."'";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nro=$dat[0];
 		}				
 		if($nro>0){
@@ -58,8 +58,8 @@ function verificarEliminacionContacto($codigo)
 		$sw=1;
 		$nro=0;
 		$sql="select count(*)as nro from fichas_producto where cod_contacto='".$codigo."'";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			$nro=$dat[0];
 		}
 								
@@ -70,8 +70,8 @@ function ciudadSql($codigo)
 {	require("conexion1.inc");
 		$nombre="";
 		$sql="select nombre_ciudad from ciudades where cod_ciudad='".$codigo."'";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp))
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp))
 		{	$nombre=$dat[0];
 		}
 	return($nombre);
@@ -125,8 +125,8 @@ function empresaContactoSql($codigo)
 		$nombre="";
 		$sql="select  rotulo_comercial ";
 		$sql=$sql." from empresas where cod_empresa in (select cod_empresa from contactos where cod_contacto='".$codigo."')";
-		$resp=mysql_query($sql);
-		while($dat=mysql_fetch_array($resp))
+		$resp=mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp))
 		{	$nombre=$dat[0];
 		}
 	

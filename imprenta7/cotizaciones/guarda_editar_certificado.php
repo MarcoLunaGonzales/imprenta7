@@ -29,11 +29,11 @@ include("funciones.php");
 	$sql.=" cod_ciudad='".$cod_ciudad."'";
 	$sql.=" where cod_cert_prod='".$cod_cert_prod."'";	
 	//echo "sql=".$sql;
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 
 	/*-------------Fichas Tecnicas--------------------*/
 	$sql=" delete from fichas_certificados_producto where cod_cert_prod='".$cod_cert_prod."'";
-	$resp=mysql_query($sql);
+	$resp=mysqli_query($enlaceCon,$sql);
 		
 	
 	$vector2=explode(",",$fichasTecnicas);
@@ -43,7 +43,7 @@ include("funciones.php");
 		$sql3=" insert into fichas_certificados_producto set ";
 		$sql3.=" cod_cert_prod='".$cod_cert_prod."',";
 		$sql3.=" cod_ficha='".$cod_ficha."'";
-		$resp3=mysql_query($sql3);
+		$resp3=mysqli_query($enlaceCon,$sql3);
 	}	
 	/*--------------Fin de Fichas Tecnicas--------------------*/
 

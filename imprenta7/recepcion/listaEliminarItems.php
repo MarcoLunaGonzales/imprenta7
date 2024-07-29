@@ -42,8 +42,8 @@
 				$cod_item=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from cotizaciones_detalle  where cod_item='".$cod_item."'";		
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -82,16 +82,16 @@
 				$cod_item=$vectordatosNoEliminar[$j];
 				$sql=" select desc_item,cod_estado_registro";
 				$sql.=" from items where cod_item='".$cod_item."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$desc_item=$dat[0];
 					$cod_estado_registro=$dat[1];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];																			
 				}
 	
@@ -121,16 +121,16 @@
 				$cod_item=$vectordatosEliminar[$j];
 				$sql=" select desc_item,cod_estado_registro";
 				$sql.=" from items where cod_item='".$cod_item."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$desc_item=$dat[0];
 					$cod_estado_registro=$dat[1];	
 					
 					$sql2=" select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";
-    				$resp2 = mysql_query($sql2);	
+    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 					$nombre_estado_registro="";
-					$dat2=mysql_fetch_array($resp2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_registro=$dat2[0];																			
 				}
 		?>		

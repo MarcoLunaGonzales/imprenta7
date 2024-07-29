@@ -20,8 +20,8 @@ $cod_sucursal=$_GET['cod_sucursal'];
 					$sql2=" select cod_almacen, nombre_almacen from almacenes ";
 					$sql2.=" where cod_estado_registro=1  ";
 					$sql2.=" and cod_sucursal='".$cod_sucursal."'";
-					$resp2=mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2))
 					{				
 							$cod_almacen=$dat2[0];	
 			  		 		$nombre_almacen=$dat2[1];	

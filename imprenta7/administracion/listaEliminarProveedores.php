@@ -35,9 +35,9 @@
 
 				$sw=0;			
 				$sql=" select  count(*)  from ingresos  where cod_proveedor='".$_GET["cod_proveedor"]."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroIngresos=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroIngresos=$dat[0];
 					if($nroIngresos>0){
 						$sw=1;
@@ -45,9 +45,9 @@
 				}
 				
 				$sql=" select  count(*)  from gastos_ordentrabajo  where cod_proveedor='".$_GET["cod_proveedor"]."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroOT=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroOT=$dat[0];
 					if($nroOT>0){
 						$sw=1;
@@ -55,9 +55,9 @@
 				}
 
 				$sql=" select  count(*)  from gastos_hojasrutas  where cod_proveedor='".$_GET["cod_proveedor"]."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroHR=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroHR=$dat[0];
 					if($nroHR>0){
 						$sw=1;
@@ -105,8 +105,8 @@
 				$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica, cod_estado_registro ";
 				$sql.=" from proveedores ";				
 				$sql.=" where  cod_proveedor='".$_GET["cod_proveedor"]."'";	
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 				
 					$nombre_proveedor=$dat['nombre_proveedor'];
 					$nit_proveedor=$dat['nit_proveedor'];
@@ -125,8 +125,8 @@
 					//**************************************************************
 					$desc_ciudad="";
 					$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_ciudad=$dat2[0];
 					}					
 					//**************************************************************					
@@ -134,8 +134,8 @@
 						$nombre_estado_registro="";				
 						$sql2="select nombre_estado_registro from estados_referenciales";
 						$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_estado_registro=$dat2[0];
 						}	
 					//**************************************************************

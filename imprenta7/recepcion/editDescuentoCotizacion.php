@@ -47,8 +47,8 @@
 		$sql.=" and c.cod_tipo_pago=tp.cod_tipo_pago ";
 		$sql.=" and c.cod_cliente=cli.cod_cliente ";
 		$sql.=" and c.cod_cotizacion=".$cod_cotizacion;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 
 			 $cod_tipo_cotizacion=$dat['cod_tipo_cotizacion'];
 			 $nombre_tipo_cotizacion=$dat['nombre_tipo_cotizacion'];
@@ -86,9 +86,9 @@
 
 			    $sql2="  select count(*) swHojasRuta from hojas_rutas ";
 				$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and (cod_estado_hoja_ruta=1 or cod_estado_hoja_ruta=3)";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$swHojasRuta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$swHojasRuta=$dat2[0];
 				}
 	 	}
@@ -123,9 +123,9 @@
 			<?php
 					    $sql2="  select cod_hoja_ruta from hojas_rutas ";
 						$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and (cod_estado_hoja_ruta=1 or cod_estado_hoja_ruta=3)";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$cod_hoja_ruta=0;
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$cod_hoja_ruta=$dat2[0];
 						}
 				
@@ -136,8 +136,8 @@
 							$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 							$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 							$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_factura=$datAux[0];
 							}
 							echo ($monto_factura+$incremento_cotizacion)." Bs.";

@@ -86,9 +86,9 @@ function eliminarProveedor(){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion_nombre from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion_nombre=$dat2['gestion_nombre'];
 	}
 	$sql="select max(nro_gasto_gral) from gastos_gral where cod_gestion='".$cod_gestion."'";
@@ -138,8 +138,8 @@ function eliminarProveedor(){
 			<td ><select name="cod_tipo_pago" id="cod_tipo_pago" class="textoform" >
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	
@@ -156,8 +156,8 @@ function eliminarProveedor(){
             	$sql2="select cod_gasto, desc_gasto";
             	$sql2.=" from gastos ";
             	$sql2.=" order by desc_gasto asc ";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_gasto=$dat2['cod_gasto'];
 					$desc_gasto=$dat2['desc_gasto'];
 			?>

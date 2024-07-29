@@ -54,8 +54,8 @@ function guardar(f){
 		}			
 	
 	//echo $sql_aux;
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -80,10 +80,10 @@ function guardar(f){
 		$sql.=" order by cant desc ";
 		//echo $sql;
 
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$bandera=1;
 		$nroColumnas=1;
-		while($bandera==1 and ($dat=mysql_fetch_array($resp))){
+		while($bandera==1 and ($dat=mysqli_fetch_array($resp))){
 			$bandera=0;
 			$cod_material=$dat[0];
 			$nroColumnas=$dat[1];
@@ -106,7 +106,7 @@ function guardar(f){
 				}	
 		}			
 		$sql.=" order by g.nombre_grupo, sbg.nombre_subgrupo, m.desc_completa_material asc ";	
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="95%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -134,7 +134,7 @@ function guardar(f){
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_grupo=$dat[0]; 
 				$nombre_grupo=$dat[1];
@@ -162,8 +162,8 @@ function guardar(f){
 					$sql3.=" and gc.cod_grupo_carac=mgc.cod_grupo_carac ";
 					$sql3.=" order by gc.orden asc ";
 	
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$desc_material_grupo_caracteristica=$dat3[0];
 						$nombre_grupo_carac=$dat3[1];
 						$orden=$dat3[2];
@@ -174,8 +174,8 @@ function guardar(f){
 				//**************************************************************
 				$abrev_unidad_medida="";
 				$sql2="select abrev_unidad_medida from unidades_medidas where cod_unidad_medida='".$cod_unidad_medida."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$abrev_unidad_medida=$dat2[0];
 				}					
 				//**************************************************************								
@@ -183,17 +183,17 @@ function guardar(f){
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				$sql2=" select  count(*) ";
 				$sql2.=" from ingresos_detalle ";
 				$sql2.=" where cant_actual>0 ";		
 				$sql2.=" and cod_material=".$cod_material;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nroColMaterial=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nroColMaterial=$dat2[0];
 				}
 				//echo "$nroColMaterial".$nroColMaterial;
@@ -239,8 +239,8 @@ function guardar(f){
 				$sql2.=" and id.cod_ingreso=i.cod_ingreso ";
 				$sql2.=" and i.cod_gestion=g.cod_gestion ";
 				$sql2.=" order by  fecha_ingreso asc";
-				$resp2= mysql_query($sql2);				
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);				
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_ingreso=$dat2[0];
 					$nro_ingreso=$dat2[1];
 					$cod_gestion=$dat2[2];

@@ -43,8 +43,8 @@
 		$sql.=" where tc.cod_moneda=m.cod_moneda ";
 		$sql.=" and  tc.fecha_tipo_cambio='".strftime("%Y-%m-%d",strtotime($fecha_tipo_cambio))."'";
 		$sql.=" and tc.cod_moneda=".$cod_moneda;
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			
 				$fecha_tipo_cambio=$dat['fecha_tipo_cambio'];
 				$cod_moneda=$dat['cod_moneda'];

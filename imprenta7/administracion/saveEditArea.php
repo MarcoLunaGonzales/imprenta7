@@ -9,7 +9,7 @@ $sql.=" obs_area='".$_POST['obs_area']."',";
 $sql.=" cod_usuario_modifica='".$_COOKIE['usuario_global']."',";
 $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_area='".$_POST['cod_area']."'"; 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

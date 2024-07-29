@@ -35,9 +35,9 @@
 
 				$sw=0;			
 				$sql=" select  count(*)  from cotizaciones  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroCotizaciones=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroCotizaciones=$dat[0];
 					if($nroCotizaciones>0){
 						$sw=1;
@@ -45,9 +45,9 @@
 				}
 				
 				$sql=" select  count(*)  from ordentrabajo  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroOT=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroOT=$dat[0];
 					if($nroOT>0){
 						$sw=1;
@@ -55,9 +55,9 @@
 				}
 				
 				$sql=" select  count(*)  from pagos  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroPagos=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroPagos=$dat[0];
 					if($nroPagos>0){
 						$sw=1;
@@ -65,18 +65,18 @@
 				}	
 				
 				$sql=" select  count(*)  from salidas  where cod_cliente_venta='".$cod_cliente."' and cod_tipo_salida=1";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroSalidas=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroSalidas=$dat[0];
 					if($nroSalidas>0){
 						$sw=1;
 					}
 				}								
 				$sql=" select  count(*)  from facturas  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroFacturas=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroFacturas=$dat[0];
 					if($nroFacturas>0){
 						$sw=1;
@@ -125,8 +125,8 @@
 				$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica, cod_estado_registro ";
 				$sql.=" from clientes ";				
 				$sql.=" where  cod_cliente='".$cod_cliente."'";	
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$cod_cliente=$dat[0];
 					$nombre_cliente=$dat[1]; 
@@ -135,8 +135,8 @@
 					//**************************************************************
 						$desc_categoria="";				
 						$sql2="select desc_categoria from clientes_categorias where cod_categoria='".$cod_categoria."'";	
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$desc_categoria=$dat2[0];
 						}	
 					//**************************************************************					
@@ -144,8 +144,8 @@
 					//**************************************************************
 					$desc_ciudad="";
 					$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_ciudad=$dat2[0];
 					}					
 					//**************************************************************
@@ -164,8 +164,8 @@
 						$nombre_estado_registro="";				
 						$sql2="select nombre_estado_registro from estados_referenciales";
 						$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_estado_registro=$dat2[0];
 						}	
 					//**************************************************************

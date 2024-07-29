@@ -51,9 +51,9 @@
 	$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica, cod_estado_registro ";
 	$sql.=" from clientes ";
 	$sql.=" where  cod_cliente=".$cod_cliente;
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	
-	while($dat=mysql_fetch_array($resp)){	
+	while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_cliente=$dat[0];
 				$nombre_cliente=$dat[1]; 
@@ -100,8 +100,8 @@
 				<option value="0">Seleccione una Categoria</option>
 				<?php
 					$sql2="select cod_categoria, desc_categoria from clientes_categorias  order by  desc_categoria asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_categoria=$dat2[0];	
 			  		 		$desc_categoria=$dat2[1];	
@@ -123,8 +123,8 @@
 				<option value="0">Seleccione una Ciudad</option>
 				<?php
 					$sql2="select cod_ciudad, desc_ciudad from ciudades where cod_pais=1 order by  desc_ciudad asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_ciudad=$dat2[0];	
 			  		 		$desc_ciudad=$dat2[1];	
@@ -164,8 +164,8 @@
       		<td><select name="cod_estado_registro" class="textoform">
 				<?php
 					$sql2="select cod_estado_registro,nombre_estado_registro from estados_referenciales order by cod_estado_registro desc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

@@ -42,8 +42,8 @@
 				$cod_material=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from ingresos_detalle  where cod_material='".$cod_material."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 			
@@ -89,8 +89,8 @@
 				$sql.=" stock_minimo, stock_maximo,cod_estado_registro ";
 				$sql.=" from materiales ";
 				$sql.=" where cod_material=".$cod_material."";
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 			
 					$nombre_material=$dat[0];				
 					$cod_subgrupo=$dat[1];
@@ -103,8 +103,8 @@
 					//**************************************************************
 					$nombre_subgrupo="";
 					$sql2="select cod_grupo,nombre_subgrupo from subgrupos where cod_subgrupo='".$cod_subgrupo."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cod_grupo=$dat2[0];
 						$nombre_subgrupo=$dat2[1];
 					}					
@@ -114,8 +114,8 @@
 						$sql3.=" where cod_material='".$cod_material."'";
 						$sql3.=" and  cod_grupo_carac in(select cod_grupo_carac from grupos_caracteristicas ";
 						$sql3.=" where cod_grupo='".$cod_grupo."' order by orden asc)";		
-						$resp3= mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3= mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$desc_material_grupo_caracteristica=$dat3[0];
 							$nombre_material=$nombre_material." ".$desc_material_grupo_caracteristica;
 						}						
@@ -125,16 +125,16 @@
 					//**************************************************************
 					$nombre_grupo="";
 					$sql2="select nombre_grupo from grupos where cod_grupo='".$cod_grupo."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_grupo=$dat2[0];
 					}					
 					//**************************************************************				
 					//**************************************************************
 					$nombre_unidad_medida="";
 					$sql2="select nombre_unidad_medida from unidades_medidas where cod_unidad_medida='".$cod_unidad_medida."'";
-					$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_unidad_medida=$dat2[0];
 						}					
 					//**************************************************************								
@@ -142,8 +142,8 @@
 						$nombre_estado_registro="";				
 						$sql2="select nombre_estado_registro from estados_referenciales";
 						$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_estado_registro=$dat2[0];
 						}	
 				//**************************************************************	
@@ -187,8 +187,8 @@
 				$sql.=" stock_minimo, stock_maximo,cod_estado_registro ";
 				$sql.=" from materiales ";
 				$sql.=" where cod_material=".$cod_material."";
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 			
 					$nombre_material=$dat[0];				
 					$cod_subgrupo=$dat[1];
@@ -201,8 +201,8 @@
 					//**************************************************************
 					$nombre_subgrupo="";
 					$sql2="select cod_grupo,nombre_subgrupo from subgrupos where cod_subgrupo='".$cod_subgrupo."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cod_grupo=$dat2[0];
 						$nombre_subgrupo=$dat2[1];
 					}					
@@ -212,8 +212,8 @@
 						$sql3.=" where cod_material='".$cod_material."'";
 						$sql3.=" and  cod_grupo_carac in(select cod_grupo_carac from grupos_caracteristicas ";
 						$sql3.=" where cod_grupo='".$cod_grupo."' order by orden asc)";		
-						$resp3= mysql_query($sql3);
-						while($dat3=mysql_fetch_array($resp3)){
+						$resp3= mysqli_query($enlaceCon,$sql3);
+						while($dat3=mysqli_fetch_array($resp3)){
 							$desc_material_grupo_caracteristica=$dat3[0];
 							$nombre_material=$nombre_material." ".$desc_material_grupo_caracteristica;
 						}						
@@ -223,16 +223,16 @@
 					//**************************************************************
 					$nombre_grupo="";
 					$sql2="select nombre_grupo from grupos where cod_grupo='".$cod_grupo."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_grupo=$dat2[0];
 					}					
 					//**************************************************************				
 					//**************************************************************
 					$nombre_unidad_medida="";
 					$sql2="select nombre_unidad_medida from unidades_medidas where cod_unidad_medida='".$cod_unidad_medida."'";
-					$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_unidad_medida=$dat2[0];
 						}					
 					//**************************************************************								
@@ -240,8 +240,8 @@
 						$nombre_estado_registro="";				
 						$sql2="select nombre_estado_registro from estados_referenciales";
 						$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_estado_registro=$dat2[0];
 						}	
 				//**************************************************************	

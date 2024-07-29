@@ -26,8 +26,8 @@ class PDF extends FPDF
 	$sql.=" from ordentrabajo";
 	$sql.=" where  cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 		
 		$cod_est_ot=$dat['cod_est_ot']; 
 		$nro_orden_trabajo=$dat['nro_orden_trabajo']; 
@@ -62,9 +62,9 @@ class PDF extends FPDF
 			/************CLIENTE********************/
 			$sql2=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente ";
 			$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_cliente="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2['nombre_cliente'];
 				$direccion_cliente=$dat2['direccion_cliente'];
 				$telefono_cliente=$dat2['telefono_cliente'];
@@ -76,9 +76,9 @@ class PDF extends FPDF
 				$sql2.=" telefono_contacto,celular_contacto, email_contacto, cargo_contacto ";
 				$sql2.=" from clientes_contactos ";
 				$sql2.=" where cod_contacto=".$cod_contacto;
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombre_contacto_cliente="";
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 				
 					$nombre_contacto_cliente=$dat2['nombre_contacto']." ".$dat2['ap_paterno_contacto']." ".$dat2['ap_materno_contacto'];
 					$telefono_contacto=$dat2['telefono_contacto'];
@@ -92,9 +92,9 @@ class PDF extends FPDF
 		
 			/************GESTION********************/
 			$sql2="select gestion_nombre from gestiones where cod_gestion='".$cod_gestion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestionHojaRuta="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestionOrdenTrabajo=$dat2[0];
 			}		
 			/************FIN GESTION********************/		
@@ -104,8 +104,8 @@ class PDF extends FPDF
 		$nombre_tipo_pago_ordentrabajo="";
 		$sql2=" select nombre_tipo_pago  from tipos_pago ";
 		$sql2.=" where cod_tipo_pago='".$cod_tipo_pago."'";
-		$resp2=mysql_query($sql2);
-		while ($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago_ordentrabajo=$dat2['nombre_tipo_pago'];
 		}		
 		///////////////////Fin Tipo pago/////////////////////
@@ -117,8 +117,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -232,10 +232,10 @@ class PDF extends FPDF
 		$sql.=" from ordentrabajo";
 		$sql.=" where  cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	
-		$resp=mysql_query($sql);
+		$resp=mysqli_query($enlaceCon,$sql);
 		$incremento_orden_trabajo=0;
 		$descuento_orden_trabajo=0;
-		while ($dat=mysql_fetch_array($resp)){
+		while ($dat=mysqli_fetch_array($resp)){
 		
 			$cod_est_ot=$dat['cod_est_ot']; 
 			$monto_orden_trabajo=$dat['monto_orden_trabajo']; 
@@ -295,8 +295,8 @@ class PDF extends FPDF
 }
 
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 	}
@@ -321,8 +321,8 @@ class PDF extends FPDF
 	$sql.=" from ordentrabajo";
 	$sql.=" where  cod_orden_trabajo=".$_GET['cod_orden_trabajo'];
 	
-	$resp=mysql_query($sql);
-	while ($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while ($dat=mysqli_fetch_array($resp)){
 		
 		$cod_est_ot=$dat['cod_est_ot']; 
 		$nro_orden_trabajo=$dat['nro_orden_trabajo']; 
@@ -356,9 +356,9 @@ class PDF extends FPDF
 				/************CLIENTE********************/
 			$sql2=" select nombre_cliente, direccion_cliente, telefono_cliente, celular_cliente, fax_cliente";
 			$sql2.=" from clientes where cod_cliente='".$cod_cliente."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombre_cliente="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_cliente=$dat2['nombre_cliente'];
 				$direccion_cliente=$dat2['direccion_cliente'];
 				$telefono_cliente=$dat2['telefono_cliente'];
@@ -369,9 +369,9 @@ class PDF extends FPDF
 		
 			/************GESTION********************/
 			$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestionHojaRuta="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestionOrdenTrabajo=$dat2[0];
 			}		
 			/************FIN GESTION********************/		
@@ -381,8 +381,8 @@ class PDF extends FPDF
 		$nombre_tipo_pago_ordentrabajo="";
 		$sql2=" select nombre_tipo_pago  from tipos_pago ";
 		$sql2.=" where cod_tipo_pago='".$cod_tipo_pago."'";
-		$resp2=mysql_query($sql2);
-		while ($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while ($dat2=mysqli_fetch_array($resp2)){
 			$nombre_tipo_pago_ordentrabajo=$dat2['nombre_tipo_pago'];
 		}		
 		///////////////////Fin Tipo pago/////////////////////

@@ -43,31 +43,31 @@
 				$sw=0;	
 						
 				$sql=" select  *  from certificados_producto  where cod_usuario_registro='".$cod_usuario."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
 				$sql=" select  *  from certificados_producto  where cod_usuario_modifica='".$cod_usuario."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 
 				$sql=" select  *  from certificados_producto  where cod_usuario_firma='".$cod_usuario."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
 				$sql=" select  *  from fichas_producto  where cod_usuario_modifica='".$cod_usuario."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				$sql=" select  *  from fichas_producto  where cod_usuario_aprobacion='".$cod_usuario."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}				
 
@@ -108,8 +108,8 @@
 				$cod_usuario=$vectordatosNoEliminar[$j];
 				$sql=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, usuario, password, cod_cargo, cod_grado,cod_estado_registro";
 				$sql.=" from usuarios where cod_usuario='".$cod_usuario."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_usuario=$dat[0];
 					$ap_paterno_usuario=$dat[1];
 					$ap_materno_usuario=$dat[2];
@@ -118,25 +118,25 @@
 					$cod_cargo=$dat[5];
 					/**************************************************************************/
 						$sql2=" select nombre_cargo from cargos where cod_cargo='".$cod_cargo."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_cargo="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_cargo=$dat2[0];					
 					/**************************************************************************/				
 					$cod_grado=$dat[6];
 					/**************************************************************************/
 						$sql2=" select nombre_grado from grados where cod_grado='".$cod_grado."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_grado="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_grado=$dat2[0];					
 					/**************************************************************************/						
 					$cod_estado_registro=$dat[7];
 					/**************************************************************************/
 						$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_estado_registro="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_estado_registro=$dat2[0];					
 					/**************************************************************************/														
 				}
@@ -173,8 +173,8 @@
 				$cod_usuario=$vectordatosEliminar[$j];
 				$sql=" select nombre_usuario, ap_paterno_usuario, ap_materno_usuario, usuario, password, cod_cargo, cod_grado,cod_estado_registro";
 				$sql.=" from usuarios where cod_usuario='".$cod_usuario."'";
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$nombre_usuario=$dat[0];
 					$ap_paterno_usuario=$dat[1];
 					$ap_materno_usuario=$dat[2];
@@ -183,25 +183,25 @@
 					$cod_cargo=$dat[5];
 					/**************************************************************************/
 						$sql2=" select nombre_cargo from cargos where cod_cargo='".$cod_cargo."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_cargo="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_cargo=$dat2[0];					
 					/**************************************************************************/				
 					$cod_grado=$dat[6];
 					/**************************************************************************/
 						$sql2=" select nombre_grado from grados where cod_grado='".$cod_grado."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_grado="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_grado=$dat2[0];					
 					/**************************************************************************/						
 					$cod_estado_registro=$dat[7];
 					/**************************************************************************/
 						$sql2=" select nombre_estado_registro from estados_referenciales where cod_estado_registro='".$cod_estado_registro."'";
-	    				$resp2 = mysql_query($sql2);	
+	    				$resp2 = mysqli_query($enlaceCon,$sql2);	
 						$nombre_estado_registro="";
-						$dat2=mysql_fetch_array($resp2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_estado_registro=$dat2[0];					
 					/**************************************************************************/														
 				}

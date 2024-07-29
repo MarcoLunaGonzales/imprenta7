@@ -12,7 +12,7 @@ $sql=" update ingresos set ";
 $sql.=" obs_anular='".$obs_anular."', ";
 $sql.=" cod_estado_ingreso='".$cod_estado_ingreso."' ";
 $sql.=" where cod_ingreso='".$cod_ingreso."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 

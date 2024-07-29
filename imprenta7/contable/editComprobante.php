@@ -120,9 +120,9 @@ function generaNroComprobante(f)
 	<?php 
 	
 	$sql2="select count(*) from comprobante_detalle where cod_cbte=".$_GET['cod_cbte'];
-	$resp2=mysql_query($sql2);
+	$resp2=mysqli_query($enlaceCon,$sql2);
 	$nroDetalle=0;
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nroDetalle=$dat2[0];
 	}
 	?>
@@ -241,9 +241,9 @@ function guardar(f){
 <h3 align="center" style="background:#FFF;font-size: 14px;color: #E78611;font-weight:bold;">EDICION DE COMPROBANTE</h3>
 <?php
 	$sql="select cambio_bs from tipo_cambio where fecha_tipo_cambio='".date('Y-m-d', time())."'";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$cambio_bs='';
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		$cambio_bs=$dat['cambio_bs'];
 	}
 ?>
@@ -261,9 +261,9 @@ $sql.=" c.cod_estado_cbte, c.fecha_cbte, c.nro_cheque, c.nro_factura, c.banco,c.
 $sql.=" c.cod_usuario_registro, c.fecha_registro, c.cod_usuario_modifica, c.fecha_modifica ";
 $sql.=" from comprobante c inner join tipo_comprobante tc  on (c.cod_tipo_cbte=tc.cod_tipo_cbte) "; 
 $sql.=" where c.cod_cbte='".$_GET['cod_cbte']."'";
-$resp= mysql_query($sql);
+$resp= mysqli_query($enlaceCon,$sql);
 $cambio_bs='';
-while($dat=mysql_fetch_array($resp)){
+while($dat=mysqli_fetch_array($resp)){
 		$cod_empresa=$dat['cod_empresa'];
 		$cod_gestion=$dat['cod_gestion'];
 		$cod_tipo_cbte=$dat['cod_tipo_cbte'];
@@ -302,8 +302,8 @@ while($dat=mysql_fetch_array($resp)){
       		<td><select name="cod_moneda" id="cod_moneda" class="textoform">				
 				<?php
 					$sql2="select cod_moneda, desc_moneda from monedas ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_moneda=$dat2['cod_moneda'];		
 			  		 		$desc_moneda=$dat2['desc_moneda'];	
@@ -336,9 +336,9 @@ while($dat=mysql_fetch_array($resp)){
 	<?php 
 	
 	$sql2="select count(*) from comprobante_detalle where cod_cbte=".$_GET['cod_cbte'];
-	$resp2=mysql_query($sql2);
+	$resp2=mysqli_query($enlaceCon,$sql2);
 	$nroDetalle=0;
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nroDetalle=$dat2[0];
 	}
 	?>
@@ -374,13 +374,13 @@ $totalDebe=0;
 			$sql2=" select cod_cbte_detalle,cod_cuenta,nro_factura,fecha_factura,";
 			$sql2.=" dias_venc_factura,glosa,debe,haber ";
 			$sql2.=" from comprobante_detalle where cod_cbte=".$_GET['cod_cbte'];
-			$resp2=mysql_query($sql2);
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2=mysqli_query($enlaceCon,$sql2);
+			while($dat2=mysqli_fetch_array($resp2)){
 				$cod_cbte_detalle=$dat2['cod_cbte_detalle'];
 				$cod_cuenta=$dat2['cod_cuenta'];
 					$sql3="select nro_cuenta,desc_cuenta from cuentas where cod_cuenta=".$cod_cuenta;
-					$resp3=mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3=mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						$nro_cuenta=$dat3['nro_cuenta'];
 						$desc_cuenta=$dat3['desc_cuenta'];
 					}

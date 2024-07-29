@@ -18,7 +18,7 @@ $sql.=" fecha_modifica='".date('Y-m-d', time())."'";
 $sql.=" where cod_carac=".$cod_carac.""; 
 
 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

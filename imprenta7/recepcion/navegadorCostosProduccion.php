@@ -64,8 +64,8 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 				<?php
 					$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
 						
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -136,8 +136,8 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 		}
 	}
 
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -205,7 +205,7 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 	}	
 		$sql.=" ORDER BY COD_COTIZACION desc";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -225,7 +225,7 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 		</tr>
 
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 				
 				$cod_cotizacion=$dat[0];
 				$cod_tipo_cotizacion=$dat[1];			
@@ -261,37 +261,37 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 				//***************************TIPO COTIZACION***********************************
 				$nombre_tipo_cotizacion="";				
 				$sql2="select nombre_tipo_cotizacion from tipos_cotizacion where cod_tipo_cotizacion='".$cod_tipo_cotizacion."'";	
-				$resp2= mysql_query($sql2);
-				$dat2=mysql_fetch_array($resp2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				$dat2=mysqli_fetch_array($resp2);
 					$nombre_tipo_cotizacion=$dat2[0];
 				//*******************************FIN TIPO COTIZACION*******************************	
 				//*****************************GESTION*********************************
 					$gestion="";				
 					$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 						$gestion=$dat2[0];
 				//******************************FIN GESTION********************************		
 				//*****************************CLIENTE*********************************
 					$nombre_cliente="";				
 					$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 						$nombre_cliente=$dat2[0];
 				//*****************************FIN CLIENTE*********************************			
 				//******************************TIPO DE PAGO********************************
 					$nombre_tipo_pago="";				
 					$sql2="select nombre_tipo_pago from tipos_pago where cod_tipo_pago='".$cod_tipo_pago."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_tipo_pago=$dat2[0];
 				//*******************************FIN TIPO PAGO*******************************	
 				//******************************USUARIO REGISTRO********************************
 					$usuarioRegistro="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioRegistro=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO REGISTRO*******************************									
 				
@@ -299,24 +299,24 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 					$usuarioModifica="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioModifica=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO MODIFICA*******************************
 								
 				///////Verificacion si la Cotizacion tiene su Hoja de Ruta Activa//////////////////
 					$sql2="  select cod_hoja_ruta, cod_gestion, nro_hoja_ruta from hojas_rutas ";
 					$sql2.=" where cod_cotizacion='".$cod_cotizacion."' and cod_estado_hoja_ruta=1";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cod_hoja_ruta=$dat2[0]; 
 						$cod_gestion_hoja_ruta=$dat2[1];
 						$nro_hoja_ruta=$dat2[2];						
 						$gestionHojaRuta="";
 						/////////////////////////////////////////////////////////////////////				
 							$sql3="select gestion from gestiones where cod_gestion='".$cod_gestion_hoja_ruta."'";	
-							$resp3= mysql_query($sql3);
-							$dat3=mysql_fetch_array($resp3);
+							$resp3= mysqli_query($enlaceCon,$sql3);
+							$dat3=mysqli_fetch_array($resp3);
 							$gestionHojaRuta=$dat3[0];												
 						//////////////////////////////////////////////////////////////////////////
 
@@ -327,8 +327,8 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 					$usuarioFirma="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_firma."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioFirma=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO FIRMA*******************************										
 ?> 
@@ -348,15 +348,15 @@ location.href="navegadorCostosProduccion.php?nrocotizacionB="+f.nrocotizacionB.v
 					if($cod_hoja_ruta<>""){
 						$sql3="select cod_nota_remision, cod_gestion, nro_nota_remision ";
 						$sql3.=" from notas_remision where cod_hoja_ruta=".$cod_hoja_ruta;
-						$resp3= mysql_query($sql3);
-						while ($dat3=mysql_fetch_array($resp3)){
+						$resp3= mysqli_query($enlaceCon,$sql3);
+						while ($dat3=mysqli_fetch_array($resp3)){
 							$cod_nota_remision=$dat3[0];
 							$cod_gestion_nota_remision=$dat3[1];
 							$nro_nota_remision=$dat3[2];
 							/////////////////////////////////////////////////////////////////////				
 							$sql4="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";	
-							$resp4= mysql_query($sql4);
-							$dat4=mysql_fetch_array($resp4);
+							$resp4= mysqli_query($enlaceCon,$sql4);
+							$dat4=mysqli_fetch_array($resp4);
 							$gestionNotaRemision=$dat4[0];												
 							//////////////////////////////////////////////////////////////////////////
 						echo $nro_nota_remision."/".$gestionNotaRemision."; ";										

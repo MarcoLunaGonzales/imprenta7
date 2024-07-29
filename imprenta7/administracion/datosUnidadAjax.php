@@ -41,9 +41,9 @@
 	$sql=" select  nombre_unidad, telf_unidad, cod_cliente, cod_usuario_registro, fecha_registro ";
 	$sql.=" from clientes_unidades ";
 	$sql.=" where  cod_unidad=".$_GET['cod_unidad'];
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	
-	while($dat=mysql_fetch_array($resp)){	
+	while($dat=mysqli_fetch_array($resp)){	
 		
 		$nombre_unidad=$dat['nombre_unidad'];
 		$telf_unidad=$dat['telf_unidad'];
@@ -54,8 +54,8 @@
 	}
 	
 	$sql2="select nombre_cliente from clientes where cod_cliente=".$cod_cliente;
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2[0];
 	}	
 

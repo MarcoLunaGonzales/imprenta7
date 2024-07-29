@@ -131,8 +131,8 @@ function eliminar(f)
 	if($descgastoB<>""){
 		$sql_aux.=" where desc_gasto like '%".$descgastoB."%'";
 	}
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -171,7 +171,7 @@ function eliminar(f)
 		}
 		$sql.=" order by desc_gasto ";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="70%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -185,7 +185,7 @@ function eliminar(f)
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_gasto=$dat['cod_gasto'];
 				$desc_gasto=$dat['desc_gasto'];
@@ -200,8 +200,8 @@ function eliminar(f)
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -212,8 +212,8 @@ function eliminar(f)
 				$ap_materno_usuario_registro="";
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario";
 				$sql2.=" from usuarios where cod_usuario='".$cod_usuario_registro."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario_registro=$dat2['nombres_usuario'];
 						$ap_paterno_usuario_registro=$dat2['ap_paterno_usuario'];
 						$ap_materno_usuario_registro=$dat2['ap_materno_usuario'];
@@ -225,8 +225,8 @@ function eliminar(f)
 				$ap_materno_usuario_modifica="";
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario";
 				$sql2.=" from usuarios where cod_usuario='".$cod_usuario_modifica."'";
-				$resp2= mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 						$nombres_usuario_modifica=$dat2['nombres_usuario'];
 						$ap_paterno_usuario_modifica=$dat2['ap_paterno_usuario'];
 						$ap_materno_usuario_modifica=$dat2['ap_materno_usuario'];

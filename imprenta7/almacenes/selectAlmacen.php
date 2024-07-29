@@ -10,8 +10,8 @@
 require("conexion_inicio.inc");
 	$sql=" select  nombres_usuario, ap_paterno_usuario, ap_materno_usuario,cod_perfil  from usuarios ";
 	$sql.=" where cod_usuario='".$_COOKIE['usuario_global']."'";
-	$resp=mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp=mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$nombres_usuario=$dat[0]; 
 		$ap_paterno_usuario=$dat[1];
@@ -23,9 +23,9 @@ require("conexion_inicio.inc");
 		
 	$sql=" select  nombre_modulo, ubicacion_fisica  from modulos ";
 			$sql.=" where cod_modulo=".$_GET['cod_modulo']."";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
-			while($dat=mysql_fetch_array($resp)){																 		
+			while($dat=mysqli_fetch_array($resp)){																 		
 				$nombre_modulo=$dat['nombre_modulo'];
 	
 			}
@@ -61,9 +61,9 @@ require("conexion_inicio.inc");
 			$sql.=" from sucursales ";
 			$sql.=" where cod_estado_registro=1 ";
 			$sql.=" order by  cod_sucursal asc";
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 
-			while($dat=mysql_fetch_array($resp)){	
+			while($dat=mysqli_fetch_array($resp)){	
 															 		
 				$cod_sucursal=$dat['cod_sucursal'];	
 				$nombre_sucursal=$dat['nombre_sucursal'];
@@ -75,8 +75,8 @@ require("conexion_inicio.inc");
 				$sql2=" select cod_almacen, nombre_almacen ";
 					$sql2.=" from almacenes";
 					$sql2.=" where cod_sucursal=".$cod_sucursal;
-					$resp2 = mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){	
+					$resp2 = mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){	
 						
 						$cod_almacen=$dat2['cod_almacen'];
 						$nombre_almacen=$dat2['nombre_almacen'];	

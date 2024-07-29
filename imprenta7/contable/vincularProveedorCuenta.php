@@ -65,8 +65,8 @@ function eliminarCuenta(){
 	$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica, cod_estado_registro,cod_cuenta ";
 	$sql.=" from proveedores ";
 	$sql.=" where cod_proveedor=".$_GET['cod_proveedor'];
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		
 		$nombre_proveedor=$dat['nombre_proveedor'];
 		$nit_proveedor=$dat['nit_proveedor'];
@@ -87,8 +87,8 @@ function eliminarCuenta(){
 		$sql2=" select  nro_cuenta, desc_cuenta ";
 		$sql2.=" from cuentas ";
 		$sql2.=" where cod_cuenta=".$cod_cuenta." ";
-		$resp2 = mysql_query($sql2);	
-		while($dat2=mysql_fetch_array($resp2)){			
+		$resp2 = mysqli_query($enlaceCon,$sql2);	
+		while($dat2=mysqli_fetch_array($resp2)){			
 			$nro_cuenta=$dat2['nro_cuenta'];
 			$desc_cuenta=$dat2['desc_cuenta'];
 			

@@ -34,8 +34,8 @@ class PDF extends FPDF
 
 	
 		$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-		$resp5=mysql_query($sql5);
-		while ($dat5=mysql_fetch_array($resp5)){
+		$resp5=mysqli_query($enlaceCon,$sql5);
+		while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 		}
@@ -45,9 +45,9 @@ class PDF extends FPDF
 			$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 			$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 			$sql.=" and c.cod_estado_cbte<>2";
-			$resp=mysql_query($sql);
+			$resp=mysqli_query($enlaceCon,$sql);
 			$nroReg=0;
-			while ($dat=mysql_fetch_array($resp)){
+			while ($dat=mysqli_fetch_array($resp)){
 				$nroReg=$dat[0];
 			}
 			$saldo_inicial=0;
@@ -57,9 +57,9 @@ class PDF extends FPDF
 				$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 				$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 				$sql.=" and c.cod_estado_cbte<>2";
-				$resp=mysql_query($sql);
+				$resp=mysqli_query($enlaceCon,$sql);
 				$sumaDebe=0;
-				while ($dat=mysql_fetch_array($resp)){
+				while ($dat=mysqli_fetch_array($resp)){
 					$sumaDebe=$dat[0];
 				}
 				$sql=" select sum(haber) ";
@@ -67,9 +67,9 @@ class PDF extends FPDF
 				$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 				$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 				$sql.=" and c.cod_estado_cbte<>2";
-				$resp=mysql_query($sql);
+				$resp=mysqli_query($enlaceCon,$sql);
 				$sumaHaber=0;
-				while ($dat=mysql_fetch_array($resp)){
+				while ($dat=mysqli_fetch_array($resp)){
 					$sumaHaber=$dat[0];
 				}		
 				$saldo_inicial=($sumaDebe-$sumaHaber);		
@@ -87,8 +87,8 @@ class PDF extends FPDF
 			//$this->Text(95,24,"Del ".$_POST['fecha_inicio']." al ".$_POST['fecha_final']);
 			
 					$sql5="select nro_cuenta,desc_cuenta from cuentas where cod_cuenta=".$_POST['cod_cuenta0'];
-					$resp5=mysql_query($sql5);
-					while ($dat5=mysql_fetch_array($resp5)){
+					$resp5=mysqli_query($enlaceCon,$sql5);
+					while ($dat5=mysqli_fetch_array($resp5)){
 						$nro_cuenta=$dat5['nro_cuenta'];
 						$desc_cuenta=$dat5['desc_cuenta'];
 					}
@@ -135,8 +135,8 @@ class PDF extends FPDF
 	
 }
 	$sql5="select  valor_x, valor_y from coordenadas_impresion where cod_coordenada=1";
-	$resp5=mysql_query($sql5);
-	while ($dat5=mysql_fetch_array($resp5)){
+	$resp5=mysqli_query($enlaceCon,$sql5);
+	while ($dat5=mysqli_fetch_array($resp5)){
 			$valorX=$dat5[0];
 			$valorY=$dat5[1];
 	}
@@ -155,9 +155,9 @@ class PDF extends FPDF
 			$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 			$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 			$sql.=" and c.cod_estado_cbte<>2";
-			$resp=mysql_query($sql);
+			$resp=mysqli_query($enlaceCon,$sql);
 			$nroReg=0;
-			while ($dat=mysql_fetch_array($resp)){
+			while ($dat=mysqli_fetch_array($resp)){
 				$nroReg=$dat[0];
 			}
 			$saldo_inicial=0;
@@ -167,9 +167,9 @@ class PDF extends FPDF
 				$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 				$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 				$sql.=" and c.cod_estado_cbte<>2";
-				$resp=mysql_query($sql);
+				$resp=mysqli_query($enlaceCon,$sql);
 				$sumaDebe=0;
-				while ($dat=mysql_fetch_array($resp)){
+				while ($dat=mysqli_fetch_array($resp)){
 					$sumaDebe=$dat[0];
 				}
 				$sql=" select sum(haber) ";
@@ -177,9 +177,9 @@ class PDF extends FPDF
 				$sql.=" where cd.cod_cuenta=".$_POST['cod_cuenta0'];
 				$sql.=" and  c.fecha_cbte<'".llevarAFormatoFecha($_POST['fecha_inicio'])."'";
 				$sql.=" and c.cod_estado_cbte<>2";
-				$resp=mysql_query($sql);
+				$resp=mysqli_query($enlaceCon,$sql);
 				$sumaHaber=0;
-				while ($dat=mysql_fetch_array($resp)){
+				while ($dat=mysqli_fetch_array($resp)){
 					$sumaHaber=$dat[0];
 				}		
 				$saldo_inicial=($sumaDebe-$sumaHaber);		
@@ -198,8 +198,8 @@ class PDF extends FPDF
 			$sql.=" order  by c.fecha_cbte asc,c.cod_cbte asc ";
 			$sumaDebe2=0;
 			$sumaHaber2=0;
-			$resp=mysql_query($sql);
-			while ($dat=mysql_fetch_array($resp)){
+			$resp=mysqli_query($enlaceCon,$sql);
+			while ($dat=mysqli_fetch_array($resp)){
 				$cod_cbte=$dat['cod_cbte'];
 				$cod_tipo_cbte=$dat['cod_tipo_cbte'];
 				$nro_cbte=$dat['nro_cbte'];
@@ -211,20 +211,20 @@ class PDF extends FPDF
 				$haber_sus=$dat['haber_sus'];
 				$debe_sus=$dat['debe_sus'];
 				$sql5="select nombre_tipo_cbte from tipo_comprobante where cod_tipo_cbte=".$cod_tipo_cbte;
-				$resp5=mysql_query($sql5);
-				while ($dat5=mysql_fetch_array($resp5)){
+				$resp5=mysqli_query($enlaceCon,$sql5);
+				while ($dat5=mysqli_fetch_array($resp5)){
 					$nombre_tipo_cbte=$dat5['nombre_tipo_cbte'];
 				}
 				$sql5="select cambio_bs from tipo_cambio where fecha_tipo_cambio='".$fecha_cbte."'";
-				$resp5= mysql_query($sql5);
+				$resp5= mysqli_query($enlaceCon,$sql5);
 				$cambio_bs='';
-				while($dat5=mysql_fetch_array($resp5)){
+				while($dat5=mysqli_fetch_array($resp5)){
 					$cambio_bs=$dat5['cambio_bs'];
 				}
 				$sql2="select count(*) from pagos where cod_cbte=".$cod_cbte;
-				$resp2=mysql_query($sql2);
+				$resp2=mysqli_query($enlaceCon,$sql2);
 				$nro_pago=0;
-				while ($dat2=mysql_fetch_array($resp2)){
+				while ($dat2=mysqli_fetch_array($resp2)){
 					$nro_pago=$dat2[0];							
 				}
 				$nombre_cliente="";
@@ -232,8 +232,8 @@ class PDF extends FPDF
 					$sql2=" select pagos.cod_pago, pagos.nro_pago,pagos.fecha_pago,pagos.cod_cliente, clientes.nombre_cliente";
 					$sql2.=" from pagos inner join clientes on(pagos.cod_cliente=clientes.cod_cliente)";
 					$sql2.=" where cod_cbte=".$cod_cbte;
-					$resp2=mysql_query($sql2);
-					while ($dat2=mysql_fetch_array($resp2)){
+					$resp2=mysqli_query($enlaceCon,$sql2);
+					while ($dat2=mysqli_fetch_array($resp2)){
 						$cod_pago=$dat2['cod_pago'];
 						$nro_pago=$dat2['nro_pago'];
 						$fecha_pago=$dat2['fecha_pago'];

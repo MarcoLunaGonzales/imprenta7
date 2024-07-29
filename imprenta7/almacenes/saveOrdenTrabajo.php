@@ -46,7 +46,7 @@ if($cod_tipo_pago==3){
 	$sql.=" cod_estado_pago_doc=1";
 }
 
-$resp=mysql_query($sql);
+$resp=mysqli_query($enlaceCon,$sql);
 
 
 require("cerrar_conexion.inc");

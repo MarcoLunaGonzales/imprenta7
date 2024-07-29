@@ -85,8 +85,8 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 				<option value="0">Todos los Clientes</option>
 				<?php
 				$sql2="select cod_cliente,nombre_cliente from clientes order by  nombre_cliente asc";
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2[0];	
 			  		 		$nombre_cliente=$dat2[1];	
@@ -159,8 +159,8 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 		}
 	}
 		
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 ?>
@@ -219,7 +219,7 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 		}		
 		$sql.=" ORDER BY cod_hoja_ruta desc ,fecha_hoja_ruta desc";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc">
@@ -233,15 +233,15 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 			<td>PDF</td>
 		</tr>
 <?php   
-		while($dat=mysql_fetch_array($resp)){	
+		while($dat=mysqli_fetch_array($resp)){	
 			 $cont++;
 				$cod_hoja_ruta=$dat[0];
 				$cod_gestion=$dat[1];
 				/****************************************/
 					$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$gestion="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$gestion=$dat2[0];
 					}
 				/***************************************/				
@@ -257,16 +257,16 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 					$usuarioHojaRuta="";
 					$sql2="select nombres_usuario,ap_paterno_usuario from usuarios ";
 					$sql2.=" where cod_usuario='".$cod_usuario_hoja_ruta."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioHojaRuta=$dat2[0]." ".$dat2[1]." ".$dat2[2];
 				//**************************************************************
 				//**************************************************************
 					$nombre_estado_hoja_ruta="";
 					$sql2="select nro_cotizacion,cod_gestion, cod_cliente, fecha_cotizacion from cotizaciones";
 					$sql2.=" where cod_cotizacion='".$cod_cotizacion."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nro_cotizacion=$dat2[0];
 					$cod_gestion=$dat2[1];
 					$cod_cliente=$dat2[2];
@@ -274,15 +274,15 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 						//**************************************************************
 						$gestion="";				
 						$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";	
-						$resp2= mysql_query($sql2);
-						$dat2=mysql_fetch_array($resp2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						$dat2=mysqli_fetch_array($resp2);
 						$gestion=$dat2[0];						
 						//**************************************************************										
 						//**************************************************************
 						$nombre_cliente="";				
 						$sql2="select nombre_cliente from clientes where cod_cliente='".$cod_cliente."'";	
-						$resp2= mysql_query($sql2);
-						$dat2=mysql_fetch_array($resp2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						$dat2=mysqli_fetch_array($resp2);
 						$nombre_cliente=$dat2[0];						
 						//**************************************************************										
 												
@@ -290,8 +290,8 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 					$nombre_estado_hoja_ruta="";
 					$sql2="select nombre_estado_hoja_ruta from estados_hojas_rutas";
 					$sql2.=" where cod_estado_hoja_ruta='".$cod_estado_hoja_ruta."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_estado_hoja_ruta=$dat2[0];
 				//**************************************************************				
 		?> 
@@ -308,8 +308,8 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 			<?php 
 				$numNotasRemision=0;
 				$sql3=" select count(*) from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numNotasRemision=$dat3[0];
 				}
 				
@@ -319,8 +319,8 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 					$sql3.=" fecha_nota_remision, cod_usuario_nota_remision,";
 					$sql3.=" obs_nota_remision, cod_estado_nota_remision ";
 					$sql3.=" from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_nota_remision=$dat3[0];
 						$nro_nota_remision=$dat3[1];
@@ -333,14 +333,14 @@ var param='?codHojaRutaB='+f.codHojaRutaB.value;
 						$sql4=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario  ";
 						$sql4.=" from usuarios where cod_usuario='".$cod_usuario_nota_remision."'";
 						$UsuarioNotaRemision="";
-						$resp4= mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4)){
+						$resp4= mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4)){
 							$UsuarioNotaRemision=$dat4[0]." ".$dat4[1];
 						}
 						$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$gestionNotaRemision="";
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$gestionNotaRemision=$dat2[0];
 						}
 

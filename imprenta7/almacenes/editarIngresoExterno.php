@@ -184,9 +184,9 @@ function listaDatosMateriales(f)
 	
 	
 	$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_almacen="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_almacen=$dat2[0];
 	}	
 
@@ -194,11 +194,11 @@ function listaDatosMateriales(f)
 				
 	$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 	$sql2.=" where cod_usuario='".$_COOKIE['usuario_global']."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombres_usuario="";
 	$ap_paterno_usuario="";
 	$ap_materno_usuario="";		
-	while($dat2=mysql_fetch_array($resp2)){	
+	while($dat2=mysqli_fetch_array($resp2)){	
 		$nombres_usuario=$dat2[0];
 		$ap_paterno_usuario=$dat2[1];
 		$ap_materno_usuario=$dat2[2];		
@@ -209,9 +209,9 @@ function listaDatosMateriales(f)
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 	$sql="select max(nro_ingreso) from ingresos where cod_gestion='".$cod_gestion."' and cod_almacen='".$cod_almacen."'";
@@ -239,8 +239,8 @@ function listaDatosMateriales(f)
               <?php
 					$sql2=" select cod_proveedor, nombre_proveedor from proveedores";
 					$sql2.=" where cod_estado_registro=1 order by  nombre_proveedor asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_proveedor=$dat2[0];	
 			  		 		$nombre_proveedor=$dat2[1];	

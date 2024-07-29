@@ -83,8 +83,8 @@ function paginar1(f,pagina)
 					$sql2.=" from   monedas ";
 					$sql2.=" where  cod_moneda<>1";
 					$sql2.=" order by desc_moneda asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_moneda=$dat2['cod_moneda'];	
 			  		 		$desc_moneda=$dat2['desc_moneda'];
@@ -120,8 +120,8 @@ function paginar1(f,pagina)
 	$sql.=" and tc.cod_moneda=".$cod_monedaB;
 	}
 	$sql.=" order by tc.fecha_tipo_cambio ";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_filas_sql=$dat[0];
 	}
 ?>
@@ -163,7 +163,7 @@ function paginar1(f,pagina)
 		}		
 		$sql.=" order by tc.fecha_tipo_cambio desc ";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 
@@ -192,7 +192,7 @@ function paginar1(f,pagina)
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_gasto=$dat['cod_gasto'];
 				$fecha_tipo_cambio=$dat['fecha_tipo_cambio'];

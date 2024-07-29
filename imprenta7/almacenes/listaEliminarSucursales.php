@@ -42,8 +42,8 @@
 				$cod_sucursal=$vector_datos[$i];
 				$sw=0;			
 				$sql=" select  *  from almacenes  where cod_sucursal='".$cod_sucursal."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -87,8 +87,8 @@
 				$sql.=" telf_sucursal, cod_estado_registro ";
 				$sql.=" from sucursales ";				
 				$sql.=" where  cod_sucursal='".$cod_sucursal."'";	
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$cod_sucursal=$dat[0]; 
 					$nombre_sucursal =$dat[1];
@@ -99,8 +99,8 @@
 					//**************************************************************
 					$desc_ciudad="";
 					$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_ciudad=$dat2[0];
 					}					
 					//**************************************************************
@@ -108,8 +108,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************						
@@ -151,8 +151,8 @@
 				$sql.=" telf_sucursal, cod_estado_registro ";
 				$sql.=" from sucursales ";				
 				$sql.=" where  cod_sucursal='".$cod_sucursal."'";	
-				$resp = mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){	
+				$resp = mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){	
 		
 					$cod_sucursal=$dat[0]; 
 					$nombre_sucursal =$dat[1];
@@ -163,8 +163,8 @@
 					//**************************************************************
 					$desc_ciudad="";
 					$sql2="select desc_ciudad from ciudades where cod_ciudad='".$cod_ciudad."'";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$desc_ciudad=$dat2[0];
 					}					
 					//**************************************************************
@@ -172,8 +172,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 					//**************************************************************						

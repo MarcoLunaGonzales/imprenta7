@@ -8,11 +8,11 @@ include("funciones.php");
 	$sql.=" cod_usuario_incremento='".$_COOKIE['usuario_global']."',";
 	$sql.=" incremento_obs='".$_POST['incremento_obs']."'";
 	$sql.=" where cod_cotizacion='".$_POST['cod_cotizacion']."'"; 
-	mysql_query($sql);
+	mysqli_query($enlaceCon,$sql);
 	
 	$sql="select cod_hoja_ruta from hojas_rutas where cod_cotizacion='".$_POST['cod_cotizacion']."'";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$cod_hoja_ruta=$dat['cod_hoja_ruta'];
 	}
 	
@@ -23,20 +23,20 @@ include("funciones.php");
 					$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 					$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 					$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$monto_hojaruta=$datAux[0];
 					}
 					$descuento_cotizacion=0;
 					$sqlAux="select descuento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$descuento_cotizacion=$datAux[0];
 					}
 					$incremento_cotizacion=0;
 					$sqlAux="select incremento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$incremento_cotizacion=$datAux[0];
 					}
 					
@@ -48,9 +48,9 @@ include("funciones.php");
 			 	$sql2.=" and p.cod_estado_pago<>2";
 			 	$sql2.=" and pd.codigo_doc=".$cod_hoja_ruta;
 				$sql2.=" and pd.cod_tipo_doc=1";
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_hojaruta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_moneda=$dat2['cod_moneda'];
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$fecha_pago=$dat2['fecha_pago'];
@@ -67,20 +67,20 @@ include("funciones.php");
 						$sql4.=" cod_estado_pago_doc=3";
 						$sql4.=" where cod_hoja_ruta=".$cod_hoja_ruta;
 						//echo $sql4."<br/>";
-						mysql_query($sql4);
+						mysqli_query($enlaceCon,$sql4);
 			}else{
 				if($acuenta_hojaruta==0){
 						$sql4=" update hojas_rutas set ";
 						$sql4.=" cod_estado_pago_doc=1";
 						$sql4.=" where cod_hoja_ruta=".$cod_hoja_ruta;		
-						mysql_query($sql4);	
+						mysqli_query($enlaceCon,$sql4);	
 						//echo $sql4."<br/>";									
 				}else{
 
 						$sql4=" update hojas_rutas set ";
 						$sql4.=" cod_estado_pago_doc=2";
 						$sql4.=" where cod_hoja_ruta=".$cod_hoja_ruta;		
-						mysql_query($sql4);		
+						mysqli_query($enlaceCon,$sql4);		
 						//echo $sql4."<br/>";									
 				}		
 			}

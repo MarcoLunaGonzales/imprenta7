@@ -39,8 +39,8 @@ function guardar(f)
 	$sql.=" from salidas s, gestiones g ";
 	$sql.=" where s.cod_salida=".$cod_salida;
 	$sql.=" and s.cod_gestion=g.cod_gestion ";
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_salida=$dat[0];
 		$cod_gestion=$dat[1];
 		$gestion=$dat[2];

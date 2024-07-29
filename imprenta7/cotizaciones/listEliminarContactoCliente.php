@@ -27,8 +27,8 @@
 	$cod_contacto=$_GET["cod_contacto"];	
 	
 	$sql2="select nombre_cliente from clientes where cod_cliente in( select cod_cliente from clientes_contactos where cod_contacto=".$cod_contacto.")";
-	$resp2= mysql_query($sql2);
-	while($dat2=mysql_fetch_array($resp2)){
+	$resp2= mysqli_query($enlaceCon,$sql2);
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_cliente=$dat2[0];
 	}
 	
@@ -41,9 +41,9 @@
 
 				$sw=0;			
 				$sql=" select  count(*)  from cotizaciones  where cod_contacto='".$cod_contacto."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroCotizaciones=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroCotizaciones=$dat[0];
 					if($nroCotizaciones>0){
 						$sw=1;
@@ -51,9 +51,9 @@
 				}
 				
 				$sql=" select  count(*)  from ordentrabajo  where cod_contacto='".$cod_contacto."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroOT=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroOT=$dat[0];
 					if($nroOT>0){
 						$sw=1;
@@ -61,17 +61,17 @@
 				}
 				
 				/*$sql=" select  count(*)  from pagos  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroPagos=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroPagos=$dat[0];
 					$sw=1;
 				}	*/
 				
 				$sql=" select  count(*)  from salidas  where cod_contacto='".$cod_contacto."' and cod_tipo_salida=1";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroSalidas=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroSalidas=$dat[0];
 					if($nroSalidas>0){
 						$sw=1;
@@ -79,9 +79,9 @@
 				}								
 				
 				/*$sql=" select  count(*)  from facturas  where cod_cliente='".$cod_cliente."'";			
-				$resp= mysql_query($sql);
+				$resp= mysqli_query($enlaceCon,$sql);
 				$nroFacturas=0;
-				while($dat=mysql_fetch_array($resp)){
+				while($dat=mysqli_fetch_array($resp)){
 					$nroFacturas=$dat[0];
 				}	*/								
 
@@ -127,8 +127,8 @@
 		$sql2.=" from clientes_contactos";
 		$sql2.=" where cod_contacto=".$cod_contacto;
 		$sql2.=" order by ap_paterno_contacto,ap_materno_contacto,nombre_contacto";
-		$resp2=mysql_query($sql2);
-		while($dat2=mysql_fetch_array($resp2)){
+		$resp2=mysqli_query($enlaceCon,$sql2);
+		while($dat2=mysqli_fetch_array($resp2)){
 
 			$cod_cliente=$dat2['cod_cliente'];
 			$nombre_contacto=$dat2['nombre_contacto'];
@@ -145,8 +145,8 @@
 				$sql3=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 				$sql3.=" from usuarios ";
 				$sql3.=" where cod_usuario=".$cod_usuario_registro;
-				$resp3=mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$usuario_registro=$dat3['nombres_usuario'][0].$dat3['ap_paterno_usuario'][0].$dat3['ap_materno_usuario'][0];
 				}
 				if($fecha_registro<>""){
@@ -161,8 +161,8 @@
 				$sql3=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 				$sql3.=" from usuarios ";
 				$sql3.=" where cod_usuario=".$cod_usuario_modifica;
-				$resp3=mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3=mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$usuario_modifica=$dat3['nombres_usuario'][0].$dat3['ap_paterno_usuario'][0].$dat3['ap_materno_usuario'][0];
 				}
 				if($fecha_modifica<>""){
@@ -174,9 +174,9 @@
 			$sql3=" select nombre_estado_registro ";
 			$sql3.=" from estados_referenciales ";
 			$sql3.=" where cod_estado_registro=".$cod_estado_registro;
-			$resp3=mysql_query($sql3);
+			$resp3=mysqli_query($enlaceCon,$sql3);
 			$nombre_estado_registro="";
-			while($dat3=mysql_fetch_array($resp3)){
+			while($dat3=mysqli_fetch_array($resp3)){
 				$nombre_estado_registro=$dat3['nombre_estado_registro'];
 			}							
 

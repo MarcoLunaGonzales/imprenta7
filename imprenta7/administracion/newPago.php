@@ -438,18 +438,18 @@ function guardar(f){
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 	$sql="select max(nro_pago) from pagos where cod_gestion='".$cod_gestion."'";
 	$nro_pago=obtenerCodigo($sql);
 
 	$sql="select cambio_bs from tipo_cambio where fecha_tipo_cambio='".date('Y-m-d', time())."'";
-	$resp= mysql_query($sql);
+	$resp= mysqli_query($enlaceCon,$sql);
 	$cambio_bs=0;
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 		$cambio_bs=$dat['cambio_bs'];
 	}
 	
@@ -491,8 +491,8 @@ function guardar(f){
 				$sql2.="  left join cuentas on(clientes.cod_cuenta=cuentas.cod_cuenta) ";
 				$sql2.=" order by clientes.nombre_cliente asc ";
 
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2['cod_cliente'];	
 			  		 		$nombre_cliente=$dat2['nombre_cliente'];	

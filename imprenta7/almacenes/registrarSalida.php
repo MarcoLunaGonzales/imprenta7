@@ -424,9 +424,9 @@ function cargar_contacto_ajax(url)
 	$cod_almacen=$_COOKIE['cod_almacen_global'];
 	
 	$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombre_almacen="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$nombre_almacen=$dat2[0];
 	}	
 
@@ -434,11 +434,11 @@ function cargar_contacto_ajax(url)
 				
 	$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 	$sql2.=" where cod_usuario='".$_COOKIE['usuario_global']."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$nombres_usuario="";
 	$ap_paterno_usuario="";
 	$ap_materno_usuario="";		
-	while($dat2=mysql_fetch_array($resp2)){	
+	while($dat2=mysqli_fetch_array($resp2)){	
 		$nombres_usuario=$dat2[0];
 		$ap_paterno_usuario=$dat2[1];
 		$ap_materno_usuario=$dat2[2];		
@@ -449,9 +449,9 @@ function cargar_contacto_ajax(url)
 	$cod_gestion=gestionActiva();
 	
 	$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion."'";
-	$resp2= mysql_query($sql2);
+	$resp2= mysqli_query($enlaceCon,$sql2);
 	$gestion="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$gestion=$dat2[0];
 	}
 	$sql="select max(nro_salida) from salidas where cod_gestion='".$cod_gestion."' and cod_almacen='".$cod_almacen."'";
@@ -479,8 +479,8 @@ function cargar_contacto_ajax(url)
               <?php
 					$sql2=" select cod_tipo_salida, nombre_tipo_salida from tipos_salida";
 					$sql2.=" order by  nombre_tipo_salida asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_salida=$dat2[0];	
 			  		 		$nombre_tipo_salida=$dat2[1];	

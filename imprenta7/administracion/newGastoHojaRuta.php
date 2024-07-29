@@ -101,8 +101,8 @@ function datosProveedor(f)
  $sql.=" and  hr.cod_cotizacion=c.cod_cotizacion ";
  $sql.=" and c.cod_cliente=cli.cod_cliente ";
  $sql.=" and hr.cod_hoja_ruta=".$cod_hoja_ruta;
- $resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+ $resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 		$nro_hoja_ruta=$dat['nro_hoja_ruta'];
 		$cod_gestion=$dat['cod_gestion'];
 		$gestion=$dat['gestion'];
@@ -140,8 +140,8 @@ function datosProveedor(f)
             	$sql2="select cod_proveedor, nombre_proveedor";
             	$sql2.=" from proveedores  ";
             	$sql2.=" order by nombre_proveedor asc ";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_proveedor=$dat2['cod_proveedor'];
 					$nombre_proveedor=$dat2['nombre_proveedor'];
 			?>
@@ -161,8 +161,8 @@ function datosProveedor(f)
             	$sql2="select cod_gasto, desc_gasto";
             	$sql2.=" from gastos ";
             	$sql2.=" order by desc_gasto asc ";
-				$resp2 = mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_gasto=$dat2['cod_gasto'];
 					$desc_gasto=$dat2['desc_gasto'];
 			?>

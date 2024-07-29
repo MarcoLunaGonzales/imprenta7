@@ -27,7 +27,7 @@ include("funciones.php");
 		$sql2.=" where  cod_gasto_hojaruta=".$cod_gasto_hojaruta."";
 
 	
-		mysql_query($sql2);
+		mysqli_query($enlaceCon,$sql2);
 		//echo $sql2;
 
 

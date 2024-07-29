@@ -8,9 +8,9 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_item=$vector_datos[$i];
 		$sql=" delete from componentes_caracteristica where cod_compitem='".$cod_item."'";
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 		$sql=" delete from componente_items where cod_compitem=".$cod_item." and cod_item=".$codItemF;
-		mysql_query($sql);
+		mysqli_query($enlaceCon,$sql);
 	}	
 	
 require("cerrar_conexion.inc");

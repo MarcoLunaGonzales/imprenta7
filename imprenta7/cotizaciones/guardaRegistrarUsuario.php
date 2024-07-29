@@ -39,12 +39,12 @@ $sql.=" ap_paterno_usuario='".$ap_paterno_usuario."',";
 $sql.=" ap_materno_usuario='".$ap_materno_usuario."',";
 $sql.=" cod_estado_registro=".$cod_estado_registro.",";
 $sql.=" usuario_interno=".$usuario_interno."";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 if($autorizado_firma_cotizacion==1){
 $sql="insert into autorizados_firma_cotizacion set ";
 $sql.=" cod_usuario=".$cod_usuario.""; 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 }
 
 require("cerrar_conexion.inc");

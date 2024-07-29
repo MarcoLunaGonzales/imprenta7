@@ -43,8 +43,8 @@
 				
 				$sw=0;			
 				$sql=" select  *  from hojas_rutas_detalle_maquinaria  where cod_maquina='".$cod_maquina."'";			
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 					$sw=1;
 				}
 				
@@ -89,8 +89,8 @@
 				$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica ";
 				$sql.=" from maquinaria ";
 				$sql.=" where cod_maquina=".$cod_maquina;
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 				
 				$desc_maquina=$dat[0];
 				$cod_estado_registro=$dat[1]; 
@@ -115,8 +115,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -124,8 +124,8 @@
 					$usuarioRegistro="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioRegistro=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO REGISTRO*******************************									
 				
@@ -133,8 +133,8 @@
 					$usuarioModifica="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioModifica=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO MODIFICA*******************************										
 				
@@ -175,8 +175,8 @@
 				$sql.=" fecha_registro, cod_usuario_modifica, fecha_modifica ";
 				$sql.=" from maquinaria ";
 				$sql.=" where cod_maquina=".$cod_maquina;
-				$resp= mysql_query($sql);
-				while($dat=mysql_fetch_array($resp)){
+				$resp= mysqli_query($enlaceCon,$sql);
+				while($dat=mysqli_fetch_array($resp)){
 				
 				$desc_maquina=$dat[0];
 				$cod_estado_registro=$dat[1]; 
@@ -201,8 +201,8 @@
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -210,8 +210,8 @@
 					$usuarioRegistro="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_registro."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioRegistro=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO REGISTRO*******************************									
 				
@@ -219,8 +219,8 @@
 					$usuarioModifica="";				
 					$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios";
 					$sql2.=" where cod_usuario='".$cod_usuario_modifica."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$usuarioModifica=substr($dat2[0],0).substr($dat2[1],0).substr($dat2[2],0);
 				//*******************************FIN USUARIO MODIFICA*******************************										
 				

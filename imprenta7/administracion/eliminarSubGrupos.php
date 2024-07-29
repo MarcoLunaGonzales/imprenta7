@@ -8,7 +8,7 @@ require("conexion.inc");
 	for($i=0;$i<$n;$i++){			
 		$cod_subgrupo=$vector_datos[$i];
 		$sql=" delete from subgrupos where cod_subgrupo='".$cod_subgrupo."'";
-		mysql_query($sql);				
+		mysqli_query($enlaceCon,$sql);				
 	}	
 	
 require("cerrar_conexion.inc");

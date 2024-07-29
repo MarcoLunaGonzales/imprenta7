@@ -26,8 +26,8 @@ $cod_estado_registro=$_GET['cod_estado_registro'];
 		$sql_aux.=" and  a.cod_estado_registro='".$cod_estado_registro."' ";
 	}
 	$sql_aux.=" and a.nombre_area like '%".$elemento."%' ";	
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -57,10 +57,10 @@ $cod_estado_registro=$_GET['cod_estado_registro'];
 		
 			$sql.=" order by a.nombre_area asc ";
 			
-			$resp = mysql_query($sql);
+			$resp = mysqli_query($enlaceCon,$sql);
 				
 			$flag=0; 
-			while($dat=mysql_fetch_array($resp)){
+			while($dat=mysqli_fetch_array($resp)){
 				
 				$cod_area=$dat['cod_area'];
 				$nombre_area=$dat['nombre_area'];

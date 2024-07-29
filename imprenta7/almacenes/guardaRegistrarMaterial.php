@@ -12,13 +12,13 @@ $cod_estado_registro=1;
 
 ///////////////////////
 	$sql3=" select  nombre_subgrupo from subgrupos where  cod_subgrupo=".$cod_subgrupo;
-	$resp3=mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){
 		$nombre_subgrupo=$dat3[0];
 	}
 	$sql3=" select  nombre_grupo from grupos where  cod_grupo=".$cod_grupo;
-	$resp3=mysql_query($sql3);
-	while($dat3=mysql_fetch_array($resp3)){
+	$resp3=mysqli_query($enlaceCon,$sql3);
+	while($dat3=mysqli_fetch_array($resp3)){
 		$nombre_grupo=$dat3[0];
 	}
 	$sql3=" select max(idMaterial) from materiales where cod_subgrupo=".$cod_subgrupo;
@@ -41,13 +41,13 @@ $sql.=" fecha_registro='".date('Y/m/d', time())."',";
 $sql.=" cod_estado_registro='".$cod_estado_registro."',";
 $sql.=" idMaterial=".$idMaterial.","; 
 $sql.=" idMaterialDesc='".$nombre_grupo[0].$nombre_grupo[1].$nombre_grupo[2]."-".$nombre_subgrupo[0].$nombre_subgrupo[1].$nombre_subgrupo[2]."-".$idMaterial."'";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 
 $sql2=" select cod_grupo_carac from grupos_caracteristicas ";
 $sql2.=" where cod_estado_registro=1  and cod_grupo=".$cod_grupo;
-$resp2=mysql_query($sql2);
-while($dat2=mysql_fetch_array($resp2))
+$resp2=mysqli_query($enlaceCon,$sql2);
+while($dat2=mysqli_fetch_array($resp2))
 {				
 	$cod_grupo_carac=$dat2[0];	
 	$nombre_grupo_carac=$dat2[1];	
@@ -58,7 +58,7 @@ while($dat2=mysql_fetch_array($resp2))
 		$sql3.=" cod_material='".$cod_material."',";
 		$sql3.=" cod_grupo_carac='".$cod_grupo_carac."',";
 		$sql3.=" desc_material_grupo_caracteristica='".$_POST[$cod_grupo_carac]."'";
-		mysql_query($sql3);
+		mysqli_query($enlaceCon,$sql3);
 	
 	}  
 	
@@ -71,8 +71,8 @@ $sql3.=" where mgc.cod_material='".$cod_material."'";
 $sql3.=" and gc.cod_grupo_carac=mgc.cod_grupo_carac ";
 $sql3.=" order by gc.orden asc ";
 	
-$resp3= mysql_query($sql3);
-while($dat3=mysql_fetch_array($resp3)){
+$resp3= mysqli_query($enlaceCon,$sql3);
+while($dat3=mysqli_fetch_array($resp3)){
 	$desc_material_grupo_caracteristica=$dat3[0];
 	$nombre_grupo_carac=$dat3[1];
 	$orden=$dat3[2];
@@ -83,7 +83,7 @@ while($dat3=mysql_fetch_array($resp3)){
 $sql="update  materiales set ";
 $sql.=" desc_completa_material='".$desc_completa_material."'"; 
 $sql.=" where cod_material='".$cod_material."'"; 
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 require("cerrar_conexion.inc");
 ?>

@@ -40,8 +40,8 @@
 				<option value="0">Seleccione una Opcion</option>
 				<?php
 					$sql2="select cod_estado_cotizacion, nombre_estado_cotizacion from estados_cotizacion";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_cotizacion=$dat2['cod_estado_cotizacion'];	
 			  		 		$nombre_estado_cotizacion=$dat2['nombre_estado_cotizacion'];	
@@ -59,8 +59,8 @@
 				<option value="0">Seleccione una Opcion</option>
 				<?php
 					$sql2="select cod_tipo_cotizacion, nombre_tipo_cotizacion from tipos_cotizacion";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_cotizacion=$dat2['cod_tipo_cotizacion'];	
 			  		 		$nombre_tipo_cotizacion=$dat2['nombre_tipo_cotizacion'];	

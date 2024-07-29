@@ -36,9 +36,9 @@
 
 	$cod_est_fac=1;
 	$sql2=" select desc_est_fac from estado_factura where cod_est_fac='".$cod_est_fac."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_fac=$dat2[0];
 	}
 

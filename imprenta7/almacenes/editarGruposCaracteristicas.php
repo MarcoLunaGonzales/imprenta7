@@ -42,8 +42,8 @@
 	$sql.=" cod_usuario_registro, fecha_registro, cod_usuario_modifica, fecha_modifica ";
 	$sql.=" from grupos_caracteristicas ";
 	$sql.=" where cod_grupo_carac='".$cod_grupo_carac."'";
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){	
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){	
 		
 				$cod_grupo=$dat[0];
 				$nombre_grupo_carac=$dat[1]; 
@@ -56,9 +56,9 @@
 	}	
 	
 	$sql="select nombre_grupo from grupos where cod_grupo=".$cod_grupo;
-	$resp = mysql_query($sql);
+	$resp = mysqli_query($enlaceCon,$sql);
 	$nombre_grupo="";
-	if($dat=mysql_fetch_array($resp)){
+	if($dat=mysqli_fetch_array($resp)){
 		$nombre_grupo=$dat[0];
 	}	
 	
@@ -90,8 +90,8 @@
 			<select name="cod_estado_registro" class="textoform">				
 				<?php
 					$sql2="select cod_estado_registro, nombre_estado_registro from estados_referenciales ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_estado_registro=$dat2[0];	
 			  		 		$nombre_estado_registro=$dat2[1];	

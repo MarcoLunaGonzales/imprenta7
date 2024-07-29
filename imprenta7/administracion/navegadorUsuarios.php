@@ -134,8 +134,8 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 			$sql_aux.=" or ap_paterno_usuario like '%".$usuarioB."%'";
 			$sql_aux.=" or ap_materno_usuario like '%".$usuarioB."%')";
 		}		
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 	if($nro_filas_sql==0){
@@ -184,7 +184,7 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 					
 		$sql.=" order by ap_paterno_usuario, ap_materno_usuario, nombres_usuario asc ";
 		$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 
 ?>	
 	<table width="80%" align="center" cellpadding="1" cellspacing="1" bgColor="#cccccc">
@@ -203,7 +203,7 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 
 <?php   
 	$cont=0;
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 		
 				$cod_usuario=$dat[0]; 
 				$cod_cargo=$dat[1];
@@ -227,8 +227,8 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 					$autorizadoFirmaCotizacion="";				
 					$sql2="select count(*) from autorizados_firma_cotizacion";
 					$sql2.=" where cod_usuario='".$cod_usuario."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$var=$dat2[0];
 					}	
 					if($var>0){
@@ -240,8 +240,8 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 					$nombre_estado_registro="";				
 					$sql2="select nombre_estado_registro from estados_referenciales";
 					$sql2.=" where cod_estado_registro='".$cod_estado_registro."'";	
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_estado_registro=$dat2[0];
 					}	
 				//**************************************************************	
@@ -249,8 +249,8 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 					$desc_cargo="";				
 					$sql2=" select desc_cargo from cargos";
 					$sql2.=" where cod_cargo='".$cod_cargo."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$desc_cargo=$dat2[0];
 				//*******************************FIN Cargo*******************************									
 				
@@ -258,16 +258,16 @@ order by a.jerarquia_area,a.nombre_area,u.nombres_usuario,u.ap_paterno_usuario, 
 					$desc_grado="";				
 					$sql2=" select desc_grado from grado_academico";
 					$sql2.=" where cod_grado='".$cod_grado."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$desc_grado=$dat2[0];
 				//*******************************Fin Grado Academico*******************************		
 				//******************************Grado Academico*******************************
 					$nombre_perfil="";				
 					$sql2=" select nombre_perfil from perfiles";
 					$sql2.=" where cod_perfil='".$cod_perfil."'";	
-					$resp2= mysql_query($sql2);
-					$dat2=mysql_fetch_array($resp2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					$dat2=mysqli_fetch_array($resp2);
 					$nombre_perfil=$dat2[0];
 				//*******************************Fin Grado Academico*******************************															
 							

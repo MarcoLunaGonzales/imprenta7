@@ -52,8 +52,8 @@ function abrirVentana(){
 				$sql2.=" and cod_estado_salida=1 and cod_estado_pago_doc<>3) as clientesDeudores INNER JOIN clientes ";
 				$sql2.="  on(clientesDeudores.cod_cliente=clientes.cod_cliente) ";
 				$sql2.=" order by clientes.nombre_cliente asc ";				
-				$resp2=mysql_query($sql2);
-				while($dat2=mysql_fetch_array($resp2))
+				$resp2=mysqli_query($enlaceCon,$sql2);
+				while($dat2=mysqli_fetch_array($resp2))
 				{
 							$cod_cliente=$dat2['cod_cliente'];	
 			  		 		$nombre_cliente=$dat2['nombre_cliente'];	
@@ -70,8 +70,8 @@ function abrirVentana(){
       		<td>
 				<?php
 					$sql2=" select cod_tipo_pago, nombre_tipo_pago from tipos_pago ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_pago=$dat2[0];	
 			  		 		$nombre_tipo_pago=$dat2[1];	
@@ -95,8 +95,8 @@ function abrirVentana(){
 				<option value="0">Todos los Tipos de Documentos</option>            
 				<?php
 					$sql2=" select cod_tipo_doc, desc_tipo_doc from tipo_documento ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_tipo_doc=$dat2[0];	
 			  		 		$desc_tipo_doc=$dat2[1];	

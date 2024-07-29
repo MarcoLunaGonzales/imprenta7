@@ -470,8 +470,8 @@ switch ($_GET["cod_modulo"]) {
 //botones fijos
 
   $sql="select count(*) from usuarios_modulos where cod_usuario=".$_COOKIE['usuario_global'];
-  $resp = mysql_query($sql);
-  while($dat=mysql_fetch_array($resp)){ 
+  $resp = mysqli_query($enlaceCon,$sql);
+  while($dat=mysqli_fetch_array($resp)){ 
       $numModulos=$dat[0];          
   } 
   ?>

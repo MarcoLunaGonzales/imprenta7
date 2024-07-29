@@ -35,8 +35,8 @@
 		$sql.=" cod_usuario_modifica, fecha_modifica ";
 		$sql.=" from gastos ";
 		$sql.=" where cod_gasto=".$_GET['cod_gasto'];
-		$resp = mysql_query($sql);
-		while($dat=mysql_fetch_array($resp)){
+		$resp = mysqli_query($enlaceCon,$sql);
+		while($dat=mysqli_fetch_array($resp)){
 			
 				$desc_gasto=$dat['desc_gasto'];
 				$obs_gasto=$dat['obs_gasto'];
@@ -50,11 +50,11 @@
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_registro;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_registro="";
 					$ap_paterno_usuario_registro="";
 					$ap_materno_usuario_registro="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_registro=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_registro=$datAux['ap_paterno_usuario'];
@@ -67,11 +67,11 @@
 					$sqlAux=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario ";
 					$sqlAux.=" from usuarios ";
 					$sqlAux.=" where cod_usuario=".$cod_usuario_modifica;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$nombres_usuario_modifica="";
 					$ap_paterno_usuario_modifica="";
 					$ap_materno_usuario_modifica="";						
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 						
 						$nombres_usuario_modifica=$datAux['nombres_usuario'];
 						$ap_paterno_usuario_modifica=$datAux['ap_paterno_usuario'];
@@ -106,8 +106,8 @@
             <select name="cod_estado_registro" id="cod_estado_registro" class="textoform">
 				<?php
 					$sql_2="select cod_estado_registro,nombre_estado_registro from estados_referenciales  ";
-					$resp_2= mysql_query($sql_2);
-					while($dat_2=mysql_fetch_array($resp_2)){	
+					$resp_2= mysqli_query($enlaceCon,$sql_2);
+					while($dat_2=mysqli_fetch_array($resp_2)){	
 			  		 	$cod_estado_registro= $dat_2[0];
     					$nombre_estado_registro=$dat_2[1];
 				 ?>

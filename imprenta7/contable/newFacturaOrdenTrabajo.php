@@ -13,8 +13,8 @@
 	$sql.=" and ot.cod_est_ot=eo.cod_est_ot ";
 	$sql.=" and ot.cod_cliente=cli.cod_cliente ";
 	$sql.=" and ot.cod_orden_trabajo=".$cod_orden_trabajo;
-	$resp = mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp = mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 			$nro_orden_trabajo=$dat['nro_orden_trabajo'];
 				$cod_gestion=$dat['cod_gestion'];
 				$gestion=$dat['gestion'];
@@ -128,9 +128,9 @@ function datosCliente(f)
 
 	$cod_est_fac=1;
 	$sql2=" select desc_est_fac from estado_factura where cod_est_fac='".$cod_est_fac."'";
-    $resp2 = mysql_query($sql2);	
+    $resp2 = mysqli_query($enlaceCon,$sql2);	
 	$desc_est_fac="";
-	while($dat2=mysql_fetch_array($resp2)){
+	while($dat2=mysqli_fetch_array($resp2)){
 		$desc_est_fac=$dat2[0];
 	}
 

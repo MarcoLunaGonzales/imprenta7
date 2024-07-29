@@ -39,20 +39,20 @@ $sql.=" nombre='".$_POST['nombre']."',";
 $sql.=" cod_usuario_modifica=".$_COOKIE['usuario_global'].",";
 $sql.=" fecha_modifica='".date('Y-m-d H:i:s', time())."'";
 $sql.=" where cod_cbte=".$_POST['cod_cbte']."";
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 //sacamos el tipo de cambio ya sean dolares o bolivianos
 $sql3="select cambio_bs from tipo_cambio";
 $sql3.=" where fecha_tipo_cambio='".llevarAFormatoFechaSqlMarco($_POST['fecha_cbte'])."' and cod_moneda=2";
-$resp3 = mysql_query($sql3);
+$resp3 = mysqli_query($enlaceCon,$sql3);
 $cambio_bs=0;
-while($dat3=mysql_fetch_array($resp3)){
+while($dat3=mysqli_fetch_array($resp3)){
 	$cambio_bs=$dat3['cambio_bs'];
 }
 
 $sql=" delete from comprobante_detalle   where cod_cbte=".$_POST['cod_cbte']."";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 //echo $sql3." ".$cambio_bs."CAMBIO BS.";
 
 for($i=1;$i<=$_POST['cantidad_material'];$i++){ 
@@ -89,7 +89,7 @@ for($i=1;$i<=$_POST['cantidad_material'];$i++){
 		
 	//echo $sqlInsertDetalle."<br/>";
 	
-	$respInsertDetalle=mysql_query($sqlInsertDetalle);
+	$respInsertDetalle=mysqli_query($enlaceCon,$sqlInsertDetalle);
 	}
 }
 

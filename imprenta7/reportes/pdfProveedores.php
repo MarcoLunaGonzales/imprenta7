@@ -71,9 +71,9 @@ class PDF extends FPDF
 			$sql.=" and p.nombre_proveedor like'%".$nombreProveedorB."%'";
 		}
 		$sql.=" order by p.nombre_proveedor asc ";
-	$resp = mysql_query($sql);	
+	$resp = mysqli_query($enlaceCon,$sql);	
 	$nro=0;	
-	while($dat=mysql_fetch_array($resp)){
+	while($dat=mysqli_fetch_array($resp)){
 				
 			$cod_proveedor=$dat['cod_proveedor']; 
 			$nombre_proveedor=$dat['nombre_proveedor'];
@@ -97,8 +97,8 @@ class PDF extends FPDF
 			  $usuario_registro="";
 			  if($cod_usuario_registro<>"" && $cod_usuario_registro<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_registro;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_registro=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 
@@ -107,8 +107,8 @@ class PDF extends FPDF
 			  $usuario_modifica="";
 			  if($cod_usuario_modifica<>"" && $cod_usuario_modifica<>0){
 				 $sqlAux="select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios where cod_usuario=".$cod_usuario_modifica;
-				 $respAux = mysql_query($sqlAux);
-				 while($datAux=mysql_fetch_array($respAux)){
+				 $respAux = mysqli_query($enlaceCon,$sqlAux);
+				 while($datAux=mysqli_fetch_array($respAux)){
 					 $usuario_modifica=$datAux['nombres_usuario'][0].$datAux['ap_paterno_usuario'][0].$datAux['ap_materno_usuario'][0];
 				 }
 			 }			 

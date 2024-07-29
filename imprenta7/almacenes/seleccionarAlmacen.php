@@ -94,9 +94,9 @@ function aceptar(f)
               <?php
 					$sql2=" select cod_sucursal, nombre_sucursal from sucursales ";
 					$sql2.=" where cod_estado_registro=1 order by  cod_sucursal asc ";
-					$resp2=mysql_query($sql2);
+					$resp2=mysqli_query($enlaceCon,$sql2);
 						$sw=0;
-						while($dat2=mysql_fetch_array($resp2))
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_sucursal=$dat2[0];	
 							if($sw==0){

@@ -13,8 +13,8 @@
 	
 				$sql=" select count(*) from ingresos_detalle  where cod_ingreso=".$cod_ingreso;	
 				$num_materiales=0;
-				$resp= mysql_query($sql);				
-				while($dat=mysql_fetch_array($resp)){	
+				$resp= mysqli_query($enlaceCon,$sql);				
+				while($dat=mysqli_fetch_array($resp)){	
 					$num_materiales=$dat[0];
 				}
 ?>
@@ -295,8 +295,8 @@ function cargar_contactoProveedor_ajax(url)
 	$sql.=" cod_tipo_pago, cod_estado_pago_doc,dias_plazo_pago,fecha_modifica, cod_usuario_modifica, obs_anular ";
 	$sql.=" from ingresos ";
 	$sql.=" where  cod_ingreso=".$_GET['cod_ingreso'];
-	$resp= mysql_query($sql);
-	while($dat=mysql_fetch_array($resp)){
+	$resp= mysqli_query($enlaceCon,$sql);
+	while($dat=mysqli_fetch_array($resp)){
 	
 		$cod_ingreso=$dat['cod_ingreso'];
 		$cod_gestion=$dat['cod_gestion'];
@@ -324,17 +324,17 @@ function cargar_contactoProveedor_ajax(url)
 	
 				////////////////GESTION////////////////////
 					$sql2="select gestion_nombre from gestiones where cod_gestion='".$cod_gestion."'";
-					$resp2= mysql_query($sql2);
+					$resp2= mysqli_query($enlaceCon,$sql2);
 					$gestion="";
-					while($dat2=mysql_fetch_array($resp2)){
+					while($dat2=mysqli_fetch_array($resp2)){
 						$gestion_nombre=$dat2[0];
 					}
 					
 					$nombre_proveedor="";
 					if($codproveedor<>"" and $codproveedor<>0){
 						$sql2="select nombre_proveedor from proveedores where cod_proveedor='".$codproveedor."'";
-						$resp2= mysql_query($sql2);			
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);			
+						while($dat2=mysqli_fetch_array($resp2)){
 							$nombre_proveedor=$dat2[0];
 						}
 					}
@@ -343,8 +343,8 @@ function cargar_contactoProveedor_ajax(url)
 				if($cod_tipo_ingreso==2){
 					$nombre_almacen="";
 					$sql2="select nombre_almacen from almacenes where cod_almacen_ingreso='".$cod_almacen."'";
-					$resp2= mysql_query($sql2);			
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);			
+					while($dat2=mysqli_fetch_array($resp2)){
 						$nombre_almacen=$dat2[0];
 					}
 				}
@@ -353,11 +353,11 @@ function cargar_contactoProveedor_ajax(url)
 				
 				$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 				$sql2.=" where cod_usuario='".$cod_usuario_ingreso."'";
-				$resp2= mysql_query($sql2);
+				$resp2= mysqli_query($enlaceCon,$sql2);
 				$nombres_usuario="";
 				$ap_paterno_usuario="";
 				$ap_materno_usuario="";		
-				while($dat2=mysql_fetch_array($resp2)){	
+				while($dat2=mysqli_fetch_array($resp2)){	
 					$nombres_usuario=$dat2[0];
 					$ap_paterno_usuario=$dat2[1];
 					$ap_materno_usuario=$dat2[2];		
@@ -365,8 +365,8 @@ function cargar_contactoProveedor_ajax(url)
 			//******************************TIPO DE INGRESO********************************
 				$nombre_tipo_ingreso="";
 				$sql2="select nombre_tipo_ingreso from tipos_ingreso where cod_tipo_ingreso='".$cod_tipo_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nombre_tipo_ingreso=$dat2[0];
 				}
 
@@ -375,8 +375,8 @@ function cargar_contactoProveedor_ajax(url)
 				$desc_estado_ingreso="";
 				$sql2=" select desc_estado_ingreso from estados_ingresos_almacen ";
 				$sql2.=" where cod_estado_ingreso='".$cod_estado_ingreso."'";
-				$resp2= mysql_query($sql2);			
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2= mysqli_query($enlaceCon,$sql2);			
+				while($dat2=mysqli_fetch_array($resp2)){
 					$desc_estado_ingreso=$dat2[0];
 				}		
 	}		
@@ -419,8 +419,8 @@ function cargar_contactoProveedor_ajax(url)
 					$sql2.=" from proveedores_contactos";
 					$sql2.=" where cod_proveedor=".$codproveedor;
 					$sql2.=" order by  ap_paterno_contacto asc, ap_materno_contacto asc , nombre_contacto asc ";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto_proveedor=$dat2['cod_contacto_proveedor'];
 							$nombre_contacto=$dat2['nombre_contacto'];
@@ -450,8 +450,8 @@ function cargar_contactoProveedor_ajax(url)
 			
 				<?php
 					$sql4="select cod_tipo_pago,nombre_tipo_pago from tipos_pago";
-					$resp4=mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4))
+					$resp4=mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4))
 						{
 							$cod_tipo_pago=$dat4[0];	
 			  		 		$nombre_tipo_pago=$dat4[1];	
@@ -477,21 +477,21 @@ function cargar_contactoProveedor_ajax(url)
 		$sql.=" from salidas ";
 		$sql.=" where cod_salida=".$cod_salida;
 		//echo $sql;
-		$resp= mysql_query($sql);			
-		while($dat=mysql_fetch_array($resp)){
+		$resp= mysqli_query($enlaceCon,$sql);			
+		while($dat=mysqli_fetch_array($resp)){
 			$nro_salida=$dat[0];
 			$cod_gestion_salida=$dat[1];
 			$sql2="select gestion_nombre from gestiones where cod_gestion='".$cod_gestion_salida."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$gestion_salida="";
-			while($dat2=mysql_fetch_array($resp2)){
+			while($dat2=mysqli_fetch_array($resp2)){
 				$gestion_salida=$dat2[0];
 			}
 			$cod_almacen_salida=$dat[2];
 			$nombre_almacen_salida="";
 			$sql2="select nombre_almacen from almacenes where cod_almacen='".$cod_almacen_salida."'";
-			$resp2= mysql_query($sql2);			
-			while($dat2=mysql_fetch_array($resp2)){
+			$resp2= mysqli_query($enlaceCon,$sql2);			
+			while($dat2=mysqli_fetch_array($resp2)){
 				$nombre_almacen_salida=$dat2[0];
 			}						
 							
@@ -500,11 +500,11 @@ function cargar_contactoProveedor_ajax(url)
 			
 			$sql2=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario from usuarios ";
 			$sql2.=" where cod_usuario='".$cod_usuario_salida."'";
-			$resp2= mysql_query($sql2);
+			$resp2= mysqli_query($enlaceCon,$sql2);
 			$nombres_usuario_salida="";
 			$ap_paterno_usuario_salida="";
 			$ap_materno_usuario_salida="";		
-			while($dat2=mysql_fetch_array($resp2)){	
+			while($dat2=mysqli_fetch_array($resp2)){	
 				$nombres_usuario_salida=$dat2[0];
 				$ap_paterno_usuario_salida=$dat2[1];
 				$ap_materno_usuario_salida=$dat2[2];		
@@ -575,9 +575,9 @@ function cargar_contactoProveedor_ajax(url)
 					$sql.=" where cod_ingreso=".$cod_ingreso;	
 					$sql.=" order by cod_ingreso_detalle asc";	
 					
-					$resp= mysql_query($sql);
+					$resp= mysqli_query($enlaceCon,$sql);
 					$cont=0;
-					while($dat=mysql_fetch_array($resp)){	
+					while($dat=mysqli_fetch_array($resp)){	
 					
 						$cont=$cont+1;
 						$cod_ingreso_detalle=$dat[0];
@@ -589,8 +589,8 @@ function cargar_contactoProveedor_ajax(url)
 						$sql2.=" from materiales m, unidades_medidas um ";
 						$sql2.=" where m.cod_unidad_medida=um.cod_unidad_medida ";
 						$sql2.=" and m.cod_material=".$codmaterial;
-						$resp2= mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2)){
+						$resp2= mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2)){
 							$desc_completa_material=$dat2['desc_completa_material'];
 							$precio_venta=$dat2['precio_venta'];
 							$abrev_unidad_medida=$dat2['abrev_unidad_medida'];

@@ -26,8 +26,8 @@ header("Cache-Control: no-store, no-cache, must-revalidate");
 					$sql2.=" from proveedores_contactos";
 					$sql2.=" where cod_proveedor=".$_GET['cod_proveedor'];
 					$sql2.=" order by  ap_paterno_contacto asc,nombre_contacto asc";
-					$resp2=mysql_query($sql2);
-						while($dat2=mysql_fetch_array($resp2))
+					$resp2=mysqli_query($enlaceCon,$sql2);
+						while($dat2=mysqli_fetch_array($resp2))
 						{
 							$cod_contacto_proveedor=$dat2['cod_contacto_proveedor'];	
 							$nombre_contacto=$dat2['nombre_contacto'];	

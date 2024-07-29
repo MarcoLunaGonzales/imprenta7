@@ -72,8 +72,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 	}	
 	//Fin Busqueda/////////////////	
 	//echo $sql;
-	$resp_aux = mysql_query($sql);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}
 
@@ -135,7 +135,7 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 	//echo $sql;
 		//$sql.=" limit ".$fila_inicio." , ".$nro_filas_show;
 		//	echo $sql;
-		$resp = mysql_query($sql);
+		$resp = mysqli_query($enlaceCon,$sql);
 		$cont=0;
 ?>	
 	<table width="95%" align="center" cellpadding="1" id="cotizacion" cellspacing="1" bgColor="#cccccc" class="tablaReporte" style="width:100% !important;">
@@ -162,7 +162,7 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 		</thead>    
 		<tbody>
 <?php   
-		while($dat=mysql_fetch_array($resp)){
+		while($dat=mysqli_fetch_array($resp)){
 				
 			 $cod_hoja_ruta=$dat['cod_hoja_ruta'];
 			 $cod_gestion=$dat['cod_gestion'];
@@ -203,8 +203,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 							$sqlAux.=" where hrd.cod_hoja_ruta=".$cod_hoja_ruta;
 							$sqlAux.=" and hrd.cod_cotizacion=cd.cod_cotizacion ";
 							$sqlAux.=" and hrd.cod_cotizaciondetalle=cd.cod_cotizaciondetalle ";
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_hojaruta=$datAux[0];
 							}
 							echo $monto_hojaruta;
@@ -214,8 +214,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				<?php  
 					$descuento_cotizacion=0;
 					$sqlAux="select descuento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$descuento_cotizacion=$datAux[0];
 					}
 					
@@ -231,8 +231,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				<?php  
 					$incremento_cotizacion=0;
 					$sqlAux="select incremento_cotizacion from cotizaciones where cod_cotizacion=".$cod_cotizacion;
-					$respAux = mysql_query($sqlAux);
-					while($datAux=mysql_fetch_array($respAux)){
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
+					while($datAux=mysqli_fetch_array($respAux)){
 							$incremento_cotizacion=$datAux[0];
 					}
 					
@@ -254,9 +254,9 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 			 	$sql2.=" and p.cod_estado_pago<>2";
 			 	$sql2.=" and pd.codigo_doc=".$cod_hoja_ruta;
 				$sql2.=" and pd.cod_tipo_doc=1";
-				$resp2 = mysql_query($sql2);
+				$resp2 = mysqli_query($enlaceCon,$sql2);
 				$acuenta_hojaruta=0;
-				while($dat2=mysql_fetch_array($resp2)){
+				while($dat2=mysqli_fetch_array($resp2)){
 					$cod_moneda=$dat2['cod_moneda'];
 					$monto_pago_detalle=$dat2['monto_pago_detalle'];
 					$fecha_pago=$dat2['fecha_pago'];
@@ -268,9 +268,9 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 							$sql3.=" where fecha_tipo_cambio='".$fecha_pago."'";
 							$sql3.=" and cod_moneda=".$cod_moneda;
 
-							$resp3=mysql_query($sql3);
+							$resp3=mysqli_query($enlaceCon,$sql3);
 							$cambio_bs=0;
-							while($dat3=mysql_fetch_array($resp3)){
+							while($dat3=mysqli_fetch_array($resp3)){
 								$cambio_bs=$dat3['cambio_bs'];
 							}
 							if($cambio_bs<>0){
@@ -289,15 +289,15 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 			<?php
 					$monto_gasto=0;
 					$sqlAux="select count(*) from gastos_hojasrutas where cod_hoja_ruta=".$cod_hoja_ruta;
-					$respAux = mysql_query($sqlAux);
+					$respAux = mysqli_query($enlaceCon,$sqlAux);
 					$swGasto=0;
-					while($datAux=mysql_fetch_array($respAux)){
+					while($datAux=mysqli_fetch_array($respAux)){
 								$swGasto=$datAux[0];
 					}
 					if($swGasto>0){
 							$sqlAux="select sum(monto_gasto) from gastos_hojasrutas where cod_hoja_ruta=".$cod_hoja_ruta;
-							$respAux = mysql_query($sqlAux);
-							while($datAux=mysql_fetch_array($respAux)){
+							$respAux = mysqli_query($enlaceCon,$sqlAux);
+							while($datAux=mysqli_fetch_array($respAux)){
 								$monto_gasto=$datAux[0];
 							}										
 					}
@@ -317,8 +317,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				$sqlCotizacion.=" from cotizaciones c, gestiones g";
 				$sqlCotizacion.=" where c.cod_gestion=g.cod_gestion";
 				$sqlCotizacion.=" and c.cod_cotizacion=".$cod_cotizacion;
-				$resp2 = mysql_query($sqlCotizacion);
-				while($dat2=mysql_fetch_array($resp2)){
+				$resp2 = mysqli_query($enlaceCon,$sqlCotizacion);
+				while($dat2=mysqli_fetch_array($resp2)){
 					$nro_cotizacion=$dat2['nro_cotizacion'];
 					$gestion_cotizacion=$dat2['gestion'];
 				}
@@ -335,8 +335,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 			<?php 
 				$numNotasRemision=0;
 				$sql3=" select count(*) from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numNotasRemision=$dat3[0];
 				}
 				
@@ -346,8 +346,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 					$sql3.=" fecha_nota_remision, cod_usuario_nota_remision,";
 					$sql3.=" obs_nota_remision, cod_estado_nota_remision ";
 					$sql3.=" from notas_remision  where cod_hoja_ruta='".$cod_hoja_ruta."'";
-					$resp3= mysql_query($sql3);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sql3);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_nota_remision=$dat3[0];
 						$nro_nota_remision=$dat3[1];
@@ -360,14 +360,14 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 						$sql4=" select nombres_usuario, ap_paterno_usuario, ap_materno_usuario  ";
 						$sql4.=" from usuarios where cod_usuario='".$cod_usuario_nota_remision."'";
 						$UsuarioNotaRemision="";
-						$resp4= mysql_query($sql4);
-						while($dat4=mysql_fetch_array($resp4)){
+						$resp4= mysqli_query($enlaceCon,$sql4);
+						while($dat4=mysqli_fetch_array($resp4)){
 							$UsuarioNotaRemision=$dat4[0]." ".$dat4[1];
 						}
 						$sql2="select gestion from gestiones where cod_gestion='".$cod_gestion_nota_remision."'";
-						$resp2= mysql_query($sql2);
+						$resp2= mysqli_query($enlaceCon,$sql2);
 						$gestionNotaRemision="";
-						while($dat2=mysql_fetch_array($resp2)){
+						while($dat2=mysqli_fetch_array($resp2)){
 							$gestionNotaRemision=$dat2[0];
 						}
 
@@ -387,8 +387,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				$numFacturas=0;
 				$sql3=" select count(*) from factura_hojaruta  where cod_hoja_ruta='".$cod_hoja_ruta."'";
 				//echo $sql3;
-				$resp3= mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3= mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$numFacturas=$dat3[0];
 				}
 				
@@ -404,8 +404,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				$sqlFactura.=" where f.cod_est_fac=ef.cod_est_fac ";
 				$sqlFactura.=" and f.cod_factura in(select cod_factura from factura_hojaruta where cod_hoja_ruta=".$cod_hoja_ruta.")";
 				
-					$resp3= mysql_query($sqlFactura);
-					while($dat3=mysql_fetch_array($resp3)){
+					$resp3= mysqli_query($enlaceCon,$sqlFactura);
+					while($dat3=mysqli_fetch_array($resp3)){
 						
 						$cod_factura=$dat3['cod_factura'];
 						$nro_factura=$dat3['nro_factura'];
@@ -440,8 +440,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				$sql3.=" from gastos_hojasrutas ghr, gastos g";
 				$sql3.=" where ghr.cod_gasto=g.cod_gasto";
 				$sql3.=" and ghr.cod_hoja_ruta=".$cod_hoja_ruta;
-				$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$nro_filas=$dat3[0];
 				}
             ?>     
@@ -452,8 +452,8 @@ $cod_estado_pago_docB=$_GET['cod_estado_pago_docB'];
 				$sql3.=" from gastos_hojasrutas ghr, gastos g";
 				$sql3.=" where ghr.cod_gasto=g.cod_gasto";
 				$sql3.=" and ghr.cod_hoja_ruta=".$cod_hoja_ruta;
-				$resp3 = mysql_query($sql3);
-				while($dat3=mysql_fetch_array($resp3)){
+				$resp3 = mysqli_query($enlaceCon,$sql3);
+				while($dat3=mysqli_fetch_array($resp3)){
 					$desc_gasto=$dat3['desc_gasto'];
 					$monto_gasto=$dat3['monto_gasto'];
 

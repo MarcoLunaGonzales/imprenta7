@@ -4,8 +4,8 @@ require("conexion.inc");
 include("funciones.php");
 $numero=$_GET['numero'];
 $sql=" select banco, cheque, cuenta,codcuenta  from forma_pago where cod_forma_pago=".$_GET['codFormaPago'];
-$resp=mysql_query($sql);
-while($dat=mysql_fetch_array($resp)){
+$resp=mysqli_query($enlaceCon,$sql);
+while($dat=mysqli_fetch_array($resp)){
 	$banco=$dat['banco'];	
 	$cheque=$dat['cheque'];
 	$cuenta=$dat['cuenta'];	

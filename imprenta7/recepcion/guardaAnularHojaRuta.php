@@ -17,7 +17,7 @@ $sql.=" cod_estado_hoja_ruta=2, ";
 $sql.=" obs_anular='".$obs_anular."' ";
 $sql.=" where  cod_hoja_ruta='".$cod_hoja_ruta."'";
 //echo $sql;
-mysql_query($sql);
+mysqli_query($enlaceCon,$sql);
 
 ?>
 <script language="JavaScript">				

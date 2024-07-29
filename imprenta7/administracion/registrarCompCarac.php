@@ -45,20 +45,20 @@
 	$codComp=$_POST['codCompItemF'];
 	
 	$sql_00="select desc_item from items where cod_item=".$codItem;
-	$resp_00 = mysql_query($sql_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql_00);
 	$nombreItem="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreItem=$dat_00[0];
 	}
 	$sql_00="select nombre_componenteitem from componente_items where cod_item=".$codItem." and cod_compitem=".$codComp;
-	$resp_00 = mysql_query($sql_00);
+	$resp_00 = mysqli_query($enlaceCon,$sql_00);
 	$nombreCompItem="";
-	if($dat_00=mysql_fetch_array($resp_00)){
+	if($dat_00=mysqli_fetch_array($resp_00)){
 		$nombreCompItem=$dat_00[0];
 	}	
 	$sql_aux=" select count(*) from componente_items where cod_item=".$codItem." and cod_compitem=".$codComp;
-	$resp_aux = mysql_query($sql_aux);
-	while($dat_aux=mysql_fetch_array($resp_aux)){
+	$resp_aux = mysqli_query($enlaceCon,$sql_aux);
+	while($dat_aux=mysqli_fetch_array($resp_aux)){
 		$nro_filas_sql=$dat_aux[0];
 	}	
 
@@ -77,8 +77,8 @@
 		<?php 
 		$sql2="select cod_carac,desc_carac from caracteristicas ";
 		$sql2.=" where cod_carac not in (select cod_carac from componentes_caracteristica where cod_compitem=".$codComp.")";
-					$resp2= mysql_query($sql2);
-					while($dat2=mysql_fetch_array($resp2)){
+					$resp2= mysqli_query($enlaceCon,$sql2);
+					while($dat2=mysqli_fetch_array($resp2)){
 						$cod_carac=$dat2[0];
 						$desc_carac=$dat2[1];
 			?>	
